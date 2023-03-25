@@ -17,12 +17,13 @@
 					<div class="alert alert-primary" role="alert">
 						Wrong Password!
 					</div>
-				{%endif%}  #can change design on bootstrap alert
+				{%endif%}  
+				<!-- #can change design on bootstrap alert -->
 			{%endwith%}
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
-					<div class="brand">
-						<img src="img/logo.jpg" alt="logo">
+					<div class="brand mb-5">
+						<h1 class="login-logo">Jobs4disabled</h1>
 					</div>
 					<div class="card fat">
 						<div class="card-body">
@@ -30,8 +31,7 @@
 							<form actions="/login" method="POST" class="my-login-validation" novalidate="">
 								<div class="form-group">
 									<label for="username">Username</label>
-									<input type="text" name="username" id="username" placeholder="Username">
-							
+									<input type="text" name="username" id="username" placeholder="Username">	
 									</div>
 								</div>
 
@@ -65,9 +65,9 @@
 							</form>
 						</div>
 					</div>
-					<div class="footer">
+<!-- 					<div class="footer">
 						Copyright &copy; 2017 &mdash; Your Company 
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

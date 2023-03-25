@@ -289,5 +289,7 @@ li.init {
 @media screen and (max-width: 480px) {
   .appointment-form {
     padding: 50px 30px 70px 30px; } }
-
+.login-logo{
+  padding-left: 10px !important;
+}
 /*# sourceMappingURL=style.css.map */
