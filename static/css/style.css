@@ -61,8 +61,13 @@ h6 {
 }
 
 .header-name{
+<<<<<<< HEAD
   font-size: 24px !important;
   color:#006BB0;
+=======
+  font-size: 60px !important;
+  color:#006BB0 !important;
+>>>>>>> 49a4da43080337cc633472970565ca914d03e452
 }
 /*--------------------------------------------------------------
 # Back to top button
