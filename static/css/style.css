@@ -13,12 +13,12 @@ body {
 }
 
 a {
-  color: #4154f1;
+  color: #006BB0;
   text-decoration: none;
 }
 
 a:hover {
-  color: #717ff5;
+  color: #968EAF;
   text-decoration: none;
 }
 
@@ -54,10 +54,10 @@ h6 {
 }
 
 .pagetitle h1 {
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #012970;
+  color: #006BB0;
 }
 
 /*--------------------------------------------------------------
@@ -384,7 +384,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #012970;
+  color: #006BB0;
 }
 
 .header .search-bar {
