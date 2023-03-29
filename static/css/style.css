@@ -961,11 +961,11 @@ h6 {
 }
 
 .btn-primary{
-  color: #A6CDE7
+  background-color: #006BB0
 }
 
 .btn-primary: hover{
-  color: #006BB0;;
+  background-color: #A6CDE7;;
 }
 /*--------------------------------------------------------------
 # Icons list page
