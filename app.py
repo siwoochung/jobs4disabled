@@ -1,8 +1,9 @@
 #frontend/backend
 
-from flask import Flask,render_template, request, redirect,url_for,flash
+from flask import Flask,render_template, request, redirect,url_for,flash, jsonify
 import pandas as pd
 from register_login import register,login_check
+from recommendation import pick_jobs
 
 
 app = Flask(__name__)
@@ -11,8 +12,8 @@ app.config['SECRET_KEY']='abc'
 
 @app.route('/')
 def index():
-	data=pd.read_csv("data/job_data.csv")
-	return render_template("index.html")
+	lst_jobs = pick_jobs(10)
+	return render_template("index.html", job_lst=lst_jobs)
 
 @app.route('/login',methods=['GET','POST'])
 def login():
