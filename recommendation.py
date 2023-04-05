@@ -65,14 +65,10 @@ def pick_jobs(n):
 			dic["요구학력"]="대졸"
 
 		dic["요구경력"]=required_work[i]
-	
+
 	return final_lst
 
-NUMS = 10
-
-data = pd.read_csv("data/temp_data.csv")
-
-print(data.info())
+pick_jobs(10)
 
 #data["Classification"] = data["Classification"].apply(literal_eval)
 

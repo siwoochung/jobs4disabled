@@ -13,6 +13,7 @@ app.config['SECRET_KEY']='abc'
 @app.route('/')
 def index():
 	lst_jobs = pick_jobs(10)
+	print(lst_jobs)
 	return render_template("index.html", job_lst=lst_jobs)
 
 @app.route('/login',methods=['GET','POST'])
