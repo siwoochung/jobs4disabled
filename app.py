@@ -1,10 +1,10 @@
 #frontend/backend
 
+
 from flask import Flask,render_template, request, redirect,url_for,flash, jsonify
 import pandas as pd
 from register_login import register,login_check
 from recommendation import pick_jobs
-
 
 app = Flask(__name__)
 
@@ -25,7 +25,6 @@ def login():
 		else:
 			flash('Wrong Password') 
 			return render_template("login.html")
-
 
 	else:
 		return render_template("login.html")

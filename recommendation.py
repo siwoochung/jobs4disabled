@@ -19,7 +19,25 @@ def pick_jobs(n):
 	for i in range(NUMS):
 		dic = dict()  #{}
 		dic["이름"]=name[i]
-
+		if name[i]=="경영/사무":
+			dic["이름"]="경영/사무"
+		elif name[i]=="IT/인터넷":
+			dic["이름"]="IT/인터넷"
+		elif name[i]=="디자인":
+			dic["이름"]=="디자인"
+		elif name[i]=="무역/유통":
+			dic["이름"]=="무역/유통"
+		elif name[i]=="교육":
+			dic["이름"]=="교육"
+		elif name[i]=="의료":
+			dic["이름"]=="의료"
+		elif name[i]=="서비스":
+			dic["이름"]=="서비스"
+		elif name[i]=="생산/제조":
+			dic["이름"]=="생산/제조"
+		else:
+			dic["이름"]=="전문/특수직"
+			
 		dic["고용형태"]=hire_type[i]
 		if hire_type[i]==0:
 			dic["고용형태"] = "계약직"
@@ -65,6 +83,15 @@ def pick_jobs(n):
 			dic["요구학력"]="대졸"
 
 		dic["요구경력"]=required_work[i]
+		if required_work[i]==0:
+			dic["요구경력"]="무관"
+		if required_work[i]==1:
+			dic["요구경력"]="1년"
+		if required_work[i]==2:
+			dic["요구경력"]="2년"
+		if required_work[i]==3:
+			dic["요구경력"]="3년"
+
 	
 	return final_lst
 
