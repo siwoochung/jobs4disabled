@@ -92,7 +92,7 @@ def pick_jobs(n):
 		if required_work[i]==3:
 			dic["요구경력"]="3년"
 
-	
+		final_lst.append(dic)
 	return final_lst
 
 NUMS = 10
