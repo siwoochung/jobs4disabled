@@ -65,6 +65,7 @@ def pick_jobs(n):
 			dic["요구학력"]="대졸"
 
 		dic["요구경력"]=required_work[i]
+		final_lst.append(dic)
 
 	return final_lst
 
