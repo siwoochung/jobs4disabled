@@ -1,10 +1,10 @@
 #frontend/backend
 
+
 from flask import Flask,render_template, request, redirect,url_for,flash, jsonify
 import pandas as pd
 from register_login import register,login_check
 from recommendation import pick_jobs
-
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ app.config['SECRET_KEY']='abc'
 @app.route('/')
 def index():
 	lst_jobs = pick_jobs(10)
-	print(lst_jobs)
+	print("this is lst_jobs",lst_jobs)
 	return render_template("index.html", job_lst=lst_jobs)
 
 @app.route('/login',methods=['GET','POST'])
@@ -26,7 +26,6 @@ def login():
 		else:
 			flash('Wrong Password') 
 			return render_template("login.html")
-
 
 	else:
 		return render_template("login.html")

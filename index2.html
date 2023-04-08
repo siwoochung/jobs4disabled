@@ -281,7 +281,7 @@
           {%for i in job_lst%}
 
         <!-- Left side columns -->
-       <div class="col-lg-8">
+      <div class="col-lg-8">
               <div class="card job-card">
                 <div class="card-body">
                   <div class="row">
@@ -293,10 +293,10 @@
                       <div class="row">
                         <h5>{{i['이름']}}</h5>
                         <ul class="job-info">
-                          <li class="me-3">임금형태</li>
+                          <li class="me-3">{{i['임금형태']}}</li>
                           <li class="me-3">임금</li>
                           <li class="me-3">{{i['고용형태']}}</li>
-                          <li class="me-3">요구학력</li>
+                          <li class="me-3">{{i['요구학력']}}</li>
                           <li>요구경력</li>
                         </ul>
                       </div>
@@ -309,67 +309,7 @@
             </div>
           </div>
           {% endfor %} 
-
-                         <div class="card job-card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-2">
-                      <h5>사업장명</h5>
-                      <h6>기업형태</h6>
-                    </div>
-                    <div class="col-8">
-                      <div class="row">
-                        <h5>모집직종</h5>
-                        <ul class="job-info">
-                          <li class="me-3">임금형태</li>
-                          <li class="me-3">임금</li>
-                          <li class="me-3">고용형태</li>
-                          <li class="me-3">요구학력</li>
-                          <li>요구경력</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <button type="button" class="btn btn-primary more-btn">더보기</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-
-                         <div class="card job-card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-2">
-                      <h5>사업장명</h5>
-                      <h6>기업형태</h6>
-                    </div>
-                    <div class="col-8">
-                      <div class="row">
-                        <h5>모집직종</h5>
-                        <ul class="job-info">
-                          <li class="me-3">임금형태</li>
-                          <li class="me-3">임금</li>
-                          <li class="me-3">고용형태</li>
-                          <li class="me-3">요구학력</li>
-                          <li>요구경력</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <button type="button" class="btn btn-primary more-btn">더보기</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          <div class="row">
-
-
-
-
-            
-
-          
+  
 
           </div>
         </div><!-- End Left side columns -->
