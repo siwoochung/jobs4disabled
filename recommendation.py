@@ -13,12 +13,14 @@ def pick_jobs(n):
 	pay_type = random_data["임금형태"].tolist()
 	required_degree = random_data["요구학력"].tolist()
 	required_work = random_data["요구경력"].tolist()
+	# company = random_data["사업장명"].tolist()
 
 
 	final_lst=[]
 	for i in range(NUMS):
 		dic = dict()  #{}
 		dic["이름"]=name[i]
+		# dic[""]=company[i]
 
 		dic["고용형태"]=hire_type[i]
 		if hire_type[i]==0:

@@ -1,11 +1,11 @@
 .btn-block{
   background-color:blue;
-  broder:1px solid blue;
+  border:1px solid blue;
 }
 .btn-primary: hover{
   background-color:purple;
 }
 .card{
   width:500px;
-  height:500px;
+  height:300px;
 }
