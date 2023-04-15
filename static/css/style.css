@@ -696,9 +696,15 @@ h6 {
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: #4154f1;
+  color: #006BB0;
+}
+.check-icon{
+  margin-left: 150px;
 }
 
+.check-icon-2{
+  margin-left: 125px;
+}
 .sidebar-nav .nav-link.collapsed {
   color: #012970;
   background: #fff;
@@ -709,12 +715,12 @@ h6 {
 }
 
 .sidebar-nav .nav-link:hover {
-  color: #4154f1;
-  background: #f6f9ff;
+  color:#006BB0;
+  background: #A6CDE7;
 }
 
 .sidebar-nav .nav-link:hover i {
-  color: #4154f1;
+  color: #006BB0;
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
