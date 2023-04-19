@@ -682,7 +682,7 @@ h6 {
 }
 
 .sidebar-nav .nav-link {
-  display: flex;
+  display: block;
   align-items: center;
   font-size: 15px;
   font-weight: 600;
@@ -699,17 +699,7 @@ h6 {
   color: #006BB0;
 }
 .check-icon{
-  margin-left: 150px;
-}
-
-.check-icon-2{
-  margin-left: 125px;
-}
-.check-icon-3{
-  margin-left: 135px;
-}
-.check-icon-4{
-  margin-left: 125px;
+  float:right;
 }
 
 .sidebar-nav .nav-link.collapsed {
@@ -1267,3 +1257,45 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+/*--------------------------------------------------------------
+# Apply modal
+--------------------------------------------------------------*/
+.file-uplaod{
+  border:3px dashed black;
+  position:relative;
+}
+.file-upload:hover{
+  background-color:#A6CDE7;
+  border: 4px dashed #ffffff;
+}
+.file-upload-input{
+  position: absolute;
+  margin:0;
+  padding:0;
+  width: 100%;
+  height:100%;
+  opacity:0;
+  outline:none;
+  cursor:pointer;
+}
+.drag-text{
+  text-align:center;
+}
+.drag-text h3{
+  text_tranform: uppercase;
+  font-weight:bolderpadding: 60px;
+}
+.apply-btn{
+  width:100%;
+}
+.apply-btn:hover{
+  background-color:#A6CDE7;
+}
+.uploaded{
+  text-align:center;
+}
+
+
+
+

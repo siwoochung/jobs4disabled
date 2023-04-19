@@ -318,7 +318,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#hire-type-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-briefcase"></i><span>고용형태<span><i class="fa-solid fa-caret-down check-icon-2"></i>
+           <i class="fa-solid fa-file"></i><span>고용형태<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="hire-type-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -340,7 +340,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#company-type-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-briefcase"></i><span>기업형태<span><i class="fa-solid fa-caret-down check-icon-2"></i>
+           <i class="fa-solid fa-city"></i><span>기업형태<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="company-type-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -370,7 +370,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#location-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-briefcase"></i><span>지역별<span><i class="fa-solid fa-caret-down check-icon-3"></i>
+           <i class="fa-solid fa-map-location-dot"></i><span>지역별<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="location-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -444,7 +444,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#experience-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-briefcase"></i><span>요구경력<span><i class="fa-solid fa-caret-down check-icon-2"></i>
+           <i class="fa-solid fa-folder-open"></i><span>요구경력<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="experience-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -474,7 +474,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#education-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-briefcase"></i><span>요구학력<span><i class="fa-solid fa-caret-down check-icon-2"></i>
+           <i class="fa-solid fa-clipboard-list"></i><span>요구학력<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="education-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -539,7 +539,7 @@
                       </div>
                     </div>
                     <div class="col-2">
-                      <button type="button" class="btn btn-primary more-btn">더보기</button>
+                      <button type="button" class="btn btn-primary more-btn" data-bs-toggle="modal" data-bs-target="#applyModal">더보기</button>
                     </div>
                   </div>
                 </div>
@@ -560,6 +560,39 @@
 
       </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="$('.file-upload-input').trigger('click')">지원서 첨부하기</button>
+            <div class="file-upload">
+              <input class="file-upload-input" type='file' onchange="readURL(this)">
+              <div class="drag-text">
+                  <h3>Drag and drop a file</h3>
+              </div>
+            </div>
+              <div class="uploaded">
+                  <h5 class="file-title"></h5>
+              </div>
+              <!-- <label for="formFile" class="form-label">지원서</label>
+              <input class="form-control" type="file" id="formFile"> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </main><!-- End #main -->
 

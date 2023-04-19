@@ -65,3 +65,21 @@
         AppointmentOptions.toggle('slow');
     });
 })(jQuery);
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.file-upload').hide();
+
+      $('.file-upload-f').attr('src', e.target.result);
+
+      $('.file-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } 
+}
