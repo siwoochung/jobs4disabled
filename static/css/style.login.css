@@ -1,12 +1,16 @@
 .btn-block{
   background-color: #006BB0;
-  border:1px solid blue;
+  border:1px f6f9ff;
 }
 .btn-primary: hover{
-  background-color:purple;
+  background-color: 968EAF;
 }
 .card{
   width:500px;
   height:300px;
 }
+.login-title{
+  text-align:center;
+}
+
  

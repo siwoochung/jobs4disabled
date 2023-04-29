@@ -71,7 +71,290 @@ def pick_jobs(n):
 
 	return final_lst
 
-pick_jobs(10)
+def pick_jobs_filter_by_class(n,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked):
+	NUMS = n
+	data = pd.read_csv("data/temp_data.csv")
+	count = 0
+	data_business = pd.DataFrame()
+	data_it = pd.DataFrame()
+	data_design = pd.DataFrame()
+	data_trade = pd.DataFrame()
+	data_education = pd.DataFrame()
+	data_medical = pd.DataFrame()
+	data_service = pd.DataFrame()
+	data_produce = pd.DataFrame()
+	data_special = pd.DataFrame()
+
+	if business_checked:
+		data_business = data[data["Classification"]=="경영/사무"]
+		count += 1
+	if it_checked:
+		data_it = data[data["Classification"]=="IT/인터넷"]
+		count += 1
+	if design_checked:
+		data_design = data[data["Classification"]=="디자인"]
+		count += 1
+	if trade_checked:
+		data_trade = data[data["Classification"]=="무역/유통"]
+		count += 1
+	if education_checked:
+		data_education = data[data["Classification"]=="교육"]
+		count += 1
+	if medical_checked:
+		data_medical = data[data["Classification"]=="의료"]
+		count += 1
+	if service_checked:
+		data_service = data[data["Classification"]=="서비스"]
+		count += 1
+	if produce_checked:
+		data_produce = data[data["Classification"]=="생산/제조"]
+		count += 1
+	if special_checked:
+		data_special = data[data["Classification"]=="전문/특수직"]
+		count += 1
+
+	show = 10 // count
+	rem = 10 % count
+	final_data = pd.DataFrame()
+
+	final_lst = []
+	if not data_business.empty:
+		random_business = data_business.sample(n=show)
+		final_lst.append(random_business)
+	if not data_it.empty:
+		random_it = data_it.sample(n=show)
+		final_lst.append(random_it)
+	if not data_design.empty:
+		random_design = data_design.sample(n=show)
+		final_lst.append(random_design)
+	if not data_trade.empty:
+		random_trade = data_trade.sample(n=show)
+		final_lst.append(random_trade)
+	if not data_education.empty:
+		random_education = data_education.sample(n=show)
+		final_lst.append(random_education)
+	if not data_medical.empty:
+		random_medical = data_medical.sample(n=show)
+		final_lst.append(random_medical)
+	if not data_service.empty:
+		random_service = data_service.sample(n=show)
+		final_lst.append(random_service)
+	if not data_produce.empty:
+		random_produce = data_produce.sample(n=show)
+		final_lst.append(random_produce)
+	if not data_special.empty:
+		random_special = data_special.sample(n=show)
+		final_lst.append(random_special)
+
+	final_data = pd.concat(final_lst)
+	return final_data
+
+print(pick_jobs_filter_by_class(10,True,True,False,True,False,False,False,False,False))
+
+
+def pick_jobs_filter_by_hire_type(n,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked):
+	NUMS = n
+	data = pd.read_csv("data/temp_data.csv")
+	count = 0
+	data_business = pd.DataFrame()
+	data_it = pd.DataFrame()
+	data_design = pd.DataFrame()
+	data_trade = pd.DataFrame()
+	data_education = pd.DataFrame()
+	data_medical = pd.DataFrame()
+	data_service = pd.DataFrame()
+	data_produce = pd.DataFrame()
+	data_special = pd.DataFrame()
+
+	if business_checked:
+		data_business = data[data["Classification"]=="경영/사무"]
+		count += 1
+	if it_checked:
+		data_it = data[data["Classification"]=="IT/인터넷"]
+		count += 1
+	if design_checked:
+		data_design = data[data["Classification"]=="디자인"]
+		count += 1
+	if trade_checked:
+		data_trade = data[data["Classification"]=="무역/유통"]
+		count += 1
+	if education_checked:
+		data_education = data[data["Classification"]=="교육"]
+		count += 1
+	if medical_checked:
+		data_medical = data[data["Classification"]=="의료"]
+		count += 1
+	if service_checked:
+		data_service = data[data["Classification"]=="서비스"]
+		count += 1
+	if produce_checked:
+		data_produce = data[data["Classification"]=="생산/제조"]
+		count += 1
+	if special_checked:
+		data_special = data[data["Classification"]=="전문/특수직"]
+		count += 1
+
+	show = 10 // count
+	rem = 10 % count
+	final_data = pd.DataFrame()
+
+	final_lst = []
+	if not data_business.empty:
+		random_business = data_business.sample(n=show)
+		final_lst.append(random_business)
+	if not data_it.empty:
+		random_it = data_it.sample(n=show)
+		final_lst.append(random_it)
+	if not data_design.empty:
+		random_design = data_design.sample(n=show)
+		final_lst.append(random_design)
+	if not data_trade.empty:
+		random_trade = data_trade.sample(n=show)
+		final_lst.append(random_trade)
+	if not data_education.empty:
+		random_education = data_education.sample(n=show)
+		final_lst.append(random_education)
+	if not data_medical.empty:
+		random_medical = data_medical.sample(n=show)
+		final_lst.append(random_medical)
+	if not data_service.empty:
+		random_service = data_service.sample(n=show)
+		final_lst.append(random_service)
+	if not data_produce.empty:
+		random_produce = data_produce.sample(n=show)
+		final_lst.append(random_produce)
+	if not data_special.empty:
+		random_special = data_special.sample(n=show)
+		final_lst.append(random_special)
+
+	final_data = pd.concat(final_lst)
+	return final_data
+
+def pick_jobs_filter_by_hire_type(n,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked):
+	NUMS = n
+	data = pd.read_csv("data/temp_data.csv")
+	count = 0
+	data_business = pd.DataFrame()
+	data_it = pd.DataFrame()
+	data_design = pd.DataFrame()
+	data_trade = pd.DataFrame()
+	data_education = pd.DataFrame()
+	data_medical = pd.DataFrame()
+	data_service = pd.DataFrame()
+	data_produce = pd.DataFrame()
+	data_special = pd.DataFrame()
+
+	if business_checked:
+		data_business = data[data["고용형태"]=="계약직"]
+		count += 1
+	if it_checked:
+		data_it = data[data["고용형태"]=="상용직"]
+		count += 1
+	if design_checked:
+		data_design = data[data["고용형태"]=="시간제"]
+		count += 1
+
+	show = 10 // count
+	rem = 10 % count
+	final_data = pd.DataFrame()
+
+	final_lst = []
+	if not data_business.empty:
+		random_business = data_business.sample(n=show)
+		final_lst.append(random_business)
+	if not data_it.empty:
+		random_it = data_it.sample(n=show)
+		final_lst.append(random_it)
+	if not data_design.empty:
+		random_design = data_design.sample(n=show)
+		final_lst.append(random_design)
+	if not data_trade.empty:
+		random_trade = data_trade.sample(n=show)
+		final_lst.append(random_trade)
+	if not data_education.empty:
+		random_education = data_education.sample(n=show)
+		final_lst.append(random_education)
+	if not data_medical.empty:
+		random_medical = data_medical.sample(n=show)
+		final_lst.append(random_medical)
+	if not data_service.empty:
+		random_service = data_service.sample(n=show)
+		final_lst.append(random_service)
+	if not data_produce.empty:
+		random_produce = data_produce.sample(n=show)
+		final_lst.append(random_produce)
+	if not data_special.empty:
+		random_special = data_special.sample(n=show)
+		final_lst.append(random_special)
+
+	final_data = pd.concat(final_lst)
+	return final_data
+
+def pick_jobs_filter_by_company_type(n,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked):
+	NUMS = n
+	data = pd.read_csv("data/temp_data.csv")
+	count = 0
+	data_business = pd.DataFrame()
+	data_it = pd.DataFrame()
+	data_design = pd.DataFrame()
+	data_trade = pd.DataFrame()
+	data_education = pd.DataFrame()
+	data_medical = pd.DataFrame()
+	data_service = pd.DataFrame()
+	data_produce = pd.DataFrame()
+	data_special = pd.DataFrame()
+
+	if business_checked:
+		data_business = data[data["기업형태"]=="개인"]
+		count += 1
+	if it_checked:
+		data_it = data[data["기업형태"]=="중소"]
+		count += 1
+	if design_checked:
+		data_design = data[data["기업형태"]=="협회,단체"]
+		count += 1
+	if trade_checked:
+		data_trade = data[data["기업형태"]=="공사,공공"]
+		count += 1
+	if big_company_checked:
+		data_big_company = data[data["기업형태"]=="대기업"]
+		count += 1
+
+	show = 10 // count
+	rem = 10 % count
+	final_data = pd.DataFrame()
+
+	final_lst = []
+	if not data_business.empty:
+		random_business = data_business.sample(n=show)
+		final_lst.append(random_business)
+	if not data_it.empty:
+		random_it = data_it.sample(n=show)
+		final_lst.append(random_it)
+	if not data_design.empty:
+		random_design = data_design.sample(n=show)
+		final_lst.append(random_design)
+	if not data_trade.empty:
+		random_trade = data_trade.sample(n=show)
+		final_lst.append(random_trade)
+	if not data_education.empty:
+		random_education = data_education.sample(n=show)
+		final_lst.append(random_education)
+	if not data_medical.empty:
+		random_medical = data_medical.sample(n=show)
+		final_lst.append(random_medical)
+	if not data_service.empty:
+		random_service = data_service.sample(n=show)
+		final_lst.append(random_service)
+	if not data_produce.empty:
+		random_produce = data_produce.sample(n=show)
+		final_lst.append(random_produce)
+	if not data_special.empty:
+		random_special = data_special.sample(n=show)
+		final_lst.append(random_special)
+
+	final_data = pd.concat(final_lst)
+	return final_data
 
 #data["Classification"] = data["Classification"].apply(literal_eval)
 

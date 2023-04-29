@@ -14,6 +14,16 @@ app.config['SECRET_KEY']='abc'
 def index():
 	lst_jobs = pick_jobs(10)
 	print("this is lst_jobs",lst_jobs)
+	business_checked = request.form.get("business") != None
+	it_checked = request.form.get("it") != None
+	design_checked = request.form.get("design") != None
+	trade_checked = request.form.get("trade") != None
+	education_checked = request.form.get("education") != None
+	medical_checked = request.form.get("medical") != None
+	service_checked = request.form.get("service") != None
+	produce_checked = request.form.get("produce") != None
+	special_checked = request.form.get("special") != None
+
 	return render_template("index.html", job_lst=lst_jobs)
 
 @app.route('/login',methods=['GET','POST'])
