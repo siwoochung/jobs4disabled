@@ -320,4 +320,7 @@ li.init {
   top:30%;
   position:absolute;
 }
+.interest-list label{
+  color:black !important;
+}
 /*# sourceMappingURL=style.css.map */
