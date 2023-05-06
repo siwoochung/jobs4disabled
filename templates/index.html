@@ -269,7 +269,7 @@
       <li class="nav-item">
         <h5>상세검색</h5>
       </li>
-      <form>
+      <form action="/" method="POST">
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#jobs-nav" data-bs-toggle="collapse">
            <i class="fa-solid fa-briefcase"></i><span>직무<span><i class="fa-solid fa-caret-down check-icon"></i>
@@ -324,15 +324,15 @@
           <li class="">
             <div class="form-check">
               <label>계약직</label>
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" value="" name="contract">
             </div>
             <div class="form-check">
               <label>상용직</label>
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" value="" name="fulltime'">
             </div>
             <div class="form-check">
               <label>시간제</label>
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" value="" name="parttime">
             </div> 
           </li>          
         </ul>
@@ -346,15 +346,15 @@
           <li class="">
             <div class="form-check">
               <label>개인</label>
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" value="" name="small">
             </div>
             <div class="form-check">
               <label>중소</label>
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" value="" name="medium">
             </div>
             <div class="form-check">
               <label>협회,단체</label>
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" value="" name="">
             </div>
             <div class="form-check">
               <label>공사,공공</label>
@@ -497,7 +497,7 @@
           </li>          
         </ul>
       </li>
-      <button>Submit</button>
+      <button type="submit" name="submit" id="submit" class="submit" value="submit">Submit</button>
     </form>
   </aside>
 

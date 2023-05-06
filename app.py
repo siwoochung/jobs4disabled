@@ -4,25 +4,52 @@
 from flask import Flask,render_template, request, redirect,url_for,flash, jsonify
 import pandas as pd
 from register_login import register,login_check
-from recommendation import pick_jobs
+from recommendation import pick_jobs, pick_jobs_filter_by_class, pick_jobs_filter_by_hire_type
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY']='abc'
+fill = False
+business_checked = False
+it_checked = False
+design_checked = False
+trade_checked = False
+education_checked = False
+medical_checked = False
+service_checked = False
+produce_checked  = False
+special_checked  = False
+contract_checked = False
+fulltime_checked = False
+parttime_checked = False
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def index():
-	lst_jobs = pick_jobs(10)
-	print("this is lst_jobs",lst_jobs)
-	business_checked = request.form.get("business") != None
-	it_checked = request.form.get("it") != None
-	design_checked = request.form.get("design") != None
-	trade_checked = request.form.get("trade") != None
-	education_checked = request.form.get("education") != None
-	medical_checked = request.form.get("medical") != None
-	service_checked = request.form.get("service") != None
-	produce_checked = request.form.get("produce") != None
-	special_checked = request.form.get("special") != None
+	global fill, business_checked, it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked, contract_checked,fulltime_checked,parttime_checked
+	if request.method=='POST':
+		business_checked = request.form.get("business") != None
+		it_checked = request.form.get("IT") != None
+		design_checked = request.form.get("design") != None
+		trade_checked = request.form.get("trade") != None
+		education_checked = request.form.get("education") != None
+		medical_checked = request.form.get("medical") != None
+		service_checked = request.form.get("service") != None
+		produce_checked = request.form.get("produce") != None
+		special_checked = request.form.get("special") != None
+		contract_checked = request.form.get("contract") != None
+		fulltime_checked = request.form.get("fulltime") != None
+		parttime_checked = request.form.get("parttime") != None
+		fill=True
+		return redirect (url_for('index')) 
+	else:
+		
+		if business_checked == True or design_checked == True or trade_checked==True or education_checked==True or medical_checked==True or service_checked==True or produce_checked==True or special_checked==True : 
+			print("This is error output", flush=True)
+			lst_jobs = pick_jobs_filter_by_class(10,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked)
+			if contract_checked==True or fulltime_checked==True or parttime_checked==True:
+				lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
+		else: 
+			lst_jobs = pick_jobs(10)
 
 	return render_template("index.html", job_lst=lst_jobs)
 
