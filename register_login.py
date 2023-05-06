@@ -36,6 +36,5 @@ def login_check(username,password):  #compare password of user input with passwo
 	else:
 		return False
 
-print(login_check("siwoo_46","123456")) #True
 
 

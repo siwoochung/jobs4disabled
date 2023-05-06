@@ -1297,3 +1297,6 @@ h6 {
 .uploaded{
   text-align: center;
 }
+.interest-list label{
+  color:black !important;
+}

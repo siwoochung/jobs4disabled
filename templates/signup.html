@@ -18,29 +18,66 @@
 
         <div class="container">
             <form action="/signup" method="POST" class="appointment-form" id="appointment-form">
-                <h2>Sign-Up</h2>
+                <h2>회원가입</h2>
                 <div class="form-group-1">
                     <input type="text" name="username" id="username" placeholder="아이디" required />
                     <input type="text" name="password" id="password" placeholder="비밀번호" required />
                     <input type="number" name="age" id="email" placeholder="나이" required />
+                     <input type="number" name="phone_number" id="phone_number" placeholder="전화번호" required />
                     <div class="select-list">
                         <select name="gender" id="gender">
-                            <option selected value="F">F</option>
-                            <option value="M">M</option>
+                            <option selected value="F">여자</option>
+                            <option value="M">남자</option>
                         </select>
                     </div>
-                    <input type="number" name="phone_number" id="phone_number" placeholder="전화번호" required />
-                </div>
-                <div class="form-group-2">
-                    <h3>관심사</h3>
                     <div class="select-list">
-                        <select name="interest" id="interest">
-                            <option selected value="">Interest</option>
-                            <option value="society">Society</option>
-                            <option value="language">Language</option>
+                        <select name="usertype" id="usertype">
+                            <option selected value="">개인회원</option>
+                            <option value="society">기업회원</option>
                         </select>
                     </div>
+                    <div class="interest-list">
+                        <div class="form-check">
+                          <label>경영/사무</label>
+                          <input class="form-check-input" type="checkbox" value="" name="business">
+                        </div>
+                        <div class="form-check">
+                          <label>IT/인터넷</label>
+                          <input class="form-check-input" type="checkbox" value="" name="IT">
+                        </div>
+                        <div class="form-check">
+                          <label>디자인</label>
+                          <input class="form-check-input" type="checkbox" value="" name="design">
+                        </div>
+                        <div class="form-check">
+                          <label>무역/유통</label>
+                          <input class="form-check-input" type="checkbox" value="" name="trade">
+                        </div>
+                        <div class="form-check">
+                          <label>교육</label>
+                          <input class="form-check-input" type="checkbox" value="" name="education">
+                        </div>
+                        <div class="form-check">
+                          <label>의료</label>
+                          <input class="form-check-input" type="checkbox" value="" name="medical">
+                        </div>
+                        <div class="form-check">
+                          <label>서비스</label>
+                          <input class="form-check-input" type="checkbox" value="" name="service">
+                        </div>
+                        <div class="form-check">
+                          <label>생산/제조</label>
+                          <input class="form-check-input" type="checkbox" value="" name="produce">
+                        </div>
+                        <div class="form-check">
+                          <label>전문/특수직</label>
+                          <input class="form-check-input" type="checkbox" value="" name="special">
+                        </div>
+                    </div>
                 </div>
+<!--                 <div class="form-group-2">
+
+                </div> -->
                 <div class="form-check">
                     <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                     <label for="agree-term" class="label-agree-term"><span><span></span></span>이용약관에 동의합니다<a href="#" class="term-service">Terms and Conditions</a></label>
