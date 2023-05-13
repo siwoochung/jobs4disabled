@@ -36,15 +36,5 @@ def login_check(username,password):  #compare password of user input with passwo
 	else:
 		return False
 
-def get_interest(username):
-	conn = sq.connect("data/login_info.db")
-	cur = conn.cursor()
-	cur.execute('SELECT interest FROM user WHERE username = (?)',(username,))
-	interest = cur.fetchone()
-	conn.close() #Close DataBase
-	if interest[0]!="IT":
-		interest = interest[0].title()
-	else:
-		interest=interest[0]
-	return interest
+
 
