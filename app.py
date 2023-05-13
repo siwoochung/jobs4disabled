@@ -1,10 +1,11 @@
 #frontend/backend
 
 
-from flask import Flask,render_template, request, redirect,url_for,flash, jsonify
+from flask import Flask,render_template, request, redirect,url_for,flash, jsonify,session
 import pandas as pd
-from register_login import register,login_check
+from register_login import register,login_check, get_interest
 from recommendation import pick_jobs, pick_jobs_filter_by_class, pick_jobs_filter_by_hire_type
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -22,10 +23,13 @@ special_checked  = False
 contract_checked = False
 fulltime_checked = False
 parttime_checked = False
+isLogin = False 
+
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=60)
 
 @app.route('/',methods=['GET','POST'])
 def index():
-	global fill, business_checked, it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked, contract_checked,fulltime_checked,parttime_checked
+	global isLogin, fill, business_checked, it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked, contract_checked,fulltime_checked,parttime_checked
 	if request.method=='POST':
 		business_checked = request.form.get("business") != None
 		it_checked = request.form.get("IT") != None
@@ -42,16 +46,19 @@ def index():
 		fill=True
 		return redirect (url_for('index')) 
 	else:
-		
 		if business_checked == True or design_checked == True or trade_checked==True or education_checked==True or medical_checked==True or service_checked==True or produce_checked==True or special_checked==True : 
-			print("This is error output", flush=True)
-			lst_jobs = pick_jobs_filter_by_class(10,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked)
-			if contract_checked==True or fulltime_checked==True or parttime_checked==True:
-				lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
+				print("This is error output", flush=True)
+				lst_jobs = pick_jobs_filter_by_class(10,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked)
+				if contract_checked==True or fulltime_checked==True or parttime_checked==True:
+					lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
 		else: 
 			lst_jobs = pick_jobs(10)
-
-	return render_template("index.html", job_lst=lst_jobs)
+		if 'username' in session: #when user is logged in 
+			isLogin = True 
+			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, username=session['username'])
+		else: # when user is not logged in 
+			isLogin = False  
+			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin)
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -59,13 +66,17 @@ def login():
 		username = request.form['username']
 		password = request.form['password']
 		if(login_check(username,password)==True):
+			session['username'] = request.form['username']
 			return redirect(url_for('index'))
 		else:
 			flash('Wrong Password') 
 			return render_template("login.html")
 
 	else:
+		if 'username' in session:
+			return redirect (url_for('index'))
 		return render_template("login.html")
+
 @app.route('/signup',methods=['GET','POST'])
 def signup():
 	if request.method=='POST':
@@ -79,6 +90,21 @@ def signup():
 		return "Successfully Registered!"
 	else: #'GET'
 		return render_template("signup.html")
+
+@app.route('/logout')
+def logout():
+	session.pop('username', None) #remove out 'username' from session // removing session
+	return redirect (url_for('index'))
+
+@app.route('/profile')
+def profile():
+	if 'username' in session:
+		username = session['username']
+		interest = get_interest(username)
+		return render_template("profile.html", username=username,interest=interest, isLogin=isLogin)
+	else:
+		return redirect (url_for('index'))
+
 
 
 if __name__=="__main__":
