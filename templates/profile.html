@@ -136,6 +136,7 @@
   <main id="main" class="main">
 
     <div class="container">
+      <h3 class="mt-2 mb-3">내 프로필</h3>
       <div class = "row">
         <div class="card p-0">
           <div class = "row">
@@ -145,14 +146,17 @@
                 </div>
               <div>
                 <div class="card-body mt-3">
-                  <h5 class="ms-2">{{username}}</h5>
-                  <h6 class="ms-2">Interest: {{interest}}</h5>
+                  <h5 class="ms-4">{{username}}</h5>
                 </div>
               </div>
             </div>
             <div class="col-8">
-              <div class="card-body">
-              ABCEDFG
+              <div class="card-body align-items-center">
+                <ul class="my-info">
+                  <li class="mt-5 mb-4">나이: 20</li>
+                  <li class="mb-4">성별: 여</li>
+                  <li class="mb-4">연락처: 010-1234-5678</li>
+                  <li class="mb-4">Interest: Society</li>
              </div>
             </div>
           </div>
@@ -160,6 +164,50 @@
       </div>
     </div>
 
+<div class="container content-container mt-5">
+  <h3 class="mt-5">입사 지원서 현황</h3>
+  <table class="table table-hover mt-4">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>사업장명</th>
+        <th>지원 포지션</th>
+        <th>지원서 현황</th>
+        <th>지원 마감일</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Company A</td>
+        <td>Position A</td>
+        <td>지원서 제출</td>
+        <th>2023/07/10</th>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Company B</td>
+        <td>Position B</td>
+        <td>지원서 제출</td>
+        <th>2023/12/05</th>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Company C</td>
+        <td>Position C</td>
+        <td>지원서 미제출</td>
+        <th>2024/12</th>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Company D</td>
+        <td>Position D</td>
+        <td>지원서 제출</td>
+        <th>2023/6/1</th>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
   </main><!-- End #main -->
 
