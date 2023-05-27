@@ -81,60 +81,60 @@ def pick_jobs_class(data):
 	required_work = data["요구경력"].tolist()
 
 
-	final_lst=[]
-	for i in range(len(name)):
-		dic = dict()  #{}
-		dic["모집직종"]=name[i]
-		# dic[""]=company[i]
+	# final_lst=[]
+	# for i in range(len(name)):
+	# 	dic = dict()  #{}
+	# 	dic["모집직종"]=name[i]
+	# 	# dic[""]=company[i]
 
-		dic["고용형태"]=hire_type[i]
-		if hire_type[i]==0:
-			dic["고용형태"] = "계약직"
-		elif hire_type[i]==1:
-			dic["고용형태"] = "상용직"
-		else:
-			dic["고용형태"] = "시간제"
+	# 	dic["고용형태"]=hire_type[i]
+	# 	if hire_type[i]==0:
+	# 		dic["고용형태"] = "계약직"
+	# 	elif hire_type[i]==1:
+	# 		dic["고용형태"] = "상용직"
+	# 	else:
+	# 		dic["고용형태"] = "시간제"
 
-		dic["사업장 주소"]=location[i]
+	# 	dic["사업장 주소"]=location[i]
 
-		dic["기업형태"]=company_type[i]
-		if company_type[i]==0:
-			dic["기업형태"]="개인"
-		elif company_type[i]==1 or company_type[i]==5:
-			dic["기업형태"]="중소"
-		elif company_type[i]==2:
-			dic["기업형태"]="협회,단체"
-		elif company_type[i]==3:
-			dic["기업형태"]="공사,공공"
-		elif company_type[i]==4:
-			dic["기업형태"]="대기업"
+	# 	dic["기업형태"]=company_type[i]
+	# 	if company_type[i]==0:
+	# 		dic["기업형태"]="개인"
+	# 	elif company_type[i]==1 or company_type[i]==5:
+	# 		dic["기업형태"]="중소"
+	# 	elif company_type[i]==2:
+	# 		dic["기업형태"]="협회,단체"
+	# 	elif company_type[i]==3:
+	# 		dic["기업형태"]="공사,공공"
+	# 	elif company_type[i]==4:
+	# 		dic["기업형태"]="대기업"
 
-		dic["Classification"]=job_class[i]
+	# 	dic["Classification"]=job_class[i]
 
-		dic["임금형태"]=pay_type[i]
-		if pay_type[i]==0:
-			dic["임금형태"]="시급"
-		elif pay_type[i]==1:
-			dic["임금형태"]="일급"
-		elif pay_type[i]==2:
-			dic["임금형태"]="월급"
-		else:
-			dic["임금형태"]="연봉"
+	# 	dic["임금형태"]=pay_type[i]
+	# 	if pay_type[i]==0:
+	# 		dic["임금형태"]="시급"
+	# 	elif pay_type[i]==1:
+	# 		dic["임금형태"]="일급"
+	# 	elif pay_type[i]==2:
+	# 		dic["임금형태"]="월급"
+	# 	else:
+	# 		dic["임금형태"]="연봉"
 
-		dic["요구학력"]=required_degree[i]
-		if required_degree[i]==0:
-			dic["요구학력"]="학무관"
-		elif required_degree[i]==1:
-			dic["요구학력"]="고졸"
-		elif required_degree[i]==2:
-			dic["요구학력"]="초대졸"
-		else:
-			dic["요구학력"]="대졸"
+	# 	dic["요구학력"]=required_degree[i]
+	# 	if required_degree[i]==0:
+	# 		dic["요구학력"]="학무관"
+	# 	elif required_degree[i]==1:
+	# 		dic["요구학력"]="고졸"
+	# 	elif required_degree[i]==2:
+	# 		dic["요구학력"]="초대졸"
+	# 	else:
+	# 		dic["요구학력"]="대졸"
 
-		dic["요구경력"]=required_work[i]
-		final_lst.append(dic)
+	# 	dic["요구경력"]=required_work[i]
+	# 	final_lst.append(dic)
 
-	return final_lst
+	# return final_lst
 
 def pick_jobs_filter_by_class(n,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked):
 	NUMS = n
@@ -256,7 +256,7 @@ def pick_jobs_filter_by_hire_type(n,d,contract_checked, fulltime_checked, partti
 		pass
 
 	final_data = pd.concat(final_lst)
-	final_data=pick_jobs_class(final_data)
+	final_data=pick_jobs_filter_by_hire_type(final_data)
 
 	return final_data
 
@@ -308,7 +308,45 @@ def pick_jobs_filter_by_company_type(n,private_checked,medium_checked, group_che
 		final_lst.append(random_education)
 
 	final_data = pd.concat(final_lst)
-	final_data=pick_jobs_company_type(final_data)
+	final_data=pick_jobs_filter_by_company_type(final_data)
+
+	return final_data
+
+def pick_jobs_filter_by_pay_type(n,hour_checked,month_checked, year_checked):
+	NUMS = n
+	data = pd.read_csv("data/temp_data.csv")
+	count = 0
+	data_hour = pd.DataFrame()
+	data_month = pd.DataFrame()
+	data_year = pd.DataFrame()
+
+	if hour_checked:
+		data_hour = data[data["임금형태"]=="시급"]
+		count += 1
+	if month_checked:
+		data_month = data[data["임금형태"]=="월급"]
+		count += 1
+	if year_checked:
+		data_year = data[data["임금형태"]=="연봉"]
+		count += 1
+
+	show = 3 // count
+	rem = 3 % count
+	final_data = pd.DataFrame()
+
+	final_lst = []
+	if not data_hour.empty:
+		random_hour = data_hour.sample(n=show)
+		final_lst.append(random_private)
+	if not data_month.empty:
+		random_month = data_month.sample(n=show)
+		final_lst.append(random_it)
+	if not data_year.empty:
+		random_year = data_year.sample(n=show)
+		final_lst.append(random_design)
+
+	final_data = pd.concat(final_lst)
+	final_data=pick_jobs_filter_by_pay_type(final_data)
 
 	return final_data
 
