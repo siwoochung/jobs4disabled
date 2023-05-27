@@ -10,6 +10,7 @@
 .more-btn{
 	top:30%;
 	position:absolute;
+	border:none;
 }
 .login-btn{
 	padding-left:80px;
@@ -36,4 +37,7 @@
 	.login-mobile{
 		display:none;
 	}
+}
+.submit{
+	color:gray;
 }

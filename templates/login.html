@@ -14,30 +14,31 @@
 <body class="my-login-page">
 	<section class="h-100">
 		<div class="container h-100">
-			{% with messages = get_flashed_messages() %}
-				{%if messages %}
-					<div class="alert alert-primary" role="alert">
-						Wrong Password!
-					</div>
-				{%endif%}  
-				<!-- #can change design on bootstrap alert -->
-			{%endwith%}
+		
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
-					<div class="brand mb-5 ps-3 mt-4">
+	<!-- 				<div class="brand mb-5 ps-3 mt-4">
 						<h1 class="login-title">장애이블</h1>
-						<!-- <img src="img/logo.jpg" alt="logo"> -->
-					</div>
+					</div> -->	
 					<div class="card fat">
-						<div class="card-body">
-							<h4 class="card-title">로그인</h4>
+						<div class="card-body">	
+							<!-- <h4 class="card-title">로그인</h4> -->
+							<div class="card-title img-container mx-auto">
+								<img class="login-img" src="../static/images/logo.png" alt="logo">
+							</div>
 							<form actions="/login" method="POST" class="my-login-validation" novalidate="">
 								<div class="form-group">
 									<input type="text" name="username" class="form-control mb-1" id="username" placeholder="Username">
 									<input id="password" type="password" class="form-control" name="password" placeholder="Password">
-
 								</div>
-
+								{% with messages = get_flashed_messages() %}
+								{%if messages %}
+								<div class="alert alert-danger" role="alert"></div>
+								Wrong Password!
+								{%endif%}  
+								<!-- #can change design on bootstrap alert -->
+								{%endwith%}
+								
 								<div class="form-group">
 									<div class="custom-checkbox custom-control">
 										<input type="checkbox" name="remember" id="remember" class="custom-control-input">
@@ -47,11 +48,11 @@
 
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary btn-block">
-										Login
+										로그인
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									회원가입<a href="/signup"></a>
+									<a class="register" href="/signup">회원가입</a>
 								</div>
 							</form>
 						</div>

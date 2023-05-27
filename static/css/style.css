@@ -1300,3 +1300,12 @@ h6 {
 .interest-list label{
   color:black !important;
 }
+.more-btn{
+  border: none;
+}
+.submit{
+  background-color: #A6CDE7;
+}
+.submit:hover{
+  background-color:gray;
+}
