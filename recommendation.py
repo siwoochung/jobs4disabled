@@ -10,7 +10,6 @@ def pick_jobs(n):
 	location = random_data["사업장 주소"].tolist()
 	company_type = random_data["기업형태"].tolist()
 	job_class = random_data["Classification"].tolist()
-	pay_type = random_data["임금형태"].tolist()
 	required_degree = random_data["요구학력"].tolist()
 	required_work = random_data["요구경력"].tolist()
 
@@ -44,16 +43,6 @@ def pick_jobs(n):
 			dic["기업형태"]="대기업"
 
 		dic["Classification"]=job_class[i]
-
-		dic["임금형태"]=pay_type[i]
-		if pay_type[i]==0:
-			dic["임금형태"]="시급"
-		elif pay_type[i]==1:
-			dic["임금형태"]="일급"
-		elif pay_type[i]==2:
-			dic["임금형태"]="월급"
-		else:
-			dic["임금형태"]="연봉"
 
 		dic["요구학력"]=required_degree[i]
 		if required_degree[i]==0:
@@ -312,41 +301,48 @@ def pick_jobs_filter_by_company_type(n,private_checked,medium_checked, group_che
 
 	return final_data
 
-def pick_jobs_filter_by_pay_type(n,hour_checked,month_checked, year_checked):
+def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, precollege_checked,college_checked):
 	NUMS = n
 	data = pd.read_csv("data/temp_data.csv")
 	count = 0
-	data_hour = pd.DataFrame()
-	data_month = pd.DataFrame()
-	data_year = pd.DataFrame()
+	data_none = pd.DataFrame()
+	data_highschool = pd.DataFrame()
+	data_precollege = pd.DataFrame()
+	data_college = pd.DataFrame()
 
-	if hour_checked:
-		data_hour = data[data["임금형태"]=="시급"]
+	if none_checked:
+		data_none = data[data["요구학력"]=="학무관"]
 		count += 1
-	if month_checked:
-		data_month = data[data["임금형태"]=="월급"]
+	if highschool_checked:
+		data_highschool = data[data["요구학력"]=="고졸"]
 		count += 1
-	if year_checked:
-		data_year = data[data["임금형태"]=="연봉"]
+	if precollege_checked:
+		data_precollege = data[data["요구학력"]=="초대졸"]
+		count += 1
+	if college_checked:
+		data_precollege = data[data["요구학력"]=="대졸"]
 		count += 1
 
-	show = 3 // count
-	rem = 3 % count
+	show = 4 // count
+	rem = 4 % count
 	final_data = pd.DataFrame()
 
 	final_lst = []
-	if not data_hour.empty:
-		random_hour = data_hour.sample(n=show)
-		final_lst.append(random_private)
-	if not data_month.empty:
-		random_month = data_month.sample(n=show)
-		final_lst.append(random_it)
-	if not data_year.empty:
-		random_year = data_year.sample(n=show)
-		final_lst.append(random_design)
+	if not data_none.empty:
+		random_none = data_none.sample(n=show)
+		final_lst.append(random_none)
+	if not data_highschool.empty:
+		random_highschool = data_highschool.sample(n=show)
+		final_lst.append(random_highschool)
+	if not data_precollege.empty:
+		random_precollege = data_precollege.sample(n=show)
+		final_lst.append(random_precollege)
+	if not data_college.empty:
+		random_college = data_college.sample(n=show)
+		final_lst.append(random_college)
 
 	final_data = pd.concat(final_lst)
-	final_data=pick_jobs_filter_by_pay_type(final_data)
+	final_data=pick_jobs_filter_by_required_degree(final_data)
 
 	return final_data
 
