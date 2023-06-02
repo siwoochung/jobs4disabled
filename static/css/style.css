@@ -13,7 +13,7 @@ body {
 }
 
 a {
-  color: #006BB0;
+  color: #4154f1;
   text-decoration: none;
 }
 
@@ -59,17 +59,13 @@ h6 {
   font-size: 20px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #006BB0;
+  color: #4154f1;
 }
 
 .header-name{
-<<<<<<< HEAD
   font-size: 24px !important;
-  color:#006BB0;
-=======
-  font-size: 60px !important;
-  color:#006BB0 !important;
->>>>>>> 49a4da43080337cc633472970565ca914d03e452
+  color:white !important;
+
 }
 /*--------------------------------------------------------------
 # Back to top button
@@ -385,7 +381,7 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #dbc9e8;
+  background-color:#4872FF;
   padding-left: 20px;
   /* Toggle Sidebar Button */
   /* Search Bar */
@@ -395,7 +391,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #006BB0;
+  color: #4154f1;
 }
 
 .header .search-bar {
@@ -698,7 +694,7 @@ h6 {
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: #006BB0;
+  color: #4154f1;
 }
 .check-icon{
   float:right;
@@ -714,12 +710,12 @@ h6 {
 }
 
 .sidebar-nav .nav-link:hover {
-  color:#006BB0;
+  color:#4154f1;
   background: #A6CDE7;
 }
 
 .sidebar-nav .nav-link:hover i {
-  color: #006BB0;
+  color: #4154f1;
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -784,7 +780,7 @@ h6 {
 
 .dashboard .filter .icon:hover,
 .dashboard .filter .icon:focus {
-  color: #006BB0;
+  color: #4154f1;
 }
 
 .dashboard .filter .dropdown-header {
@@ -966,7 +962,7 @@ h6 {
 }
 
 .btn-primary{
-  background-color: #006BB0
+  background-color: #4154f1
 }
 
 .btn-primary: hover{
