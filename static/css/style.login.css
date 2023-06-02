@@ -1,49 +1,61 @@
-.btn-block{
-  background-color: #006BB0;
-  border:1px #006BB0;
+    body {
+      background-color: #f8f9fa;
+    }
+    .card-wrapper {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      width: 350px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card .card-img-top {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
 }
-.btn-primary:hover{
-  background-color: #A6CDE7;
+
+.card .card-img-top img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
-.card{
-  width:500px;
-  height:350px;
-}
-.login-title{
-  text-align:center;
-}
-.register{
-  color:#006BB0;
- }
- .register:hover{
-  text-decoration:none;
-  color: #A6CDE7;
- }
- .login-img{
-  height:100px;
-  width:100px;
- }
- .img-container{
-  position:absolute;
-  left:38%;
-  bottom:80%;
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  border:1px solid black;
-  overflow:hidden;
- }
- .img-container img{
-  object-position:-1.5px -2px;
-  width:100%;
-  height:100%;
-  object-fit:cover;
- }
- .card-body{
-  position:relative;
-  padding-top:100px;
- }
- .card-wrapper{
-  margin-top:90px;
-  height:100vh;
- }
+
+    .card .card-title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .card .form-group {
+      margin-bottom: 20px;
+    }
+    .card .form-group label {
+      font-weight: bold;
+    }
+    .card .btn-primary {
+      background-color: #006BB0;
+      border: none;
+      width: 100%;
+    }
+    .card .btn-primary:hover {
+      background-color: #A6CDE7;
+    }
+    .card .register {
+      text-align: center;
+      color: #006BB0;
+    }
+    .card .register:hover {
+      text-decoration: none;
+      color: #A6CDE7;
+    }
+    .card .alert-danger {
+      margin-bottom: 10px;
+      text-align: center;
+    }

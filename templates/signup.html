@@ -1,138 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign-Up</title>
-
-    <!-- Font Icon -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap" rel="stylesheet">
-    <!-- Main css -->
-    <link rel="stylesheet" href="../static/css/style_signup.css">
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>My Signup Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/css/style_signup.css">
+    <style>
+        /* CSS styles go here */
+    </style>
 </head>
 <body>
+<div class="card-wrapper">
+    <div class="card" id="userInformationCard">
+                    <img class="card-img-top" src="../static/images/logo.png" alt="logo">
 
-    <div class="main">
+      <div class="card-body">
+        <h4 class="card-title">User Information</h4>
+        <form actions="/signup" method="POST" class="my-signup-validation" novalidate="" id="signupForm">
+          <!-- User Information Fields -->
+            <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" class="form-control" id="username" required>
+          </div>
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="text" name="age" class="form-control" id="age" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" class="form-control" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" name="phone" class="form-control" id="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender" class="form-control">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
-        <div class="container">
-            <form action="/signup" method="POST" class="appointment-form" id="appointment-form">
-                <h2>회원가입</h2>
-                <div class="form-group-1">
-                    <input type="text" name="username" id="username" placeholder="아이디" required />
-                    <input type="text" name="password" id="password" placeholder="비밀번호" required />
-                    <input type="number" name="age" id="email" placeholder="나이" required />
-<<<<<<< HEAD
-                     <input type="number" name="phone_number" id="phone_number" placeholder="전화번호" required />
-                    <div class="select-list">
-                        <select name="gender" id="gender">
-                            <option selected value="F">여자</option>
-                            <option value="M">남자</option>
-=======
-                    <input type="number" name="phone_number" id="phone_number" placeholder="전화번호" required />
-                    <div class="select-list">
-                        <select name="gender" id="gender">
-                            <option selected value="F">여성</option>
-                            <option value="M">남성</option>
->>>>>>> 73a11ac74e53f76968f08e14e53e7e8687130088
-                        </select>
-                    </div>
-                    <div class="select-list">
-                        <select name="usertype" id="usertype">
-                            <option selected value="">개인회원</option>
-                            <option value="society">기업회원</option>
-                        </select>
-                    </div>
-                    <div class="interest-list">
-<<<<<<< HEAD
-                        <div class="form-check">
-                          <label>경영/사무</label>
-                          <input class="form-check-input" type="checkbox" value="" name="business">
-                        </div>
-                        <div class="form-check">
-                          <label>IT/인터넷</label>
-                          <input class="form-check-input" type="checkbox" value="" name="IT">
-                        </div>
-                        <div class="form-check">
-                          <label>디자인</label>
-                          <input class="form-check-input" type="checkbox" value="" name="design">
-                        </div>
-                        <div class="form-check">
-                          <label>무역/유통</label>
-                          <input class="form-check-input" type="checkbox" value="" name="trade">
-                        </div>
-                        <div class="form-check">
-                          <label>교육</label>
-                          <input class="form-check-input" type="checkbox" value="" name="education">
-                        </div>
-                        <div class="form-check">
-                          <label>의료</label>
-                          <input class="form-check-input" type="checkbox" value="" name="medical">
-                        </div>
-                        <div class="form-check">
-                          <label>서비스</label>
-                          <input class="form-check-input" type="checkbox" value="" name="service">
-                        </div>
-                        <div class="form-check">
-                          <label>생산/제조</label>
-                          <input class="form-check-input" type="checkbox" value="" name="produce">
-                        </div>
-                        <div class="form-check">
-                          <label>전문/특수직</label>
-                          <input class="form-check-input" type="checkbox" value="" name="special">
-                        </div>
-                    </div>
-                </div>
-<!--                 <div class="form-group-2">
+          <div class="form-group">
+            <button type="button" class="btn btn-primary btn-block" id="nextBtn">Next</button>
+          </div>
+              <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
 
-=======
-                        <div class="row">
-                            <h4>관심사</h4>
-                            <div class="col">
-                                <div class="form-check">
-                                    <label>경영/사무</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="business">
-                                    <label>IT/인터넷</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="IT">
-                                    <label>디자인</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="design">
-                                    <label>무역/유통</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="trade">
-                                    <label>교육</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="education">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-check">
-                                    <label>의료</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="medical">
-                                    <label>서비스</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="service">
-                                    <label>생산/제조</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="produce">
-                                    <label>전문/특수직</label>
-                                    <input class="form-check-input" type="checkbox" value="" name="special">
-                                </div>
-                            </div>
-                <div class="form-group-2">
->>>>>>> 73a11ac74e53f76968f08e14e53e7e8687130088
-                </div> -->
-                <div class="form-check">
-                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                    <label for="agree-term" class="label-agree-term"><span><span></span></span>이용약관에 동의합니다<a href="#" class="term-service"> Terms and Conditions</a></label>
-                </div>
-                <div class="form-submit">
-                    <input type="submit" name="submit" id="submit" class="submit" value="Sign-Up" />
-                </div>
-            </form>
-        </div>
-
+        </form>
+      </div>
     </div>
 
+<div class="card hidden fade-in" id="interestCard">
+                          <img class="card-img-top" src="../static/images/logo.png" alt="logo">
 
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
-</body>=
+  <div class="card-body">
+
+    <h4 class="card-title">User Interests</h4>
+    <form actions="/signup" method="POST" class="my-signup-validation" novalidate="">
+      <!-- User Type Field -->
+      <div class="form-group">
+        <label for="userType">User Type:</label>
+        <select class="form-control" id="userType" name="userType">
+          <option value="person">Person</option>
+          <option value="company">Company</option>
+        </select>
+      </div>
+
+      <!-- User Interests Fields -->
+<!-- User Interests Fields -->
+<div class="form-group">
+
+  <label>Interests:</label>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest1" id="interest1">
+        <label class="form-check-label" for="interest1">Interest 1</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest2" id="interest2">
+        <label class="form-check-label" for="interest2">Interest 2</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 3</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 4</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 5</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 6</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 7</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 8</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 9</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
+        <label class="form-check-label" for="interest3">Interest 3</label>
+      </div>
+    </div>  </div>
+</div>
+
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+$(document).ready(function() {
+  $('#nextBtn').click(function(event) {
+    var isFormValid = true;
+
+    // Check if any required fields are empty
+    $('#signupForm input[required]').each(function() {
+      if ($.trim($(this).val()) === '') {
+        isFormValid = false;
+      }
+    });
+
+    // Display error message if form is invalid
+    if (!isFormValid) {
+      event.preventDefault();
+      $('#errorMessages').text('Please fill out all required fields.').show();
+    } else {
+      $('#userInformationCard').addClass('fade-out');
+      setTimeout(function() {
+        $('#userInformationCard').addClass('hidden');
+        $('#interestCard').removeClass('hidden');
+        setTimeout(function() {
+          $('#interestCard').addClass('fade-in');
+        }, 50);
+      }, 500);
+    }
+  });
+});
+
+  </script>
+</body>
 </html>
