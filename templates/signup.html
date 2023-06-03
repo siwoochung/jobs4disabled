@@ -14,33 +14,33 @@
 <body>
 <div class="card-wrapper">
     <div class="card" id="userInformationCard">
-                    <img class="card-img-top" src="../static/images/logo.png" alt="logo">
+                    <img class="card-img-top" src="../static/images/logo-2.png" alt="logo">
 
       <div class="card-body">
-        <h4 class="card-title">User Information</h4>
+        <h4 class="card-title">사용자 정보</h4>
         <form actions="/signup" method="POST" class="my-signup-validation" novalidate="" id="signupForm">
           <!-- User Information Fields -->
             <div class="form-group">
-            <label for="username">Username:</label>
+            <label for="username">아이디:</label>
             <input type="text" name="username" class="form-control" id="username" required>
           </div>
           <div class="form-group">
-            <label for="age">Age:</label>
+            <label for="age">나이:</label>
             <input type="text" name="age" class="form-control" id="age" required>
           </div>
           <div class="form-group">
-            <label for="email">Email:</label>
+            <label for="email">이메일:</label>
             <input type="email" name="email" class="form-control" id="email" required>
           </div>
           <div class="form-group">
-            <label for="phone">Phone Number:</label>
+            <label for="phone">전화번호:</label>
             <input type="text" name="phone" class="form-control" id="phone" required>
           </div>
           <div class="form-group">
-            <label for="gender">Gender:</label>
+            <label for="gender">성별:</label>
             <select name="gender" id="gender" class="form-control">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="male">남성</option>
+              <option value="female">여성</option>
               <option value="other">Other</option>
             </select>
           </div>
@@ -63,10 +63,10 @@
     <form actions="/signup" method="POST" class="my-signup-validation" novalidate="">
       <!-- User Type Field -->
       <div class="form-group">
-        <label for="userType">User Type:</label>
+        <label for="userType">유저타입:</label>
         <select class="form-control" id="userType" name="userType">
-          <option value="person">Person</option>
-          <option value="company">Company</option>
+          <option value="person">개인</option>
+          <option value="company">회사</option>
         </select>
       </div>
 
@@ -74,67 +74,62 @@
 <!-- User Interests Fields -->
 <div class="form-group">
 
-  <label>Interests:</label>
+  <label>관심 직종:</label>
   <div class="row">
     <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest1" id="interest1">
-        <label class="form-check-label" for="interest1">Interest 1</label>
+        <label class="form-check-label" for="interest1">경영/사무</label>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest2" id="interest2">
-        <label class="form-check-label" for="interest2">Interest 2</label>
+        <label class="form-check-label" for="interest2">IT/인터넷</label>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 3</label>
+        <label class="form-check-label" for="interest3">디자인</label>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 4</label>
+        <label class="form-check-label" for="interest3">무역/유통</label>
       </div>
     </div>
         <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 5</label>
+        <label class="form-check-label" for="interest3">교육</label>
       </div>
     </div>
         <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 6</label>
+        <label class="form-check-label" for="interest3">의료</label>
       </div>
     </div>
         <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 7</label>
+        <label class="form-check-label" for="interest3">서비스</label>
       </div>
     </div>
         <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 8</label>
+        <label class="form-check-label" for="interest3">생산/제조</label>
       </div>
     </div>
         <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 9</label>
+        <label class="form-check-label" for="interest3">전문/특수직</label>
       </div>
     </div>
-        <div class="col-md-4">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="interests[]" value="interest3" id="interest3">
-        <label class="form-check-label" for="interest3">Interest 3</label>
-      </div>
     </div>  </div>
 </div>
 
