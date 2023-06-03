@@ -1302,8 +1302,17 @@ h6 {
   border: none;
 }
 .submit{
-  background-color: #A6CDE7;
+  background-color: #4772ff;
+  border-color: #4772ff;
 }
 .submit:hover{
   background-color:gray;
+}
+.login{
+  background-color: white;
+  color:#757c88;
+  margin-right:10px;
+}
+.more-btn{
+  background-color: #4772ff;
 }

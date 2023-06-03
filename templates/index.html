@@ -100,7 +100,7 @@
         </li><!-- End Profile Nav -->
 
         {%else%}
-        <a class="btn btn-primary" href={{url_for('login')}}>Login</a>
+        <a class="btn btn-primary login" href={{url_for('login')}}>Login</a>
 
         {%endif%}
 
@@ -342,7 +342,8 @@
           </li>          
         </ul>
       </li>
-      <button type="" name="submit" id="submit" class="submit" value="submit">Submit</button>
+      <!-- <button type="" name="submit" id="submit" class="submit" value="submit">Submit</button> -->
+      <a class="btn btn-primary submit" value="submit">Submit</a>
     </form>
   </aside>
 
