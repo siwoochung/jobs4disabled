@@ -18,6 +18,10 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Shantell+Sans&display=swap" rel="stylesheet">
+
 
   <!-- Vendor CSS Files -->
   <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +46,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
         <!-- <img src="../static/images/full-logo.png" alt=""> -->
-        <span class="header-name">장애이블</span>
+        <span class="header-name">INCLUSO</span>
       </a>
       <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
     </div><!-- End Logo -->
@@ -100,7 +104,7 @@
         </li><!-- End Profile Nav -->
 
         {%else%}
-        <a class="btn btn-primary" href={{url_for('login')}}>Login</a>
+        <a class="btn btn-primary login" href={{url_for('login')}}>Login</a>
 
         {%endif%}
 
@@ -342,7 +346,8 @@
           </li>          
         </ul>
       </li>
-      <button type="" name="submit" id="submit" class="submit" value="submit">Submit</button>
+      <!-- <button type="" name="submit" id="submit" class="submit" value="submit">Submit</button> -->
+      <a class="btn btn-primary submit" value="submit">Submit</a>
     </form>
   </aside>
 
@@ -442,7 +447,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>장애이블</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>INCLUSO</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Footer -->
 

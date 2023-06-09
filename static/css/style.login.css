@@ -2,7 +2,6 @@
       background-color: #f8f9fa;
     }
     .card-wrapper {
-      margin-top: 80px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -15,10 +14,10 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .card .card-img-top {
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 80px;
     margin: 20px auto;
-    border-radius: 50%;
+/*    border-radius: 50%;*/
     overflow: hidden;
 }
 
