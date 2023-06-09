@@ -618,6 +618,9 @@ h6 {
   .sidebar {
     left: -300px;
   }
+/*  #main{
+    width:100%;
+  }*/
 }
 
 .sidebar::-webkit-scrollbar {
@@ -630,10 +633,10 @@ h6 {
   background-color: #aab7cf;
 }
 
-#main,
+/*#main,
 #footer{
     margin-left: 200px;
-}
+}*/
 
 @media (min-width: 1200px) {
 
@@ -646,6 +649,16 @@ h6 {
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
     left: 0;
+  }
+  .job-card{
+      padding-left:0px;
+  padding-right:0px;
+    height: 200px !important;
+  }
+  .more-btn{
+    margin-top: 20px;
+ /*   width: 150px !important;
+    height:300px !important;*/
   }
 }
 
@@ -1359,4 +1372,5 @@ h6 {
 }
 .more-btn{
   background-color: #4772ff;
+
 }
