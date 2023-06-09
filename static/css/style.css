@@ -603,7 +603,7 @@ h6 {
   top: 60px;
   left: 0;
   bottom: 0;
-  width: 200px;
+  width: 240px;
   z-index: 996;
   transition: all 0.3s;
   padding: 20px;
@@ -1251,7 +1251,7 @@ h6 {
   dispaly:block;
 }
 .job-card{
-  width: 870px;
+/*  width: 870px;*/
   height: 135px;
   padding-left:25px;
   padding-right:30px;
