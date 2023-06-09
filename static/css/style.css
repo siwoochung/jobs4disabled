@@ -603,7 +603,7 @@ h6 {
   top: 60px;
   left: 0;
   bottom: 0;
-  width: 240px;
+  width: 260px;
   z-index: 996;
   transition: all 0.3s;
   padding: 20px;
@@ -614,11 +614,11 @@ h6 {
   background-color: #fff;
 }
 
-/*@media (max-width: 1199px) {
+@media (max-width: 1199px) {
   .sidebar {
     left: -300px;
   }
-}*/
+}
 
 .sidebar::-webkit-scrollbar {
   width: 5px;
