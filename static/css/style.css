@@ -603,7 +603,7 @@ h6 {
   top: 60px;
   left: 0;
   bottom: 0;
-  width: 300px;
+  width: 200px;
   z-index: 996;
   transition: all 0.3s;
   padding: 20px;
@@ -614,11 +614,11 @@ h6 {
   background-color: #fff;
 }
 
-@media (max-width: 1199px) {
+/*@media (max-width: 1199px) {
   .sidebar {
     left: -300px;
   }
-}
+}*/
 
 .sidebar::-webkit-scrollbar {
   width: 5px;
@@ -628,6 +628,11 @@ h6 {
 
 .sidebar::-webkit-scrollbar-thumb {
   background-color: #aab7cf;
+}
+
+#main,
+#footer{
+    margin-left: 200px;
 }
 
 @media (min-width: 1200px) {
@@ -702,6 +707,7 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed {
+  font-size: 12px !important;
   color: #012970;
   background: #fff;
 }
@@ -1223,13 +1229,30 @@ h6 {
 .job-info{
   list-style:none;
   margin:0;
+  margin-left: 14px;
   padding:0;
+    font-size: 15px !important;
+    color:#666666;
+}
+.color-gray{
+      color:#666666;
+
+}
+.font-15{
+      font-size: 15px !important;
+
+}
+.font-17{
+        font-size: 17px !important;
+
 }
 .job-info li{
   float:left;
   dispaly:block;
 }
 .job-card{
+  width: 870px;
+  height: 135px;
   padding-left:25px;
   padding-right:30px;
   padding-top:30px !important;
@@ -1301,18 +1324,38 @@ h6 {
 }
 .more-btn{
   border: none;
+  font-size: 12px;
+  width:70px;
+  height: 35px;
 }
 .submit{
   background-color: #4772ff;
   border-color: #4772ff;
+  font-size: 12px;
+   border: none;
+   margin-top: 10px;
+   margin-left: 15px;
+
+}
+.mar-2{
+  margin-left: 2px;
+}
+.mar-3{
+  margin-left: 6px;
+}
+.mar-4{
+  margin-left: -2px;
 }
 .submit:hover{
   background-color:gray;
+  border: none;
 }
 .login{
   background-color: white;
   color:#757c88;
   margin-right:10px;
+  font-size: 14px;
+  border: none;
 }
 .more-btn{
   background-color: #4772ff;

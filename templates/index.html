@@ -51,12 +51,6 @@
       <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -113,15 +107,15 @@
 
   </header><!-- End Header -->
 
-  <aside id="sidebar" class="sidebar">
+    <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <h5>상세검색</h5>
+        <h5 class="font-17 ms-3">상세검색</h5>
       </li>
       <form action="/" method="POST">
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#jobs-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-briefcase"></i><span>직무<span><i class="fa-solid fa-caret-down check-icon"></i>
+        <a class="nav-link collapsed font-15" data-bs-target="#jobs-nav" data-bs-toggle="collapse">
+           <i class="fa-solid fa-briefcase"></i><span class="mar-2">직무<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="jobs-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -167,7 +161,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#hire-type-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-file"></i><span>고용형태<span><i class="fa-solid fa-caret-down check-icon"></i>
+           <i class="fa-solid fa-file"></i><span class="ms-1">고용형태<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="hire-type-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -189,7 +183,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#company-type-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-city"></i><span>기업형태<span><i class="fa-solid fa-caret-down check-icon"></i>
+           <i class="fa-solid fa-city"></i><span class="mar-4">기업형태<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="company-type-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -219,7 +213,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#location-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-map-location-dot"></i><span>지역별<span><i class="fa-solid fa-caret-down check-icon"></i>
+           <i class="fa-solid fa-map-location-dot"></i><span class="">지역별<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="location-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -323,7 +317,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#education-nav" data-bs-toggle="collapse">
-           <i class="fa-solid fa-clipboard-list"></i><span>요구학력<span><i class="fa-solid fa-caret-down check-icon"></i>
+           <i class="fa-solid fa-clipboard-list"></i><span class="mar-3">요구학력<span><i class="fa-solid fa-caret-down check-icon"></i>
         </a>
         <ul id="education-nav" class="nav-content collapse ms-2" data-bs-parent="#sidebar-nav">
           <li class="">
@@ -351,12 +345,10 @@
     </form>
   </aside>
 
-  </aside>
-
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>채용정보추천</h1>
+      <h1 class="ms-2">채용정보추천</h1>
       <nav>
         <ol class="breadcrumb">
          <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -375,23 +367,23 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-2">
-                      <h5>사업장명</h5>
-                      <h6>{{i['기업형태']}}</h6>
+                      <h6 class="font-15">{{i['Company']}}</h6>
+                      <h6 class="font-15 color-gray">{{i['기업형태']}}</h6>
                     </div>
                     <div class="col-8">
                       <div class="row">
-                        <h5>{{i['이름']}}</h5>
+                        <h5 class="font-15">{{i['모집직종']}}</h5>
                         <ul class="job-info">
                           <li class="me-3">{{i['임금형태']}}</li>
-                          <li class="me-3">임금</li>
+                          <li class="me-3">{{i['pay']}}</li>
                           <li class="me-3">{{i['고용형태']}}</li>
                           <li class="me-3">{{i['요구학력']}}</li>
                           <li>{{i['요구경력']}}</li>
                         </ul>
                       </div>
                     </div>
-                    <div class="col-2">
-                      <button type="button" class="btn btn-primary more-btn" data-bs-toggle="modal" data-bs-target="#applyModal">더보기</button>
+                    <div class="col-2 d-flex text-center align-items-center">
+                      <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">더보기</button>
                     </div>
                   </div>
                 </div>

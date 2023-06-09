@@ -12,11 +12,12 @@ def pick_jobs(n):
 	job_class = random_data["Classification"].tolist()
 	required_degree = random_data["요구학력"].tolist()
 	required_work = random_data["요구경력"].tolist()
-
+	company = random_data["Company"].tolist()
 
 	final_lst=[]
 	for i in range(NUMS):
 		dic = dict()  #{}
+		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
 		# dic[""]=company[i]
 
@@ -46,7 +47,7 @@ def pick_jobs(n):
 
 		dic["요구학력"]=required_degree[i]
 		if required_degree[i]==0:
-			dic["요구학력"]="학무관"
+			dic["요구학력"]="학력무관"
 		elif required_degree[i]==1:
 			dic["요구학력"]="고졸"
 		elif required_degree[i]==2:
@@ -54,7 +55,17 @@ def pick_jobs(n):
 		else:
 			dic["요구학력"]="대졸"
 
+
+
 		dic["요구경력"]=required_work[i]
+		if required_work[i]==0:
+			dic["요구경력"]="경력무관"
+		elif required_work[i]==1:
+			dic["요구경력"]="1년"
+		elif required_work[i]==2:
+			dic["요구경력"]="2년"
+		else:
+			dic["요구경력"]="3년 이상"
 		final_lst.append(dic)
 
 	return final_lst
@@ -346,6 +357,6 @@ def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, preco
 
 	return final_data
 
-# def pickjobs_filter_by_
+print(pick_jobs(10))
 #data["Classification"] = data["Classification"].apply(literal_eval)
 
