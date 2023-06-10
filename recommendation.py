@@ -1,10 +1,27 @@
 import pandas as pd
 from ast import literal_eval
+from calculate_income import convert, get_average, compare_income
+
+
+data = pd.read_csv("data/temp_data.csv")
+def get_average():
+	return data["pay_month"].mean()
+
+def compare_income(x):
+	average_income = get_average()
+	p = (abs(x-average_income))/((x+average_income) / 2) * 100
+	if x < average_income:
+		p = p * -1
+	return p
+
 
 def pick_jobs(n):
 	NUMS = n
-	data = pd.read_csv("data/temp_data.csv")
+	data["pay_month"] = data['임금'].apply(convert)
+	data["pay_month_diff"] = data["pay_month"].apply(compare_income)
 	random_data = data.sample(n=NUMS)
+
+
 	name = random_data["모집직종"].tolist()
 	hire_type = random_data["고용형태"].tolist()
 	pay = random_data["임금"].tolist()
@@ -16,11 +33,19 @@ def pick_jobs(n):
 	required_work = random_data["요구경력"].tolist()
 	company = random_data["Company"].tolist()
 
+	pay_month = random_data["pay_month"].tolist()
+	pay_month_diff = random_data["pay_month_diff"].tolist()
+
 	final_lst=[]
 	for i in range(NUMS):
 		dic = dict()  #{}
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
+
+		pay_month_diff[i] = round(pay_month_diff[i],1)
+		dic["pay_month_diff"] = pay_month_diff[i]
+
+
 		pay[i] = "{:,}".format(pay[i])
 		if paytype[i] == 0:
 			# dic["pay"]= "시급: ₩"+ str(pay[i])
@@ -59,7 +84,7 @@ def pick_jobs(n):
 
 		dic["요구학력"]=required_degree[i]
 		if required_degree[i]==0:
-			dic["요구학력"]="학무관"
+			dic["요구학력"]="학력무관"
 		elif required_degree[i]==1:
 			dic["요구학력"]="고졸"
 		elif required_degree[i]==2:
@@ -335,7 +360,7 @@ def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, preco
 	data_college = pd.DataFrame()
 
 	if none_checked:
-		data_none = data[data["요구학력"]=="학무관"]
+		data_none = data[data["요구학력"]=="학력무관"]
 		count += 1
 	if highschool_checked:
 		data_highschool = data[data["요구학력"]=="고졸"]
