@@ -1395,4 +1395,10 @@ color: #3E3E3E;
 .back-green:hover{
   background-color: #13A625;
 }
+
+.color-positive{
+  color:#499B3D;
+}
+.color-negative{
+  color:#B70000 ;
 }

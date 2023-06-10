@@ -98,7 +98,7 @@
         </li><!-- End Profile Nav -->
 
         {%else%}
-        <a class="btn btn-primary login" href={{url_for('login')}}>Login</a>
+        <a class="btn btn-primary login" href={{url_for('login')}}>로그인</a>
 
         {%endif%}
 
@@ -137,7 +137,22 @@
                       <li class="me-4 companyt-item"><strong><i class="fa-solid fa-city icon-size"></i> 기업형태</strong> <br> <span class="ms-4">{{i['기업형태']}}</span></li>
                         <li class="me-4 jobname-item"><strong><i class="fa-solid fa-briefcase icon-size"></i> 직업명</strong> <br>      {{i['모집직종']}}</li>
                           <!-- <li class="me-3">임금: {{i['임금형태']}}</li> -->
-                          <li class="me-4 income-item"><strong><i class="bi bi-coin icon-size"></i> 임금 (₩) </strong><br> <span class="ms-3">{{i['pay']}}</span></li>
+                          <li class="me-4 income-item">
+                          <strong><i class="bi bi-coin icon-size"></i> 임금 (₩) 
+                          </strong>
+                          <br> 
+                          <span class="ms-3">{{i['pay']}}</span>
+                          <br> 
+                          <br>
+                          
+                          {%if i['pay_month_diff'] >= 0%}
+                          <span class="ms-3 color-positive">{{i['pay_month_diff']}}%</span>
+                          {%else %}
+                          <span class="ms-3 color-negative">{{i['pay_month_diff']}}%</span>
+                          {%endif%}
+
+                          </li>
+
                           <li class="me-4 job-item"><strong><i class="fa-solid fa-file icon-size"></i> 고용형태</strong> <br> <span class="ms-3">{{i['고용형태']}}</span></li>
                           <li class="me-4 job-item"><strong><i class="fa-solid fa-clipboard-list icon-size"></i> 요구학력</strong><br>  <span class="ms-3">{{i['요구학력']}}</span></li>
                           <li class="job-item"><strong><i class="fa-solid fa-folder-open icon-size"></i> 요구경력</strong> <br> <span class="ms-3">{{i['요구경력']}}</span></li>
