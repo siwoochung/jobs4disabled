@@ -7,6 +7,8 @@ def pick_jobs(n):
 	random_data = data.sample(n=NUMS)
 	name = random_data["모집직종"].tolist()
 	hire_type = random_data["고용형태"].tolist()
+	pay = random_data["임금"].tolist()
+	paytype = random_data["임금형태"].tolist()
 	location = random_data["사업장 주소"].tolist()
 	company_type = random_data["기업형태"].tolist()
 	job_class = random_data["Classification"].tolist()
@@ -19,6 +21,16 @@ def pick_jobs(n):
 		dic = dict()  #{}
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
+		pay[i] = "{:,}".format(pay[i])
+		if paytype[i] == 0:
+			# dic["pay"]= "시급: ₩"+ str(pay[i])
+			dic["pay"]= str(pay[i])
+		elif paytype[i]== 1:
+			dic["pay"]= str(pay[i])
+		elif paytype[i] == 2:
+			dic["pay"]= str(pay[i])
+		else:
+			dic["pay"]= str(pay[i])
 		# dic[""]=company[i]
 
 		dic["고용형태"]=hire_type[i]
@@ -47,7 +59,7 @@ def pick_jobs(n):
 
 		dic["요구학력"]=required_degree[i]
 		if required_degree[i]==0:
-			dic["요구학력"]="학력무관"
+			dic["요구학력"]="학무관"
 		elif required_degree[i]==1:
 			dic["요구학력"]="고졸"
 		elif required_degree[i]==2:
@@ -55,8 +67,7 @@ def pick_jobs(n):
 		else:
 			dic["요구학력"]="대졸"
 
-
-
+		
 		dic["요구경력"]=required_work[i]
 		if required_work[i]==0:
 			dic["요구경력"]="경력무관"
@@ -67,6 +78,8 @@ def pick_jobs(n):
 		else:
 			dic["요구경력"]="3년 이상"
 		final_lst.append(dic)
+
+		
 
 	return final_lst
 
@@ -322,7 +335,7 @@ def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, preco
 	data_college = pd.DataFrame()
 
 	if none_checked:
-		data_none = data[data["요구학력"]=="학력무관"]
+		data_none = data[data["요구학력"]=="학무관"]
 		count += 1
 	if highschool_checked:
 		data_highschool = data[data["요구학력"]=="고졸"]
