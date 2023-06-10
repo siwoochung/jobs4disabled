@@ -335,7 +335,7 @@ def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, preco
 	data_college = pd.DataFrame()
 
 	if none_checked:
-		data_none = data[data["요구학력"]=="학무관"]
+		data_none = data[data["요구학력"]=="학력무관"]
 		count += 1
 	if highschool_checked:
 		data_highschool = data[data["요구학력"]=="고졸"]
