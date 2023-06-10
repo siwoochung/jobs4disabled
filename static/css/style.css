@@ -1396,12 +1396,14 @@ color: #3E3E3E;
   background-color: #13A625;
 }
 .color-positive{
-  color:#40C23B !important;
+  color:#408935 !important;
 }
 .color-negative{
-  color:#DA614C;
+  color:#B90000;
 }
-
+.color-info{
+  color:#878787;
+}
 .tooltip2 {
   position: relative;
   display: inline-block;
@@ -1411,7 +1413,7 @@ color: #3E3E3E;
 .tooltip2 .tooltiptext {
   visibility: hidden;
   width: 120px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.5);
   color: black;
   text-align: center;
   border-radius: 5px;
