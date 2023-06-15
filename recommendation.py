@@ -1,7 +1,8 @@
 import pandas as pd
 from ast import literal_eval
 from calculate_income import convert, get_average, compare_income
-
+from naver_distance import calculate_distance
+import random
 
 data = pd.read_csv("data/temp_data.csv")
 def get_average():
@@ -32,6 +33,7 @@ def pick_jobs(n):
 	required_degree = random_data["요구학력"].tolist()
 	required_work = random_data["요구경력"].tolist()
 	company = random_data["Company"].tolist()
+	address = random_data["사업장 주소"].tolist()
 
 	pay_month = random_data["pay_month"].tolist()
 	pay_month_diff = random_data["pay_month_diff"].tolist()
@@ -42,9 +44,10 @@ def pick_jobs(n):
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
 
+		dic["add"]=calculate_distance(address[i])
 		pay_month_diff[i] = round(pay_month_diff[i],1)
 		dic["pay_month_diff"] = pay_month_diff[i]
-
+		dic["percent"] = random.randint(20,100)
 
 		pay[i] = "{:,}".format(pay[i])
 		if paytype[i] == 0:

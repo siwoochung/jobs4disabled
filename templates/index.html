@@ -131,9 +131,10 @@
               <div class="card job-card">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-lg-11">
                         <ul class="job-info">
-                      <li class="me-4 company-item"><strong> </strong> <br> {{i['Company']}}</li>
+                      <li class="me-4 company-item"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font" style="color:gray !important; font-weight: normal"> 약 {{i['add']}} 분 거리</span>  </li>
+
                       <li class="me-4 companyt-item"><strong><i class="fa-solid fa-city icon-size"></i> 기업형태</strong> <br> <span class="ms-4">{{i['기업형태']}}</span></li>
                         <li class="me-4 jobname-item"><strong><i class="fa-solid fa-briefcase icon-size"></i> 직업명</strong> <br>      {{i['모집직종']}}</li>
                           <!-- <li class="me-3">임금: {{i['임금형태']}}</li> -->
@@ -154,9 +155,10 @@
                           <li class="me-4 job-item"><strong><i class="fa-solid fa-file icon-size"></i> 고용형태</strong> <br> <span class="ms-3">{{i['고용형태']}}</span></li>
                           <li class="me-4 job-item"><strong><i class="fa-solid fa-clipboard-list icon-size"></i> 요구학력</strong><br>  <span class="ms-3">{{i['요구학력']}}</span></li>
                           <li class="job-item"><strong><i class="fa-solid fa-folder-open icon-size"></i> 요구경력</strong> <br> <span class="ms-3">{{i['요구경력']}}</span></li>
+                           <li class="per-item"><strong>{{i['percent']}}</strong> </li>
                         </ul>
                     </div>
-              <div class="col-lg-2 d-flex flex-column align-items-center">
+              <div class="col-lg-1 d-flex flex-column align-items-center">
                 <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button>
                 <div class="mt-2"></div>
                 <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#applyModal">분석 더보기</button>

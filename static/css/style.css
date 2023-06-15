@@ -32,7 +32,11 @@ h5,
 h6 {
   font-family: "Nunito", sans-serif;
 }
-
+.add-font{
+  font-weight: normal;
+  color: gray !important;
+  font-size: 10px !important;
+}
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
@@ -1362,7 +1366,7 @@ h6 {
   border: none;
 }
 .more-btn{
-  background-color: #4772ff;
+  background-color: red;
 }
 .company-item {
   font-weight: bold;
@@ -1424,8 +1428,15 @@ color: #3E3E3E;
   opacity: 0;
   transition: opacity 0.3s;
 }
-
+.per-item{
+  font-size: 30px;
+}
 .tooltip2:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+@media (max-width: 1199px) {
+  .job-card{
+    padding: 20px;
+  }
 }
