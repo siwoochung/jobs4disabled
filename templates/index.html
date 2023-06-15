@@ -144,10 +144,13 @@
                             <br> 
                             <span class="ms-3">{{i['pay']}}</span>
                             <br>
-                            {%if i['pay_month_diff'] >= 0%}
-                            <span class="ms-3 color-positive tooltip2">{{i['pay_month_diff']}}% <i class="bi bi-question-circle"></i><span class="tooltiptext">This is a tooltip</span></span>
+                            <br>
+                            {%if i['pay_month_diff'] == 0%}
+                            <span class="ms-3 color-info tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                            {%elif i['pay_month_diff'] >= 0%}
+                            <span class="ms-3 color-positive tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                             {%else%}
-                            <span class="ms-3 color-negative">{{i['pay_month_diff']}}%</span>
+                            <span class="ms-3 color-negative tooltip2">{{i['pay_month_diff']}}%<i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                             {%endif%}
 
                           </li>
