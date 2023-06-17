@@ -1264,6 +1264,53 @@ h6 {
   padding-top:30px !important;
   padding-bottom:30px !important;
 }
+.mb-h{
+  display: none !important;
+}
+@media (max-width: 700px) {
+  .job-card {
+    height: 235px;
+  }
+  .job-card i{
+    display:none;
+  }
+  .job-card li{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .mb-l {
+    display: none !important;
+  }
+  .mb-h{
+    display: block !important;
+  }
+  .mobile-b{
+    display: block;
+  }
+  .my-row{
+    display:flex;
+  }
+  .jobname-item {
+  width: 150px !important; 
+  color: #3E3E3E;
+  }
+  .job-item {
+  width: 150px !important; 
+  color: #3E3E3E;
+  }
+  .income-item {
+  width: 150px !important; 
+  color: #3E3E3E;
+  }
+  .companyt-item {
+  width: 150px !important; 
+  color: #3E3E3E;
+}
+@media (max-width: 455px) {
+  .job-card {
+    height: 330px;
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
@@ -1376,7 +1423,6 @@ h6 {
 .companyt-item {
   width: 95px; 
   color: #3E3E3E;
-
 }
 .jobname-item {
   width: 195px; 
