@@ -1,43 +1,20 @@
 import pandas as pd
 from ast import literal_eval
 from calculate_income import convert, get_average, compare_income
-
+from naver_distance import calculate_distance
+import random
 
 data = pd.read_csv("data/temp_data.csv")
-MINIMUM_INCOME = 9620
-
-def convert(x):
-	if x < MINIMUM_INCOME:
-		x = MINIMUM_INCOME
-	if x<100000:
-		x = x * 200
-	elif x > 10000000:
-		x = x / 12
-		if x < 1800000:
-			week_hours = (x / MINIMUM_INCOME) / 5 #weekly working hours
-			y = 40/week_hours  #hours_differnce
-			x = x * y
-	elif x < 1800000:
-		week_hours = (x / MINIMUM_INCOME) / 5 #weekly working hours
-		y = 40/week_hours  #hours_differnce
-		x = x * y
-
-	return x
-
-# data = pd.read_csv("data/temp_data.csv")
-# data["pay_month"] = data['임금'].apply(convert)
-
-# print(data["pay_month"].head(10))
-
 def get_average():
 	return data["pay_month"].mean()
 
 def compare_income(x):
-	average_income = MINIMUM_INCOME * 200 
+	average_income = get_average()
 	p = (abs(x-average_income))/((x+average_income) / 2) * 100
 	if x < average_income:
 		p = p * -1
 	return p
+
 
 def pick_jobs(n):
 	NUMS = n
@@ -56,31 +33,38 @@ def pick_jobs(n):
 	required_degree = random_data["요구학력"].tolist()
 	required_work = random_data["요구경력"].tolist()
 	company = random_data["Company"].tolist()
+	address = random_data["사업장 주소"].tolist()
 
 	pay_month = random_data["pay_month"].tolist()
 	pay_month_diff = random_data["pay_month_diff"].tolist()
 
 	final_lst=[]
+	# i = 0
+	# while i < NUMS:
 	for i in range(NUMS):
+		# if (calculate_distance(address[i])>60):
+		# 	continue
+
 		dic = dict()  #{}
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
+		dic["add"]=calculate_distance(address[i])
 
+		
 		pay_month_diff[i] = round(pay_month_diff[i],1)
 		dic["pay_month_diff"] = pay_month_diff[i]
+		dic["percent"] = random.randint(20,100)
 
-		if pay[i]<MINIMUM_INCOME:
-			pay[i] = MINIMUM_INCOME
 		pay[i] = "{:,}".format(pay[i])
 		if paytype[i] == 0:
 			# dic["pay"]= "시급: ₩"+ str(pay[i])
-			dic["pay"]= "시급: "+str(pay[i])
+			dic["pay"]= str(pay[i])
 		elif paytype[i]== 1:
-			dic["pay"]= "주: " + str(pay[i])
+			dic["pay"]= str(pay[i])
 		elif paytype[i] == 2:
-			dic["pay"]= "월: " + str(pay[i])
+			dic["pay"]= str(pay[i])
 		else:
-			dic["pay"]= "연: " +str(pay[i])
+			dic["pay"]= str(pay[i])
 		# dic[""]=company[i]
 
 		dic["고용형태"]=hire_type[i]
@@ -128,7 +112,7 @@ def pick_jobs(n):
 		else:
 			dic["요구경력"]="3년 이상"
 		final_lst.append(dic)
-
+		# i +=1
 		
 
 	return final_lst
@@ -420,6 +404,6 @@ def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, preco
 
 	return final_data
 
-# print(pick_jobs(10))
+print(pick_jobs(10))
 #data["Classification"] = data["Classification"].apply(literal_eval)
 
