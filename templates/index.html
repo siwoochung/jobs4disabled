@@ -133,7 +133,7 @@
                   <div class="row">
                     <div class="col-lg-11">
                         <ul class="job-info">
-                      <li class="me-4 company-item"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font" style="color:gray !important; font-weight: normal"> 약 {{i['add']}} 분 거리</span>  </li>
+                      <li class="me-4 company-item mm-3"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font"> 약 {{i['add']}} 분 거리</span>  </li>
 
                       <li class="me-4 companyt-item"><strong><i class="fa-solid fa-city icon-size"></i> 기업형태</strong> <br> <span class="ms-4">{{i['기업형태']}}</span></li>
                         <li class="me-4 jobname-item"><strong><i class="fa-solid fa-briefcase icon-size"></i> 직업명</strong> <br>      {{i['모집직종']}}</li>
@@ -144,13 +144,13 @@
                             <br> 
                             <span class="ms-3">{{i['pay']}}</span>
                             <br>
-                            <br>
+           
                             {%if i['pay_month_diff'] == 0%}
                             <span class="ms-3 color-info tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                             {%elif i['pay_month_diff'] >= 0%}
                             <span class="ms-3 color-positive tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                             {%else%}
-                            <span class="ms-3 color-negative tooltip2">{{i['pay_month_diff']}}%<i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                            <span class="ms-3 color-negative tooltip2">{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                             {%endif%}
 
                           </li>
@@ -158,7 +158,13 @@
                           <li class="me-4 job-item"><strong><i class="fa-solid fa-file icon-size"></i> 고용형태</strong> <br> <span class="ms-3">{{i['고용형태']}}</span></li>
                           <li class="me-4 job-item"><strong><i class="fa-solid fa-clipboard-list icon-size"></i> 요구학력</strong><br>  <span class="ms-3">{{i['요구학력']}}</span></li>
                           <li class="job-item"><strong><i class="fa-solid fa-folder-open icon-size"></i> 요구경력</strong> <br> <span class="ms-3">{{i['요구경력']}}</span></li>
-                           <li class="per-item"><strong>{{i['percent']}}</strong> </li>
+                          {%if i['percent'] >= 70 %}
+                           <li class="per-item1 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                           {%elif 30 < i['percent']  < 70%}
+                            <li class="per-item2 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                           {%elif i['percent'] <= 30%}
+                           <li class="per-item3 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                            {%endif%}
                         </ul>
                     </div>
               <div class="col-lg-1 d-flex flex-column align-items-center">

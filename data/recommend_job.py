@@ -1,6 +1,18 @@
 import pandas
+import requests
 
-data = pandas.read_csv("job_data.csv")
+url = "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002738628&fileDetailSn=1&insertDataPrcus=N"  # Replace with the actual file download URL
+
+response = requests.get(url)
+
+if response.status_code == 200:
+    with open("data.csv", "wb") as file:
+        file.write(response.content)
+    print("File downloaded successfully.")
+else:
+    print("Failed to download the file.")
+
+data = pandas.read_csv("data.csv")
 
 print(data)
 print(data.head(10))    # print first 10 rows of data 
@@ -21,7 +33,7 @@ print(data_by_typeP)
 data_by_typeH = data.groupby("고용형태").count()
 print(data_by_typeH)
 
-data_recommend= data.drop(columns=["연번","구인신청일자","모집기간","사업장명","입사형태","담당기관","등록일","연락처"])
+data_recommend= data.drop(columns=["연번","구인신청일자","모집기간","입사형태","담당기관","등록일","연락처"])
 print(data_recommend)
 
 data_month = data_recommend[data_recommend["임금형태"]=="월급"]

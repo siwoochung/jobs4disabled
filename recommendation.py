@@ -39,12 +39,18 @@ def pick_jobs(n):
 	pay_month_diff = random_data["pay_month_diff"].tolist()
 
 	final_lst=[]
+	# i = 0
+	# while i < NUMS:
 	for i in range(NUMS):
+		# if (calculate_distance(address[i])>60):
+		# 	continue
+
 		dic = dict()  #{}
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
-
 		dic["add"]=calculate_distance(address[i])
+
+		
 		pay_month_diff[i] = round(pay_month_diff[i],1)
 		dic["pay_month_diff"] = pay_month_diff[i]
 		dic["percent"] = random.randint(20,100)
@@ -106,7 +112,7 @@ def pick_jobs(n):
 		else:
 			dic["요구경력"]="3년 이상"
 		final_lst.append(dic)
-
+		# i +=1
 		
 
 	return final_lst

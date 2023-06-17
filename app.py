@@ -52,7 +52,7 @@ def index():
 				if contract_checked==True or fulltime_checked==True or parttime_checked==True:
 					lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
 		else: 
-			lst_jobs = pick_jobs(10)
+			lst_jobs = pick_jobs(5)
 		if 'username' in session: #when user is logged in 
 			isLogin = True 
 			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, username=session['username'])
