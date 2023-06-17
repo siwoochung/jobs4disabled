@@ -57,13 +57,9 @@ h6 {
 }
 
 .header-name{
-<<<<<<< HEAD
-  font-size: 24px !important;
-  color:#006BB0;
-=======
-  font-size: 60px !important;
-  color:#006BB0 !important;
->>>>>>> 49a4da43080337cc633472970565ca914d03e452
+  font-size: 30px !important;
+  color:white !important;
+  font-family: 'Righteous', cursive!important;;
 }
 /*--------------------------------------------------------------
 # Back to top button
@@ -374,7 +370,7 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #dbc9e8;
+  background-color:#4872FF;
   padding-left: 20px;
   /* Toggle Sidebar Button */
   /* Search Bar */
@@ -467,7 +463,7 @@ h6 {
 }
 
 .header-nav .nav-profile {
-  color: #012970;
+  color: #FFFFFF;
 }
 
 .header-nav .nav-profile img {
