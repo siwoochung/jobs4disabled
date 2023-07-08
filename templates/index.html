@@ -265,7 +265,12 @@
             </button>
           </div>
           <div class="modal-body">
-             <canvas id="myChart"></canvas>
+            <h4>Graph title</h4>
+            <p> Short description </p>
+            <canvas id="myChart"></canvas>
+            <h4>Graph title</h4>
+            <p> Short description </p>
+            <canvas id="myChart2"></canvas>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -323,6 +328,29 @@
           beginAtZero: true
         }
       }
+    }
+  });
+  </script>
+  <script>
+  const ctx2 = document.getElementById('myChart2');
+  var data = JSON.parse('{{data2}}')
+  new Chart(ctx2, {
+    type: 'pie',
+    data: {
+      labels: ['10% 이하', '30% 이하','50% 이하','70% 이하','90% 이하','90% 이상'],
+      datasets: [{
+        label: '직업매칭도',
+        data: data,
+        borderWidth: 1,
+        backgroundColor: ["rgba(64,137,53,0.5)", "rgba(72,114,255,0.5)","rgba(185,0,0,0.5)","rgba(255,190,41,0.5)","rgba(117,0,220,0.5)","rgba(0,222,191,0.5)"]
+      }]
+    },
+    options: {
+      plugins:{
+        legend: {
+          display: false //Remove legend 
+        }
+      },
     }
   });
 </script>

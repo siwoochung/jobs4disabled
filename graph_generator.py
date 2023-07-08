@@ -1,5 +1,7 @@
 import pandas as pd
 from calculate_income import convert, get_average, compare_income
+from naver_distance import calculate_distance 
+import random
 
 
 data = pd.read_csv("data/temp_data.csv")
@@ -20,4 +22,32 @@ def income_compare():
 
         return [round(average,0) ,round(top25_avg,0),round(low25_avg,0)]
 
-print(income_compare())
+def similarity_graph():
+        lst = []
+        for i in range(100):
+                lst.append(random.randint(0,100))
+        # percent_lst = data["percent"].tolist()
+        percent_lst = lst
+        count10 = 0 
+        count30 = 0
+        count50 = 0
+        count70 = 0
+        count90 = 0
+        count100 = 0
+        for i in percent_lst:
+                if 0<= i <=10:
+                        count10 += 1
+                if 10< i <=30:
+                        count30 += 1
+                if 30< i <=50:
+                        count50 += 1
+                if 50< i <=70:
+                        count70 += 1
+                if 70< i <=90:
+                        count90 += 1
+                else:
+                        count100 += 1
+        return [count10,count30,count50,count70,count90,count100]
+
+
+
