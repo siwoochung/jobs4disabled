@@ -34,6 +34,7 @@ def pick_jobs(n):
 	required_work = random_data["요구경력"].tolist()
 	company = random_data["Company"].tolist()
 	address = random_data["사업장 주소"].tolist()
+	job_id = random_data["id"].tolist()
 
 	pay_month = random_data["pay_month"].tolist()
 	pay_month_diff = random_data["pay_month_diff"].tolist()
@@ -49,7 +50,7 @@ def pick_jobs(n):
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
 		dic["add"]=calculate_distance(address[i])
-
+		dic["id"] = job_id[i]
 		
 		pay_month_diff[i] = round(pay_month_diff[i],1)
 		dic["pay_month_diff"] = pay_month_diff[i]
