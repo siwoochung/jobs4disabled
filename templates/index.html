@@ -198,8 +198,8 @@
                   <!-- <button type="button" class="btn btn-primary more-btn mt-4 my-ss" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button> -->
                   <br>
                   <br>
-                <button type="button" class="btn btn-primary more-btn back-green" data-bs-toggle="modal" data-bs-target="#applyModal">분석 더보기</button>
-                <button type="button" class="btn btn-primary more-btn mt-2" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">지원하기</button>
+                <button type="button" class="btn btn-primary more-btn back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+                <button type="button" class="btn btn-primary more-btn mt-2" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button>
               </div>
 
               <div class="my-row">
@@ -255,7 +255,6 @@
       </div>
     </div>
 
-
     <div class="modal fade" id="dataModal-{{i['id']}}" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -266,8 +265,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <!-- {{i["Company"]}} -->
-            <canvas id="myChart"></canvas>
+             <canvas id="myChart"></canvas>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -276,6 +274,7 @@
         </div>
       </div>
     </div>
+
     {% endfor %} 
 
   </main><!-- End #main -->
@@ -326,7 +325,7 @@
       }
     }
   });
-  </script>
+</script>
 
   <!-- Template Main JS File -->
   <script src="../static/js/main.js"></script>

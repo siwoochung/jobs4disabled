@@ -48,10 +48,9 @@ def pick_jobs(n):
 
 		dic = dict()  #{}
 		dic["Company"] = company[i]
-		dic["모집직종"]= name[i]
-		dic["add"]= calculate_distance(address[i])
-		dic["id"]= job_id[i]
-
+		dic["모집직종"]=name[i]
+		dic["add"]=calculate_distance(address[i])
+		dic["id"] = job_id[i]
 		
 		pay_month_diff[i] = round(pay_month_diff[i],1)
 		dic["pay_month_diff"] = pay_month_diff[i]
