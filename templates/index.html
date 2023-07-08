@@ -306,12 +306,20 @@
     data: {
       labels: ['평균', '상위 25%', '하위 25%'],
       datasets: [{
-        label: '# of Votes',
+        label: '월급',
         data: data,
-        borderWidth: 1
+        borderWidth: 1,
+        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
+        borderColor: ['', '', '']
+
       }]
     },
     options: {
+      plugins: {
+        legend: {
+          display: false  // Remove legend
+        }
+    },
       scales: {
         y: {
           beginAtZero: true
