@@ -305,14 +305,20 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['평균', '상위 25%', '하위 25%'],
+      labels: ['상위 25%', '평균', '하위 25%'],
       datasets: [{
-        label: '# of Votes',
+        label: '월급',
         data: data,
-        borderWidth: 1
+        borderWidth: 1,
+        backgroundColor: ["rgba(64,137,53,0.5)", "rgba(135,135,135,0.5)","rgba(185,0,0,0.5)"]
       }]
     },
     options: {
+      plugins:{
+        legend: {
+          display: false //Remove legend 
+        }
+      },
       scales: {
         y: {
           beginAtZero: true
