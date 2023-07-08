@@ -1256,13 +1256,71 @@ h6 {
   dispaly:block;
 }
 .job-card{
-/*  width: 870px;*/
-/*  color:black !important;*/
   height: 135px;
   padding-left:25px;
   padding-right:30px;
   padding-top:30px !important;
   padding-bottom:30px !important;
+}
+.mb-h{
+  display: none !important;
+}
+@media (max-width: 1000px) {
+  .job-card{
+      height: 235px;
+
+  }
+  .job-card i{
+    display: none;
+  }
+  .job-card li{
+    margin:0 !important;
+    padding: 0 !important;
+  }
+  .mb-l{
+    display: none !important;
+  }
+  .mb-h{
+    display: block !important;
+  }
+  .mobile-b{
+    display: block;
+  }
+  .my-row{
+    display:flex;
+  }
+  .jobname-item {
+  width: 150px !important; 
+  }
+  .job-item {
+    width: 150px !important; 
+  }
+  .companyt-item {
+  width: 150px !important; 
+  }
+  .income-item {
+    width: 150px !important;  
+  }
+}
+@media (max-width: 455px) {
+  .job-info{
+    display: block !important;
+    margin-top:0 !important;
+  }
+  .job-card{
+      height: 370px;
+
+  }
+  .more-btn{
+/*    display: inline-block !important;*/
+    margin-top: 5px !important;
+  }
+  .mm-h{
+    display: none !important;
+  }
+  .my-ss{
+    margin-left: 50px !important;
+  }
 }
 /*--------------------------------------------------------------
 # Footer
