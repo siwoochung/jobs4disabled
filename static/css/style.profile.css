@@ -10,6 +10,7 @@ body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;
+  height: 100%;
 }
 
 a {
@@ -1069,19 +1070,13 @@ h6 {
 .footer {
   padding: 20px 0;
   font-size: 14px;
+  height: 50px;
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
 }
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
-}
-
-.footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
   color: #012970;
 }
 
@@ -1133,4 +1128,31 @@ h6 {
   object-fit:cover;
   object-position: center;
 }
+.section-title {
+  text-align: center;
+  padding: 30px 0;
+  position: relative;
+}
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  color: #5f687b;
+  position: relative;
+  z-index: 2;
+}
 
+.section-title span {
+  position: absolute;
+  top: 45px;
+  color: rgba(109, 109, 109,0.1);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 55px;
+  text-transform: uppercase;
+  line-height: 0;
+}
