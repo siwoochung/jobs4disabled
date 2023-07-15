@@ -1152,7 +1152,7 @@ h6 {
 .section-title span {
   position: absolute;
   top: 45px;
-  color: rgba(109, 109, 109,0.1);
+  color: rgba(109, 109, 109,0.2);
   left: 0;
   right: 0;
   z-index: 1;
