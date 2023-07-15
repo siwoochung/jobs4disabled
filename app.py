@@ -112,6 +112,15 @@ def profile():
 	else:
 		return redirect (url_for('index'))
 
+@app.route('/FAQ')
+def faq(): 
+	if 'username' in session:
+		username = session['username']
+		interest = get_interest(username)
+		return render_template("FAQ.html", username=username,interest=interest, isLogin=isLogin)
+	else:
+		return redirect (url_for('index'))
+
 
 
 if __name__=="__main__":

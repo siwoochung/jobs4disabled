@@ -135,87 +135,91 @@
  
 
   <main id="main" class="main">
+  <section id = "About Us">
+    <div class = "container">
+      <h2 class="text-center mb-3 mt-3">About Us</h2>
+      <h5>INCLUSO: .</h5>
 
-    <div class="container">
-      <h3 class="mt-2 mb-3">내 프로필</h3>
-      <div class = "row">
-        <div class="card p-0">
-          <div class = "row">
-            <div class="col-4 px-5 pt-3">
-                <div class="img-container rounded-circle overflow-hidden">
-                  <img src="../static/images/logo.png" class="card-img-top img-fluid profile-img">
-                </div>
-              <div>
-                <div class="card-body mt-3">
-                  <h5 class="ms-4">{{username}}</h5>
-                </div>
-              </div>
-            </div>
-            <div class="col-8">
-              <div class="card-body align-items-center">
-                <ul class="my-info">
-                  <li class="mt-5 mb-4">나이: 20</li>
-                  <li class="mb-4">성별: 여</li>
-                  <li class="mb-4">연락처: 010-1234-5678</li>
-                  <li class="mb-4">Interest: Society</li>
-             </div>
-            </div>
-          </div>
-        </div>
+
+  </section>
+  <section id = "faq">
+    <div class = "container">
+      <h2 class = "text-center mb-3 mt-3">자주 묻는 질문</h2>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          How should I submit a resume?
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
       </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          Can I create two profiles with one email?
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+          How do I know I am accepted to the job?
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+          Where are the job application deadlines?
+        </button>
+      </h2>
+      <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+          I applied last month and wasn't accepted; can I reapply this month? 
+        </button>
+      </h2>
+      <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+      </div>
+    </div>
+  </div>
+    </div>
 
-<div class="container content-container mt-5">
-  <h3 class="mt-5">입사 지원서 현황</h3>
-  <table class="table table-hover mt-4">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>사업장명</th>
-        <th>지원 포지션</th>
-        <th>지원서 현황</th>
-        <th>지원 마감일</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Company A</td>
-        <td>Position A</td>
-        <td>지원서 제출</td>
-        <th>2023/07/10</th>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Company B</td>
-        <td>Position B</td>
-        <td>지원서 제출</td>
-        <th>2023/12/05</th>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Company C</td>
-        <td>Position C</td>
-        <td>지원서 미제출</td>
-        <th>2024/12</th>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Company D</td>
-        <td>Position D</td>
-        <td>지원서 제출</td>
-        <th>2023/6/1</th>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  </section>
+  <section id = "contact">
+    <div class="container">
+      <h2 class="text-center mt-5">Contact</h2>
+        <div class="row">
+          <div class="col-6">
+            <h5 class="text-center mt-3"><i class="fa-sharp fa-solid fa-envelope"></i> abc@gmail.com</h5>
+          </div>
+          <div class="col-6">
+            <h5 class="text-center mt-3"><i class="bi bi-chat-dots-fill"></i> abcdef</h5>
+          </div>
+        </div>
 
-  </main><!-- End #main -->
+    </div>
+  </section>
+  </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>INLCUSO</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>INCLUSO</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Footer -->
 
