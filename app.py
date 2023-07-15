@@ -6,7 +6,7 @@ import pandas as pd
 from register_login import register,login_check, get_interest
 from recommendation import pick_jobs, pick_jobs_filter_by_class, pick_jobs_filter_by_hire_type
 from datetime import timedelta
-from graph_generator import income_compare
+from graph_generator import income_compare, similarity_graph
 import json
 
 app = Flask(__name__)
@@ -34,6 +34,8 @@ def index():
 	global isLogin, fill, business_checked, it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked, contract_checked,fulltime_checked,parttime_checked
 	income_compare_data = income_compare()
 	income_compare_data = json.dumps(income_compare_data)
+	sim_compare_data = similarity_graph()
+	sim_compare_data = json.dumps(sim_compare_data)
 
 	if request.method=='POST':
 		business_checked = request.form.get("business") != None
@@ -60,10 +62,10 @@ def index():
 			lst_jobs = pick_jobs(3)
 		if 'username' in session: #when user is logged in 
 			isLogin = True 
-			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data)
+			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
 		else: # when user is not logged in 
 			isLogin = False  
-			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data)
+			return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
 
 @app.route('/login',methods=['GET','POST'])
 def login():
