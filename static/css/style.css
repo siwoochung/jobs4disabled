@@ -10,6 +10,10 @@ body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;
+  min-height: 100vh;
+      display: flex;
+    flex-direction: column;
+
 }
 
 a {
@@ -1338,19 +1342,15 @@ h6 {
 .footer {
   padding: 20px 0;
   font-size: 14px;
+  
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
+      margin-top: auto;
+
 }
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
-}
-
-.footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
   color: #012970;
 }
 
