@@ -1504,6 +1504,19 @@ color: #3E3E3E;
 .per-item1{
   font-size: 30px;
   color:#408935;
+  display: block !important;
+  margin-top: -20px !important;
+}
+.ab{
+    margin-bottom: -15px !important;
+    display: block !important;
+}
+
+.color-black{
+  color:black !important;
+  font-size: 15px !important;
+  font-weight: 700;
+  margin-top: -100px !important;
 }
 .per-item2{
   font-size: 30px;
