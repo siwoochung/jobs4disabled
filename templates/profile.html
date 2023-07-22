@@ -137,20 +137,30 @@
                 </div>
               <div>
                 <div class="card-body mt-3">
+                  <p class="img-change"> <i class="bi bi-camera text-center mx-auto ms-5"></i> Edit </p>
                   <h5 class="ms-4">{{username}}</h5>
                 </div>
               </div>
             </div>
-            <div class="col-8">
+            <div class="col-4">
               <div class="card-body align-items-center">
                 <ul class="my-info">
                   <li class="mt-5 mb-4">나이: 20</li>
                   <li class="mb-4">성별: 여</li>
                   <li class="mb-4">연락처: 010-1234-5678</li>
-                  <li class="mb-4">Interest: Society</li>
+                  <li class="mb-4">관심/희망 분야: Society</li>
              </div>
             </div>
-          </div>
+              <div class="col-4">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <button type="button" class="btn btn-primary more-btn mx-auto ms-5 mb-4 margin-edit" data-bs-toggle="modal" data-bs-target="#applyModal">내 정보 수정</button>
+                <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">내 이력서</button> 
+                <ul class="mx-auto mt-4 text-left level-ul">
+                  <li>장애등급: 3</li>
+                  <li>활동제한: 없음</li>
+                </ul>
+              </div>
+            </div>
         </div>
       </div>
     </div>
