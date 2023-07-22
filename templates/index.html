@@ -86,7 +86,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href={{url_for("profile")}}>
                 <i class="bi bi-person"></i>
                 <span>내 프로필</span>
               </a>
@@ -151,8 +151,8 @@
                   <div class="row">
                     <div class="col-sm-10 col-lg-11">
                       <ul class="job-info">
-                      <li class="me-4 company-item mm-3 mb-l"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">약 {{i['add']}} 분 거리</span>  </li>
-                      <h5 class="me-4 company-item mm-3 mb-h"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">약 {{i['add']}} 분 거리</span>  </h5>
+                      <li class="me-4 company-item mm-3 mb-l"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </li>
+                      <h5 class="me-4 company-item mm-3 mb-h"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </h5>
 
         
 
@@ -189,11 +189,23 @@
 
                           <div class="mb-l">
                           {%if i['percent'] >= 70 %}
-                           <li class="per-item1 ps-5"><strong>{{i['percent']}}%</strong> </li>
+        <li class="per-item1 ps-5 ms-5">
+                      <span class="color-black">직업적 합도</span>
+
+            <strong class="ab">{{ i['percent'] }}%</strong>
+        </li>
+
+
                            {%elif 30 < i['percent']  < 70%}
-                            <li class="per-item2 ps-5"><strong>{{i['percent']}}%</strong> </li>
+         <li class="per-item2 ps-5 ms-5">
+            <strong class="ab">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업적 합도</span>
+        </li>
                            {%elif i['percent'] <= 30%}
-                           <li class="per-item3 ps-5"><strong>{{i['percent']}}%</strong> </li>
+        <li class="per-item3 ps-5 ms-5">
+            <strong class="ab">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업적 합도</span>
+        </li>
                             {%endif%}
                           </div>
                         </ul>
