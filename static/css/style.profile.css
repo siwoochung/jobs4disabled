@@ -1161,3 +1161,19 @@ h6 {
   text-transform: uppercase;
   line-height: 0;
 }
+.level-ul{
+  font-size: 17px !important;
+}
+.margin-edit{
+  margin-left: 13rem !important;
+  background-color: white !important;
+  color: black;
+  border-color: black;
+  margin-top: 5px;
+}
+.margin-edit: hover{
+  color: #006BB0;
+}
+.bi-camera{
+  font-size: 24px;
+}
