@@ -74,7 +74,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../static/images/logo.png" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{username}}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2 color-white">{{username}}</span>
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -190,7 +190,7 @@
                           <div class="mb-l">
                           {%if i['percent'] >= 70 %}
         <li class="per-item1 ps-5 ms-5">
-                      <span class="color-black">직업적 합도</span>
+                      <span class="color-black">직업 적합도</span>
 
             <strong class="ab">{{ i['percent'] }}%</strong>
         </li>
@@ -199,12 +199,12 @@
                            {%elif 30 < i['percent']  < 70%}
          <li class="per-item2 ps-5 ms-5">
             <strong class="ab">{{ i['percent'] }}%</strong>
-            <span class="color-black">직업적 합도</span>
+            <span class="color-black">직업 적합도</span>
         </li>
                            {%elif i['percent'] <= 30%}
         <li class="per-item3 ps-5 ms-5">
             <strong class="ab">{{ i['percent'] }}%</strong>
-            <span class="color-black">직업적 합도</span>
+            <span class="color-black">직업 적합도</span>
         </li>
                             {%endif%}
                           </div>
@@ -273,19 +273,20 @@
               <div class="uploaded">
                 <h5 class="file-title"></h5>
               </div>
+              <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="$('.file-upload-input').trigger('click')">저장된 지원서로 지원하기</button>
               <!-- <label for="formFile" class="form-label">지원서</label>
               <input class="form-control" type="file" id="formFile"> -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-            <button type="button" class="btn btn-primary">변경사항 저장</button>
+            <button type="button" class="btn btn-primary">지원하기</button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="modal fade" id="dataModal-{{i['id']}}" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">데이터 분석</h5>
@@ -293,12 +294,17 @@
             </button>
           </div>
           <div class="modal-body">
-              <h4>월급 비교</h4>
-              <p> 갖고있는 모든 데이터를 기반해 평균, 상위 25%, 하위 25% 의 월급을 표한 그래프입니다.</p>
-             <canvas id="myChart"></canvas>
-              <h4>직업 매칭도</h4>
-              <p> 갖고있는 모든 데이터를 기반해 모든 회원님들의 원하는 직업의 매칭도를 표한 그래프입니다.</p>
-             <canvas id="myChart2"></canvas>
+            <div class="row">
+              <div class="col-6">
+                <h4>월급 비교</h4>
+                <p> 갖고있는 모든 데이터를 기반해 평균, 상위 25%, 하위 25% 의 월급을 표한 그래프입니다.</p>
+                <canvas id="myChart"></canvas>
+              </div>
+              <div class="col-6">
+                <h4>직업 매칭도</h4>
+                <p> 갖고있는 모든 데이터를 기반해 모든 회원님들의 원하는 직업의 매칭도를 표한 그래프입니다.</p>
+                <canvas id="myChart2"></canvas>
+              </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
