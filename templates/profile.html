@@ -153,8 +153,9 @@
             </div>
               <div class="col-4">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <button type="button" class="btn btn-primary more-btn mx-auto ms-5 mb-4 margin-edit" data-bs-toggle="modal" data-bs-target="#applyModal">내 정보 수정</button>
+                <button type="button" class="btn btn-primary more-btn mx-auto mb-4 mt-4" data-bs-toggle="modal" data-bs-target="#applyModal">내 정보 수정</button>
                 <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">내 이력서</button> 
+    <a href="{{ url_for('download_file') }}" class="btn btn-primary">내 지원서 다운로드</a>
                 <ul class="mx-auto mt-4 text-left level-ul">
                   <li>장애등급: 3</li>
                   <li>활동제한: 없음</li>
@@ -173,42 +174,81 @@
         <th>#</th>
         <th>사업장명</th>
         <th>지원 포지션</th>
+        <th>사업장 주소</th>
         <th>지원서 현황</th>
-        <th>지원 마감일</th>
+        <!-- <th>지원 마감일</th> -->
       </tr>
     </thead>
     <tbody>
+      {% for i in final_lst %}
       <tr>
-        <td>1</td>
-        <td>Company A</td>
-        <td>Position A</td>
+        <td>{{loop.index}}</td>
+        <td>{{i["companyname"]}}</td>
+        <td>{{i["jobname"]}}</td>
+        <td>{{i["address"]}}</td>
         <td>지원서 제출</td>
-        <th>2023/07/10</th>
+        <!-- <th>2023/07/10</th> -->
       </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    <h3 class="mt-5">관심 있는 직업 목</h3>
+
+    <table class="table table-hover mt-4">
+    <thead>
       <tr>
-        <td>2</td>
-        <td>Company B</td>
-        <td>Position B</td>
+        <th>#</th>
+        <th>사업장명</th>
+        <th>지원 포지션</th>
+        <th>지원서 현황</th>
+        <!-- <th>지원 마감일</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in final_lst %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td>{{i["companyname"]}}</td>
+        <td>{{i["jobname"]}}</td>
+        <td>{{i["address"]}}</td>
         <td>지원서 제출</td>
-        <th>2023/12/05</th>
+        <!-- <th>2023/07/10</th> -->
       </tr>
-      <tr>
-        <td>3</td>
-        <td>Company C</td>
-        <td>Position C</td>
-        <td>지원서 미제출</td>
-        <th>2024/12</th>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Company D</td>
-        <td>Position D</td>
-        <td>지원서 제출</td>
-        <th>2023/6/1</th>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
+
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">지원서</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="triggerFileInputClick()">지원서 저장하기</button>            <div class="file-upload">
+              <input class="file-upload-input" type='file' onchange="readURL(this)">
+              <div class="drag-text">
+                  
+                  <h3>첨부파일을 드래그해주세요</h3>
+              </div>
+            </div>
+              <div class="uploaded">
+                <h5 class="file-title"></h5>
+              </div>
+              <!-- <label for="formFile" class="form-label">지원서</label>
+              <input class="form-control" type="file" id="formFile"> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<button type="button" class="btn btn-primary" id="saveChangesBtn" onclick="saveChanges('own')">변경사항 저장</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
   </main><!-- End #main -->
 
@@ -234,7 +274,32 @@
 
   <!-- Template Main JS File -->
   <script src="../static/js/main.js"></script>
+  <script>
+function saveChanges(id) {
+    // Perform AJAX request to the Flask route
+    var formData = new FormData();
+    formData.append('uploaded_file', document.querySelector('.file-upload-input').files[0]);
+    
+    fetch('/save_changes2?id=' + id, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert(result);  // Display a message indicating success or failure
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
+    const modal = document.getElementById('applyModal');
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+}
+function triggerFileInputClick() {
+    $('.file-upload-input').trigger('click');
+}
+</script>
 </body>
 
 </html>

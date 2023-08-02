@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- <img src="../static/images/full-logo.png"> -->
+  <title>장애인구인사이트</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/images/favicon.png" rel="icon">
+  <link href="../static/images/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Shantell+Sans&display=swap" rel="stylesheet">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../static/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../static/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../static/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <!-- <img src="../static/images/full-logo.png" alt=""> -->
+        <span class="header-name">INCLUSO</span>
+      </a>
+      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+    </div><!-- End Logo -->
+
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="{{ url_for('search_results') }}">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+
+        {%if isLogin == True %}
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="../static/images/logo.png" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{username}}</span>
+          </a><!-- End Profile Image Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{username}}</h6>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href={{url_for("profile")}}>
+                <i class="bi bi-person"></i>
+                <span>내 프로필</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href={{url_for("faq")}}>
+                <i class="bi bi-question-circle"></i>
+                <span>회사 소개</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href={{url_for("logout")}}>
+                <i class="bi bi-box-arrow-right"></i>
+                <span>로그아웃</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+        
+        {%else%}
+        <a class="btn btn-primary" href={{url_for("login")}}>Login</a>
+
+        {%endif%}
+
+      </ul>     
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1 class="ms-2">채용정보추천</h1>
+      <nav>
+        <ol class="breadcrumb">
+         <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li> -->
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+
+    <section class="section dashboard">
+      <div class="row">
+              <div class="container">
+          {%for i in job_lst%}
+        <!-- Left side columns -->
+       <div class="col-lg-12">
+              <div class="card job-card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-10 col-lg-11">
+                      <ul class="job-info">
+                      <li class="me-4 company-item mm-3 mb-l"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </li>
+                      <h5 class="me-4 company-item mm-3 mb-h"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </h5>
+
+        
+
+                      <div class="my-row">
+                        <li class="me-4 companyt-item"><strong><i class="fa-solid fa-city icon-size"></i> 기업형태</strong> <br> <span class="ms-4">{{i['기업형태']}}</span></li>
+                        <li class="me-4 jobname-item"><strong><i class="fa-solid fa-briefcase icon-size"></i> 직업명</strong> <br>      {{i['모집직종']}}</li>
+                          <li class="me-4 income-item">
+
+                              <strong><i class="bi bi-coin icon-size"></i> 임금 (₩) </strong>
+                              <br> 
+                              <span class="ms-3">{{i['pay']}}</span>
+                              <br>
+             
+                              {%if i['pay_month_diff'] == 0%}
+                              <span class="ms-3 color-info tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              {%elif i['pay_month_diff'] >= 0%}
+                              <span class="ms-3 color-positive tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              {%else%}
+                              <span class="ms-3 color-negative tooltip2">{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              {%endif%}
+
+                            </li>
+                      </div>
+
+                          <!-- <li class="me-3">임금: {{i['임금형태']}}</li> -->
+                          <div class="my-row">
+
+                          
+
+                            <li class="me-4 job-item"><strong><i class="fa-solid fa-file icon-size"></i> 고용형태</strong> <br> <span class="ms-3">{{i['고용형태']}}</span></li>
+                                                      <li class="me-4 job-item"><strong><i class="fa-solid fa-clipboard-list icon-size"></i> 요구학력</strong><br>  <span class="ms-3">{{i['요구학력']}}</span></li>
+                          <li class="job-item"><strong><i class="fa-solid fa-folder-open icon-size"></i> 요구경력</strong> <br> <span class="ms-3">{{i['요구경력']}}</span></li>
+                          </div>
+
+                          <div class="mb-l">
+                          {%if i['percent'] >= 70 %}
+        <li class="per-item1 ps-5 ms-5">
+                      <span class="color-black">직업 적합도</span>
+
+            <strong class="ab">{{ i['percent'] }}%</strong>
+        </li>
+
+
+                           {%elif 30 < i['percent']  < 70%}
+         <li class="per-item2 ps-5 ms-5">
+            <strong class="ab">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업 적합도</span>
+        </li>
+                           {%elif i['percent'] <= 30%}
+        <li class="per-item3 ps-5 ms-5">
+            <strong class="ab">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업 적합도</span>
+        </li>
+                            {%endif%}
+                          </div>
+                        </ul>
+                    </div>
+              <div class="col-lg-1 d-flex flex-column align-items-center mb-l">
+                <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button>
+                <div class="mt-2"></div>
+                <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+              </div>
+              <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center mb-h text-center">
+                <ul class="job-info mt-4">
+                          {%if i['percent'] >= 70 %}
+                           <li class="per-item1 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                           {%elif 30 < i['percent']  < 70%}
+                            <li class="per-item2 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                           {%elif i['percent'] <= 30%}
+                           <li class="per-item3 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                            {%endif%}
+                  </ul>
+                  <!-- <button type="button" class="btn btn-primary more-btn mt-4 my-ss" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button> -->
+                  <br>
+                  <br>
+                <button type="button" class="btn btn-primary more-btn back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+                <button type="button" class="btn btn-primary more-btn mt-2" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button>
+              </div>
+
+              <div class="my-row">
+
+                        <div class="mt-2"></div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          {% endfor %} 
+       
+
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+<!-- End Right side columns -->
+
+      </div>
+    </section>
+
+    <!-- Modal -->
+    {%for i in job_lst%}
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">지원서</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="$('.file-upload-input').trigger('click')">지원서 첨부하기</button>
+            <div class="file-upload">
+              <input class="file-upload-input" type='file' onchange="readURL(this)">
+              <div class="drag-text">
+                  
+                  <h3>첨부파일을 드래그해주세요</h3>
+              </div>
+            </div>
+              <div class="uploaded">
+                <h5 class="file-title"></h5>
+              </div>
+              <!-- <label for="formFile" class="form-label">지원서</label>
+              <input class="form-control" type="file" id="formFile"> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary">변경사항 저장</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="dataModal-{{i['id']}}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">데이터 분석</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+              <h4>월급 비교</h4>
+              <p> 갖고있는 모든 데이터를 기반해 평균, 상위 25%, 하위 25% 의 월급을 표한 그래프입니다.</p>
+             <canvas id="myChart"></canvas>
+              <h4>직업 매칭도</h4>
+              <p> 갖고있는 모든 데이터를 기반해 모든 회원님들의 원하는 직업의 매칭도를 표한 그래프입니다.</p>
+             <canvas id="myChart2"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary">변경사항 저장</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %} 
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>INCLUSO</span></strong>. All Rights Reserved
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../static/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../static/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/vendor/quill/quill.min.js"></script>
+  <script src="../static/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/vendor/php-email-form/validate.js"></script>
+  <script>
+  const ctx = document.getElementById('myChart');
+  var data = JSON.parse('{{data1}}')
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['평균', '상위 25%', '하위 25%'],
+      datasets: [{
+        label: '월급',
+        data: data,
+        borderWidth: 1,
+        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
+        borderColor: ['', '', '']
+
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false  // Remove legend
+        }
+    },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+  <script>
+  const ctx2 = document.getElementById('myChart2');
+  var data = JSON.parse('{{data2}}')
+  new Chart(ctx2, {
+    type: 'pie',
+    data: {
+      labels: ['10% 이하', '30% 이하', '50% 이하','70% 이하','90% 이하','90% 이상'],
+      datasets: [{
+        label: '직업 매칭도 (%)',
+        data: data,
+        borderWidth: 1,
+        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false  // Remove legend
+        }
+    },
+    }
+  });
+</script>
+
+  <!-- Template Main JS File -->
+  <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>
