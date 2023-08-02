@@ -1548,13 +1548,3 @@ color: #3E3E3E;
   margin-bottom: -15px !important;
   
 }
-        .inline-elements {
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-
-.fas {
-    color: #F4E93B !important;
-    font-size: 15px;
-  }

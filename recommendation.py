@@ -45,6 +45,7 @@ def pick_jobs(n):
 	for i in range(NUMS):
 		# if (calculate_distance(address[i])>60):
 		# 	continue
+
 		dic = dict()  #{}
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
