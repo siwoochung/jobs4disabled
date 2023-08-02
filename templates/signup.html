@@ -38,6 +38,10 @@
           </div>
 
           <div class="form-group">
+            <label for="email">주소:</label>
+            <input type="address" name="address" class="form-control" id="address" required>
+          </div>
+          <div class="form-group">
             <label for="phone">전화번호:</label>
             <input type="text" name="phone_number" class="form-control" id="phone_number" required>
           </div>
@@ -60,7 +64,7 @@
     </div>
 
 <div class="card hidden fade-in" id="interestCard">
-                          <img class="card-img-top" src="../static/images/logo.png" alt="logo">
+                          <img class="card-img-top" src="../static/images/logo-2.png" alt="logo">
 
   <div class="card-body">
 
@@ -136,7 +140,26 @@
       </div>
     </div>
     </div>  </div>
+    <div class="form-group">
+        <label for="userType">장애등급:</label>
+        <select class="form-control" id="userType" name="disableLevel">
+          <option value="1">1급</option>
+          <option value="2">2급</option>
+          <option value="3">3급</option>
+          <option value="4">4급</option>
+          <option value="5">5급</option>
+          <option value="6">6급</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="userType">활동제한:</label>
+        <select class="form-control" id="userType" name="isActive">
+          <option value="True">있음</option>
+          <option value="Fale">없음</option>
+        </select>
+    </div>
 </div>
+
 
 
       <div class="form-group">
