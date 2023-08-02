@@ -319,7 +319,7 @@ def save_changes2():
 
             return '"성공적으로 저장되었습니다.!"'
         else:
-            return '오류가 발생했습니다.!'
+            return '오류가 발생했습니.!'
     return 'Invalid request'
 if __name__=="__main__":
         app.run(host='127.0.0.1', port=9000,debug=True)

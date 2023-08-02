@@ -1177,3 +1177,12 @@ h6 {
 .bi-camera{
   font-size: 24px;
 }
+.faq-img2{
+  height:350px;
+  border-radius: 5px;
+}
+.logo-2{
+  height:80px;
+  margin-left: 1px !important;
+  display: inline-block;
+}
