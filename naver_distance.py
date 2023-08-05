@@ -11,13 +11,17 @@ def calculate_distance(address):
 
     # Get the coordinates (latitude and longitude) of the starting point using Geocoding API
     start_url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={start_address}'
+    proxies = {
+    "http": None,
+    "https": None
+    }
 
     headers = {
         'X-NCP-APIGW-API-KEY-ID': client_id,
         'X-NCP-APIGW-API-KEY': client_secret
     }
 
-    start_response = requests.get(start_url, headers=headers).json()
+    start_response = requests.get(start_url, headers=headers, proxies=proxies).json()
 
     try:
         # Extract coordinates if available
