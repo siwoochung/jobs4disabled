@@ -404,6 +404,6 @@ def pick_jobs_filter_by_required_degree(n,none_checked,highschool_checked, preco
 
 	return final_data
 
-print(pick_jobs(10))
+# print(pick_jobs(10))
 #data["Classification"] = data["Classification"].apply(literal_eval)
 
