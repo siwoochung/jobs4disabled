@@ -1270,6 +1270,10 @@ h6 {
   padding-top:30px !important;
   padding-bottom:30px !important;
 }
+.job-card-h:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 .mb-h{
   display: none !important;
 }
