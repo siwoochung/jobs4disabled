@@ -1548,3 +1548,28 @@ color: #3E3E3E;
   margin-bottom: -15px !important;
   
 }
+
+@keyframes star-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+i.fas.fa-star{
+  color: #F8EA0B;
+}
+/* Apply the hover animation to the star icon */
+i.far.fa-star:hover {
+  animation: star-pulse 1s infinite;
+}
+.applied{
+  color:green;
+}
+.not-applied{
+color:darkgray;
+}

@@ -63,13 +63,24 @@ def index():
                                         lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
                 else: 
                         lst_jobs = pick_jobs(3)
-                if 'username' in session: #when user is logged in 
+                if 'username' in session: #when user is logged in
+                        bookmarked_jobs = read_bookmarked_jobs(session['username'])
                         isLogin = True 
-                        return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
+                        return render_template("index.html",bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
                 else: # when user is not logged in 
                         isLogin = False  
-                        return render_template("index.html", job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
-
+                        return render_template("index.html", bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
+def read_bookmarked_jobs(username):
+    file_path = 'users/' + username + '/bookmark_lst.txt'
+    bookmarked_jobs = []
+    try:
+        with open(file_path, "r") as file:
+            for line in file:
+                job_id = int(line.strip())
+                bookmarked_jobs.append(job_id)
+    except FileNotFoundError:
+        pass
+    return bookmarked_jobs
 @app.route('/login',methods=['GET','POST'])
 def login():
         if request.method=='POST':
@@ -137,30 +148,48 @@ def profile():
                         dic["jobname"] = matching_rows["모집직종"].iloc[0]
                         dic["address"] = matching_rows["사업장 주소"].iloc[0]
                         final_lst.append(dic)
-                return render_template("profile.html",final_lst = final_lst, username=username,interest=interest, isLogin=isLogin)
+                bookmarked_jobs = read_bookmarked_jobs(session['username'])
+                final_lst2 = []
+                for i in bookmarked_jobs:
+                        matching_rows = df[df['id'] == i]
+                        dic = {}
+                        dic["companyname"] = matching_rows["Company"].iloc[0]
+                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                        dic["applied"] = False
+                        for j in final_lst:
+                                if j["companyname"] == dic["companyname"]:  
+                                        dic["applied"] = True
+                        final_lst2.append(dic)
+                return render_template("profile.html",bookmarked_jobs=final_lst2, final_lst = final_lst, username=username,interest=interest, isLogin=isLogin)
 
                         
         else:
                 return redirect (url_for('index'))
-bookmarked_jobs = set()
+
 @app.route('/bookmark/<int:job_id>', methods=['POST'])
 def bookmark_job(job_id):
-    file_path = 'users/'+session["username"]+"/bookmark_lst.txt" 
+    file_path = 'users/' + session["username"] + "/bookmark_lst.txt" 
     with open(file_path, "a") as file:
-            file.write(job_id+"\n")
-    return jsonify(message='Job bookmarked successfully'), 200
+        file.write(str(job_id) + "\n")
+    bookmarked_jobs = read_bookmarked_jobs(session['username'])
+    return jsonify(message='Job bookmarked successfully', bookmarked_jobs=bookmarked_jobs), 200
 
 @app.route('/unbookmark/<int:job_id>', methods=['POST'])
 def unbookmark_job(job_id):
-    temp_file = 'users/' + session["username"] + 'temp.txt'
     file_path = 'users/' + session["username"] + "/bookmark_lst.txt"
-    with open(file_path, 'r') as f_in, open(temp_file, 'w') as f_out:
+    temp_file_path = 'users/' + session["username"] + "/bookmark_lst_temp.txt"
+
+    with open(file_path, 'r') as f_in, open(temp_file_path, 'w') as f_out:
         for line in f_in:
             if int(line.strip()) != job_id:
                 f_out.write(line)
+
+    # Remove the original bookmark_lst.txt file and rename the temp file to the original name
     os.remove(file_path)
-    os.rename(temp_file, file_path)  # Rename back to the original file path
-    return jsonify(message='Job unbookmarked successfully'), 200
+    os.rename(temp_file_path, file_path)
+    bookmarked_jobs = read_bookmarked_jobs(session['username'])
+    return jsonify(message='Job unbookmarked successfully', bookmarked_jobs=bookmarked_jobs), 200
 @app.route('/FAQ')
 def faq(): 
         if 'username' in session:

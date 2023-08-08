@@ -83,7 +83,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{url_for("profile")}}">
                 <i class="bi bi-person"></i>
                 <span>내 프로필</span>
               </a>
@@ -167,7 +167,7 @@
     </div>
 
 <div class="container content-container mt-5">
-  <h3 class="mt-5">입사 지원서 현황</h3>
+  <h3 class="mt-5"><i class="fa-solid fa-file-import"></i> 입사 지원서 현황</h3>
   <table class="table table-hover mt-4">
     <thead>
       <tr>
@@ -186,13 +186,13 @@
         <td>{{i["companyname"]}}</td>
         <td>{{i["jobname"]}}</td>
         <td>{{i["address"]}}</td>
-        <td>지원서 제출</td>
+        <td class="applied">지원서 제출</td>
         <!-- <th>2023/07/10</th> -->
       </tr>
       {% endfor %}
     </tbody>
   </table>
-    <h3 class="mt-5">관심 있는 직업 목</h3>
+    <h3 class="mt-5"> <i class="fas fa-star mt-4"></i> 관심 있는 직업 목록</h3>
 
     <table class="table table-hover mt-4">
     <thead>
@@ -200,18 +200,23 @@
         <th>#</th>
         <th>사업장명</th>
         <th>지원 포지션</th>
+        <th>사업장 주소</th>
         <th>지원서 현황</th>
         <!-- <th>지원 마감일</th> -->
       </tr>
     </thead>
     <tbody>
-      {% for i in final_lst %}
+      {% for i in bookmarked_jobs %}
       <tr>
         <td>{{loop.index}}</td>
         <td>{{i["companyname"]}}</td>
         <td>{{i["jobname"]}}</td>
         <td>{{i["address"]}}</td>
-        <td>지원서 제출</td>
+        {% if i["applied"] == True %}
+        <td class="applied">지원서 제출</td>
+        {% else %}
+        <td  class="not-applied">지원서 미제출</td>
+        {% endif %}
         <!-- <th>2023/07/10</th> -->
       </tr>
       {% endfor %}

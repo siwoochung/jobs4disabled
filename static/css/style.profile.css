@@ -1186,3 +1186,15 @@ h6 {
   margin-left: 1px !important;
   display: inline-block;
 }
+.applied{
+  color:green;
+}
+.not-applied{
+color:darkgray;
+}
+.fas{
+  color: #F8EA0B;
+}
+.fa-file-import{
+  color:green;
+}

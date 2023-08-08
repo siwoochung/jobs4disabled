@@ -152,7 +152,12 @@
                     <div class="col-sm-10 col-lg-11">
                       <ul class="job-info">
                       <li class="me-4 company-item mm-3 mb-l">
-    <i class="fas fa-star mt-4 unfilled-bookmark" id="bookmark-icon-{{i['id']}}"></i>
+{% if i['id'] in bookmarked_jobs %}
+ <i class="fas fa-star mt-4" id="bookmark-icon-{{i['id']}}" data-bookmarked="{{i['id'] in bookmarked_jobs}}"></i>
+
+{% else %}
+  <i class="far fa-star mt-4" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="False"></i>
+{% endif %}
 {{i['Company']}} 
  <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </li>
                       <h5 class="me-4 company-item mm-3 mb-h"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </h5>
@@ -364,120 +369,95 @@
 
   <!-- Template Main JS File -->
   <script src="../static/js/main.js"></script>
-  <script>
-      {% for i in job_lst %}
+<script>
+// Define the bookmarked_jobs array
+var bookmarked_jobs = {{ bookmarked_jobs|tojson }};
 
-  const myChart{{i['id']}} = document.getElementById('myChart-{{i['id']}}');
-  var data = JSON.parse('{{data1}}')
-  new Chart(myChart{{i['id']}}, {
-    type: 'bar',
-    data: {
-      labels: ['평균', '상위 25%', '하위 25%'],
-      datasets: [{
-        label: '월급',
-        data: data,
-        borderWidth: 1,
-        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
-        borderColor: ['', '', '']
+// Function to update the bookmarked_jobs array on the client side
+function updateBookmarkedJobs(newBookmarkedJobs) {
+  bookmarked_jobs = newBookmarkedJobs;
+  // Now you can use the updated bookmarked_jobs array as needed in your frontend code
+  // For example, to check if a job ID is bookmarked, you can use bookmarked_jobs.includes(jobId)
+}
 
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false  // Remove legend
-        }
-    },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+// Function to handle bookmarking a job
+function bookmarkJob(jobId) {
+  fetch(`/bookmark/${jobId}`, {
+    method: 'POST'
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Update the bookmarked_jobs array on the client side with the updated data from the response
+      updateBookmarkedJobs(data.bookmarked_jobs);
+      updateBookmarkIcon(jobId, true); // Update the bookmark icon appearance
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// Function to handle unbookmarking a job
+function unbookmarkJob(jobId) {
+  fetch(`/unbookmark/${jobId}`, {
+    method: 'POST'
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Update the bookmarked_jobs array on the client side with the updated data from the response
+      updateBookmarkedJobs(data.bookmarked_jobs);
+      updateBookmarkIcon(jobId, false); // Update the bookmark icon appearance
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// Function to toggle the bookmarked status and call the appropriate backend function
+function toggleBookmarkStatus(jobId, bookmarked) {
+  if (bookmarked) {
+    unbookmarkJob(jobId);
+  } else {
+    bookmarkJob(jobId);
+  }
+}
+
+// Function to update the bookmark icon appearance based on the bookmarked status
+function updateBookmarkIcon(jobId, bookmarked) {
+  const bookmarkIcon = document.getElementById('bookmark-icon-' + jobId);
+  if (bookmarked) {
+    bookmarkIcon.classList.remove('far'); // Remove unfilled star class
+    bookmarkIcon.classList.add('fas'); // Add filled star class
+  } else {
+    bookmarkIcon.classList.remove('fas'); // Remove filled star class
+    bookmarkIcon.classList.add('far'); // Add unfilled star class
+  }
+}
+
+// Bind the click event to the bookmark icons
+{% for i in job_lst %}
+(function(jobId) {
+  const bookmarkIcon = document.getElementById('bookmark-icon-' + jobId);
+  let bookmarked = bookmarkIcon.dataset.bookmarked === 'True';
+
+  bookmarkIcon.addEventListener('click', function() {
+    toggleBookmarkStatus(jobId, bookmarked); // Toggle the bookmarked status and call the appropriate backend function
+    bookmarked = !bookmarked; // Toggle the bookmarked status locally
+    bookmarkIcon.dataset.bookmarked = bookmarked; // Update the data-bookmarked attribute to reflect the new status
+
+    // Update the bookmarked_jobs array dynamically based on the updated data-bookmarked attribute
+    if (bookmarked) {
+      bookmarked_jobs.push(jobId);
+    } else {
+      const index = bookmarked_jobs.indexOf(jobId);
+      if (index !== -1) {
+        bookmarked_jobs.splice(index, 1);
       }
     }
   });
+})({{ i['id'] }});
+{% endfor %}
+</script>
 
-  const myChart2{{i['id']}} = document.getElementById('myChart2-{{i['id']}}');
-  var data = JSON.parse('{{data2}}')
-  new Chart(myChart2{{i['id']}}, {
-    type: 'pie',
-    data: {
-      labels: ['10% 이하', '30% 이하', '50% 이하','70% 이하','90% 이하','90% 이상'],
-      datasets: [{
-        label: '직업 매칭도 (%)',
-        data: data,
-        borderWidth: 1,
-        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false  // Remove legend
-        }
-    },
-    }
-  });
-  
-  {% endfor %}
-function saveChanges(id) {
-    // Perform AJAX request to the Flask route
-    var formData = new FormData();
-    formData.append('uploaded_file', document.querySelector('.file-upload-input').files[0]);
-    
-    fetch('/save_changes?id=' + id, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(result => {
-        alert(result);  // Display a message indicating success or failure
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-    const modal = document.getElementById('applyModal-'+id);
-    const modalInstance = bootstrap.Modal.getInstance(modal);
-    modalInstance.hide();
-}
-function triggerFileInputClick() {
-    $('.file-upload-input').trigger('click');
-}
-
-$(document).ready(function () {
-    let bookmarkStatus = {};
-
-    $('.unfilled-bookmark').click(function () {
-        const jobId = $(this).attr('id').split('-')[2]; // Extract job ID from element ID
-        const bookmarkIcon = $(this);
-
-        if (!bookmarkStatus[jobId]) {
-            $.ajax({
-                type: 'POST',
-                url: '/bookmark/' + jobId, 
-                success: function (response) {
-                    bookmarkIcon.removeClass('far').addClass('fas');
-                    bookmarkStatus[jobId] = true;
-                },
-                error: function (error) {
-                    console.error('Error:', error);
-                }
-            });
-        } else {
-            $.ajax({
-                type: 'POST',
-                url: '/unbookmark/' + jobId, 
-                success: function (response) {
-                    bookmarkIcon.removeClass('fas').addClass('far');
-                    bookmarkStatus[jobId] = false;
-                },
-                error: function (error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-    });
-});
 </script>
 
 </body>
