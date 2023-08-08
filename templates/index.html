@@ -143,11 +143,11 @@
             <div class="row">
               <div class="col-3">
                 <h5 class="card-title">{% if i['id'] in bookmarked_jobs %}
- <i class="fas fa-star" id="bookmark-icon-{{i['id']}}" data-bookmarked="{{i['id'] in bookmarked_jobs}}"></i>
-
+<i class="fas fa-star" id="bookmark-icon-{{i['id']}}" data-bookmarked="true"></i>
 {% else %}
-  <i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="False"></i>
-{% endif %}{{i['Company']}} </h5>
+<i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="false"></i>
+{% endif %}
+{{i['Company']}} </h5>
                 <p class="card-text"><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
               </div>
               <div class="col-2">
