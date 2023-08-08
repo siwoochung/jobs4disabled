@@ -130,70 +130,136 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1 class="ms-2 mb-3">채용정보추천</h1>
+      <h1 class="ms-2">채용정보추천</h1>
+      <nav>
+        <ol class="breadcrumb">
+         <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li> -->
+        </ol>
+      </nav>
     </div><!-- End Page Title -->
 
 
-  <section class="section dashboard">
-    <div class="container">
-      {% for i in job_lst %}
-      <div class="row mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-3">
-                <h5 class="card-title">{{i['Company']}} </h5>
-                <p class="card-text"><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
-              </div>
-              <div class="col-2">
-                <h5 class="card-title sd">직업명</h5>
-                <p class="card-text">{{i['모집직종']}}</p>
-              </div>
-                            <div class="col-1">
-                <h5 class="card-title sd">기업형태</h5>
-                <p class="card-text">{{i['기업형태']}}</p>
-              </div>
-              <div class="col-1">
-                <h5 class="card-title sd tooltip2">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
-                <p class="card-text sd2">{{i['pay']}}</p>
-                                              {%if i['pay_month_diff'] == 0%}
-                              <span class="color-info tooltip2">(+{{i['pay_month_diff']}}%) <span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+    <section class="section dashboard">
+      <div class="row">
+              <div class="container">
+          {%for i in job_lst%}
+        <!-- Left side columns -->
+       <div class="col-lg-12">
+              <div class="card job-card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-10 col-lg-11">
+                      <ul class="job-info">
+                      <li class="me-4 company-item mm-3 mb-l">
+{% if i['id'] in bookmarked_jobs %}
+ <i class="fas fa-star mt-4" id="bookmark-icon-{{i['id']}}" data-bookmarked="{{i['id'] in bookmarked_jobs}}"></i>
+
+{% else %}
+  <i class="far fa-star mt-4" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="False"></i>
+{% endif %}
+{{i['Company']}} 
+ <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </li>
+                      <h5 class="me-4 company-item mm-3 mb-h"><strong> </strong> <br> {{i['Company']}} <br> <span class="add-font">차로 약 {{i['add']}} 분 거리</span>  </h5>
+
+        
+
+                      <div class="my-row">
+                        <li class="me-4 companyt-item"><strong><i class="fa-solid fa-city icon-size"></i> 기업형태</strong> <br> <span class="ms-4">{{i['기업형태']}}</span></li>
+                        <li class="me-4 jobname-item"><strong><i class="fa-solid fa-briefcase icon-size"></i> 직업명</strong> <br>      {{i['모집직종']}}</li>
+                          <li class="me-4 income-item">
+
+                              <strong><i class="bi bi-coin icon-size"></i> 임금 (₩) </strong>
+                              <br> 
+                              <span class="ms-3">{{i['pay']}}</span>
+                              <br>
+             
+                              {%if i['pay_month_diff'] == 0%}
+                              <span class="ms-3 color-info tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                               {%elif i['pay_month_diff'] >= 0%}
-                              <span class="color-positive tooltip2">(+{{i['pay_month_diff']}}%) <span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              <span class="ms-3 color-positive tooltip2">+{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                               {%else%}
-                              <span class="color-negative tooltip2">({{i['pay_month_diff']}}%)<span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              <span class="ms-3 color-negative tooltip2">{{i['pay_month_diff']}}% <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
                               {%endif%}
-              </div>
-              <div class="col-1">
-                <h5 class="card-title sd">고용형태</h5>
-                <p class="card-text">{{i['고용형태']}}</p>
-              </div>
-              <div class="col-1">
-                <h5 class="card-title sd">요구경력</h5>
-                <p class="card-text">{{i['요구경력']}}</p>
-              </div>
-              <div class="col-2">
-                <p class="mt-4 my-ppp ps-3">직업적합도</p>
-                                          {%if i['percent'] >= 70 %}
-                           <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
+
+                            </li>
+                      </div>
+
+                          <!-- <li class="me-3">임금: {{i['임금형태']}}</li> -->
+                          <div class="my-row">
+
+                          
+
+                            <li class="me-4 job-item"><strong><i class="fa-solid fa-file icon-size"></i> 고용형태</strong> <br> <span class="ms-3">{{i['고용형태']}}</span></li>
+                                                      <li class="me-4 job-item"><strong><i class="fa-solid fa-clipboard-list icon-size"></i> 요구학력</strong><br>  <span class="ms-3">{{i['요구학력']}}</span></li>
+                          <li class="job-item"><strong><i class="fa-solid fa-folder-open icon-size"></i> 요구경력</strong> <br> <span class="ms-3">{{i['요구경력']}}</span></li>
+                          </div>
+
+                          <div class="mb-l">
+                          {%if i['percent'] >= 70 %}
+        <li class="per-item1 ps-5 ms-5">
+                      
+
+            <strong class="ab mt-3">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업 적합도</span>
+        </li>
+
+
                            {%elif 30 < i['percent']  < 70%}
-                            <p class="per-item2 ps-4"><strong>{{i['percent']}}%</strong> </p>
+         <li class="per-item2 ps-5 ms-5">
+            <strong class="ab">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업 적합도</span>
+        </li>
                            {%elif i['percent'] <= 30%}
-                           <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
+        <li class="per-item3 ps-5 ms-5">
+            <strong class="ab">{{ i['percent'] }}%</strong>
+            <span class="color-black">직업 적합도</span>
+        </li>
                             {%endif%}
-                <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
+                          </div>
+                        </ul>
+                    </div>
+              <div class="col-lg-1 d-flex flex-column align-items-center mb-l">
+                <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
+                <div class="mt-2"></div>
+                <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
               </div>
-                            <div class="col-1">
-                                <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
-                                <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+              <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center mb-h text-center">
+                <ul class="job-info mt-4">
+                          {%if i['percent'] >= 70 %}
+                           <li class="per-item1 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                           {%elif 30 < i['percent']  < 70%}
+                            <li class="per-item2 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                           {%elif i['percent'] <= 30%}
+                           <li class="per-item3 ps-5"><strong>{{i['percent']}}%</strong> </li>
+                            {%endif%}
+                  </ul>
+                  <!-- <button type="button" class="btn btn-primary more-btn mt-4 my-ss" data-bs-toggle="modal" data-bs-target="#applyModal">지원하기</button> -->
+                  <br>
+                  <br>
+                <button type="button" class="btn btn-primary more-btn back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+                <button type="button" class="btn btn-primary more-btn mt-2" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
               </div>
+
+              <div class="my-row">
+
+                        <div class="mt-2"></div>
+                      </div>
+                  </div>
+                </div>
             </div>
           </div>
+          {% endfor %} 
+       
+
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+<!-- End Right side columns -->
+
       </div>
-    </div>
-      {% endfor %}
-    </div><!-- End container -->
-  </section>
+    </section>
+
     <!-- Modal -->
     {%for i in job_lst%}
     <div class="modal fade" id="applyModal-{{i['id']}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -267,9 +333,10 @@
               </div>
            </div>
           </div>
-<!--           <div class="modal-footer">
+          <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-          </div> -->
+            <!-- <button type="button" class="btn btn-primary" id="saveChangesBtn">변경사항 저장</button> -->
+          </div>
         </div>
       </div>
     </div>

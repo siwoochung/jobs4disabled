@@ -894,14 +894,14 @@ h6 {
   padding-bottom: 20px;
 }
 
-.dashboard .activity .activity-item:first-child .activite-label::before {
+/*.dashboard .activity .activity-item:first-child .activite-label::before {
   top: 5px;
 }
 
 .dashboard .activity .activity-item:last-child .activity-content {
   padding-bottom: 0;
 }
-
+*/
 /* News & Updates */
 .dashboard .news .post-item+.post-item {
   margin-top: 15px;
@@ -1452,7 +1452,7 @@ h6 {
   color: #3E3E3E;
 }
 .job-item {
-  width: 80px; 
+  width: 85px; 
 color: #3E3E3E;
 }
 .icon-size{
@@ -1496,23 +1496,36 @@ color: #3E3E3E;
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
+  bottom: 60%;
   left: 60%;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
 }
 .per-item1{
-  font-size: 30px;
+  font-size: 22px;
   color:#408935;
   display: block !important;
-  margin-top: -20px !important;
+  
 }
 .ab{
     margin-bottom: -15px !important;
     display: block !important;
 }
-
+.sd{
+  font-size: 15px !important;
+}
+.sd2{
+  margin-bottom: -3px;
+}
+.card-title{
+  margin-bottom: -3px;
+}
+.my-ppp{
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: -4px;
+}
 .color-black{
   color:black !important;
   font-size: 15px !important;
@@ -1520,11 +1533,11 @@ color: #3E3E3E;
   margin-top: -100px !important;
 }
 .per-item2{
-  font-size: 30px;
+  font-size: 22px;
   color:#565656;
 }
 .per-item3{
-  font-size: 30px;
+  font-size: 22px;
   color:#B90000;;
 }
 
