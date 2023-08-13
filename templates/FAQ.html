@@ -49,10 +49,10 @@
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
+  <form class="search-form d-flex align-items-center" method="POST" action="{{ url_for('search_results') }}">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
     </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -70,7 +70,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../static/images/logo.png" alt="Profile" class="rounded-circle">
+            <img src="{{img_path}}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{username}}</span>
           </a><!-- End Profile Image Icon -->
 
@@ -143,8 +143,8 @@
         <div class="col-md-6">
           <h5> 저는 <strong>한국에 거주하는 장애인의 취업 기회가 부족한 문제</strong>를 알리고자 이 온라인 플랫폼을 개발했습니다. 한국에 사는 고등학생으로서 장애인들이 직면하고 있는 심각한 문제를 인식하지 않을 수 없었습니다: <strong>불편한 시설부터 불친절한 사람들까지.</strong> 이들의 고통을 조금이라도 해소해드리기 위해 이 웹사이트를 만들었습니다. 그래서 더욱 많은 이용자들이 생겼으면 하는 바람입니다. 궁금한게 있으시면 언제든 <strong>아래 이메일이나 인스타그램으로 연락 부탁합니다.</strong></h5>
         </div>
-        <div class="col-6 align-items-center justify-content-center" data-aos="fade-up" data-aos-duration="1500">
-          <img src="../static/images/tim-mossholder-oY5mX1aW72A-unsplash.jpg" class="img-fluid faq-img2 ms-5">
+        <div class="col-md-6 align-items-center justify-content-center" data-aos="fade-up" data-aos-duration="1500">
+          <img src="../static/images/tim-mossholder-oY5mX1aW72A-unsplash.jpg" class="img-fluid faq-img2 ms-md-5">
         </div>
     </div>
 

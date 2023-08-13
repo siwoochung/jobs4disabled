@@ -73,7 +73,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../static/images/logo.png" alt="Profile" class="rounded-circle">
+            <img src="{{img_path}}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2 color-white">{{username}}</span>
           </a><!-- End Profile Image Icon -->
 
@@ -116,7 +116,7 @@
         </li><!-- End Profile Nav -->
         
         {%else%}
-        <a class="btn btn-primary" href={{url_for("login")}}>Login</a>
+        <a class="btn btn-primary me-4" href={{url_for("login")}}>Login</a>
 
         {%endif%}
 
@@ -130,7 +130,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1 class="ms-2 mb-3">채용정보추천</h1>
+      <h1 class="text-center mb-3">채용정보추천</h1>
     </div><!-- End Page Title -->
 
 
@@ -141,43 +141,43 @@
         <div class="card h-100 job-card-h">
           <div class="card-body">
             <div class="row">
-              <div class="col-3">
+              <div class="col-lg-3 col-md-12 col-12">
                 <h5 class="card-title">{% if i['id'] in bookmarked_jobs %}
 <i class="fas fa-star" id="bookmark-icon-{{i['id']}}" data-bookmarked="true"></i>
 {% else %}
 <i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="false"></i>
 {% endif %}
 {{i['Company']}} </h5>
-                <p class="card-text"><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
+                <p class="card-text "><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
               </div>
-              <div class="col-2">
+              <div class="col-lg-2 col-md-4 col-6">
                 <h5 class="card-title sd">직업명</h5>
                 <p class="card-text">{{i['모집직종']}}</p>
               </div>
-                            <div class="col-1">
+                            <div class="col-lg-1  col-md-4 col-6">
                 <h5 class="card-title sd">기업형태</h5>
                 <p class="card-text">{{i['기업형태']}}</p>
               </div>
-              <div class="col-1">
+              <div class="col-lg-1 col-md-4  col-4">
                 <h5 class="card-title sd tooltip2">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
                 <p class="card-text sd2">{{i['pay']}}</p>
                                               {%if i['pay_month_diff'] == 0%}
-                              <span class="color-info tooltip2">(+{{i['pay_month_diff']}}%) <span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              <span class="color-info">(+{{i['pay_month_diff']}}%)</span>
                               {%elif i['pay_month_diff'] >= 0%}
-                              <span class="color-positive tooltip2">(+{{i['pay_month_diff']}}%) <span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              <span class="color-positive">(+{{i['pay_month_diff']}}%) </span>
                               {%else%}
-                              <span class="color-negative tooltip2">({{i['pay_month_diff']}}%)<span class="tooltiptext">주 40시간 기준 임금 차이</span></span>
+                              <span class="color-negative">({{i['pay_month_diff']}}%)</span>
                               {%endif%}
               </div>
-              <div class="col-1">
+              <div class="col-lg-1 col-md-3  col-4">
                 <h5 class="card-title sd">고용형태</h5>
                 <p class="card-text">{{i['고용형태']}}</p>
               </div>
-              <div class="col-1">
+              <div class="col-lg-1 col-md-3 col-4">
                 <h5 class="card-title sd">요구경력</h5>
                 <p class="card-text">{{i['요구경력']}}</p>
               </div>
-              <div class="col-2">
+              <div class="col-lg-2 col-md-3 col-6">
                 <p class="mt-4 my-ppp ps-3">직업적합도</p>
                                           {%if i['percent'] >= 70 %}
                            <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
@@ -188,7 +188,7 @@
                             {%endif%}
                 <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
               </div>
-                            <div class="col-1">
+                            <div class="col-lg-1 col-md-3 col-6">
                                 <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
                                 <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
               </div>

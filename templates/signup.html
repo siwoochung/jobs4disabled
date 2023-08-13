@@ -14,7 +14,7 @@
 <body>
 <div class="card-wrapper">
     <div class="card" id="userInformationCard">
-                    <img class="card-img-top" src="../static/images/logo-2.png" alt="logo">
+              <img class="card-img-top" src="../static/images/logo-2.png" alt="logo">
 
       <div class="card-body">
         <h4 class="card-title">사용자 정보</h4>
@@ -25,7 +25,7 @@
             <input type="text" name="username" class="form-control" id="username" required>
           </div>
                       <div class="form-group">
-            <label for="username">패스워:</label>
+            <label for="username">패스워드:</label>
             <input type="text" name="password" class="form-control" id="password" required>
           </div>
           <div class="form-group">
@@ -40,6 +40,10 @@
           <div class="form-group">
             <label for="phone">전화번호:</label>
             <input type="text" name="phone_number" class="form-control" id="phone_number" required>
+          </div>
+                    <div class="form-group">
+            <label for="address">주소:</label>
+            <input type="address" name="address" class="form-control" id="address" required>
           </div>
           <div class="form-group">
             <label for="gender">성별:</label>
@@ -60,7 +64,7 @@
     </div>
 
 <div class="card hidden fade-in" id="interestCard">
-                          <img class="card-img-top" src="../static/images/logo.png" alt="logo">
+              <img class="card-img-top" src="../static/images/logo-2.png" alt="logo">
 
   <div class="card-body">
 
@@ -78,7 +82,24 @@
       <!-- User Interests Fields -->
 <!-- User Interests Fields -->
 <div class="form-group">
-
+                    <div class="form-group">
+            <label for="address">장애등급:</label>
+                        <select name="level" id="level" class="form-control">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+                            <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+                              <div class="form-group">
+            <label for="address">활동제한:</label>
+                        <select name="rest" id="rest" class="form-control">
+              <option value="y">있음</option>
+              <option value="n">없음</option>
+            </select>
+          </div>
   <label>관심 직종:</label>
   <div class="row">
     <div class="col-md-4">

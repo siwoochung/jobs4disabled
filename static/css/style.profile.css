@@ -34,7 +34,10 @@ h5,
 h6 {
   font-family: "Nunito", sans-serif;
 }
-
+.profile-card{
+  width:75%;
+  margin:auto;
+}
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
@@ -887,10 +890,12 @@ h6 {
 }
 
 .my-info{
-  font-size:20px;
+  font-size:18px;
   list-style:none;
 }
-
+.pointer{
+  cursor: pointer;
+}
 /*--------------------------------------------------------------
 # F.A.Q Page
 --------------------------------------------------------------*/
@@ -1106,6 +1111,16 @@ h6 {
   outline:none;
   cursor: pointer;
 }
+.file-upload-input2{
+  position: absolute;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  outline:none;
+  cursor: pointer;
+}
 .drag-text{
   text-align: center;
 }
@@ -1125,14 +1140,24 @@ h6 {
   text-align: center;
 }
 
-.img-container{
-  width:200px;
+.img-container {
+  width: 150px; /* Set the desired width */
+  height: 150px; /* Set the desired height */
+  margin: 0 auto; /* Center the container horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.profile-img{
+.img-container img {
+  width: 100%; /* Make the img element fill the container */
+  height: auto; /* Maintain the aspect ratio */
+}
+/*.profile-img{
   object-fit:cover;
   object-position: center;
-}
+}*/
 .section-title {
   text-align: center;
   padding: 30px 0;
@@ -1177,9 +1202,25 @@ h6 {
 .bi-camera{
   font-size: 24px;
 }
+
 .faq-img2{
   height:350px;
   border-radius: 5px;
+}
+@media (max-width: 800px) {
+.faq-img2{
+    width: 500px;
+    border-radius: 5px;
+}
+.img-container{
+  margin-top: 20px;
+}
+.card-body22 {
+  margin-bottom:-31px ;
+}
+.bi-search{
+  display: none;
+}
 }
 .logo-2{
   height:80px;
@@ -1198,3 +1239,17 @@ color:darkgray;
 .fa-file-import{
   color:green;
 }
+.icon-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.fa-icon {
+  font-size: 20px; /
+  color: black; 
+  cursor: pointer;
+}
+
+

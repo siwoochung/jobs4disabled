@@ -12,6 +12,8 @@ from calculate_income import convert, get_average, compare_income
 from naver_distance import calculate_distance
 import random
 import os
+import sqlite3 as sq
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY']='abc'
@@ -30,7 +32,7 @@ fulltime_checked = False
 parttime_checked = False
 isLogin = False 
 
-app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=60)
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=180)
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -39,6 +41,7 @@ def index():
         income_compare_data = json.dumps(income_compare_data)
         sim_compare_data = similarity_graph()
         sim_compare_data = json.dumps(sim_compare_data)
+        imge_path='../static/users/'+session["username"]+"/image/img.png"
 
         if request.method=='POST':
                 business_checked = request.form.get("business") != None
@@ -66,10 +69,10 @@ def index():
                 if 'username' in session: #when user is logged in
                         bookmarked_jobs = read_bookmarked_jobs(session['username'])
                         isLogin = True 
-                        return render_template("index.html",bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
+                        return render_template("index.html",img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
                 else: # when user is not logged in 
                         isLogin = False  
-                        return render_template("index.html", bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
+                        return render_template("index.html", img_path=imge_path,bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
 def read_bookmarked_jobs(username):
     file_path = 'users/' + username + '/bookmark_lst.txt'
     bookmarked_jobs = []
@@ -131,7 +134,7 @@ def profile():
                 username = session['username']
                 interest = get_interest(username)
                 file_path = 'users/'+session["username"]+"/applied_lst.txt" 
-
+                imge_path='../static/users/'+session["username"]+"/image/img.png"
                 lines_list = []
 
                 # Open the file in read mode
@@ -161,7 +164,7 @@ def profile():
                                 if j["companyname"] == dic["companyname"]:  
                                         dic["applied"] = True
                         final_lst2.append(dic)
-                return render_template("profile.html",bookmarked_jobs=final_lst2, final_lst = final_lst, username=username,interest=interest, isLogin=isLogin)
+                return render_template("profile.html",img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, username=username,interest=interest, isLogin=isLogin)
 
                         
         else:
@@ -193,9 +196,11 @@ def unbookmark_job(job_id):
 @app.route('/FAQ')
 def faq(): 
         if 'username' in session:
+                imge_path='../static/users/'+session["username"]+"/image/img.png"
+
                 username = session['username']
                 interest = get_interest(username)
-                return render_template("FAQ.html", username=username,interest=interest, isLogin=isLogin)
+                return render_template("FAQ.html", img_path=imge_path,username=username,interest=interest, isLogin=isLogin)
         else:
                 return redirect (url_for('index'))
 
@@ -309,7 +314,9 @@ def save_changes():
                     file_path = os.path.join('users/'+session["username"]+"/resume", "Resume"+
                                              str(id)+file_extension)
             else:
+                    
                     file_path = os.path.join('users/'+session["username"]+"/resume", "Resume-own"+file_extension)
+
             uploaded_file.save(file_path)
             file_path = 'users/'+session["username"]+"/applied_lst.txt"
             with open(file_path, "a") as file:
@@ -320,9 +327,10 @@ def save_changes():
     return 'Invalid request'
 @app.route('/download')
 def download_file():
-    file_path = 'users/'+session["username"]+"/resume_own"  # Replace with the actual path
+    file_path = 'users/'+session["username"]+"/resume_own"
     try:
         file_lst = os.listdir(file_path)
+        print(file_path)
         if len(file_lst) == 1:
                 filename = file_lst[0]
                 file_path = os.path.join(file_path, filename)
@@ -343,13 +351,82 @@ def save_changes2():
                                              str(id)+file_extension)
             else:
                     file_path = os.path.join('users/'+session["username"]+"/resume_own", "Resume-own"+file_extension)
-        
+                    for filename in os.listdir('users/'+session["username"]+"/resume_own"):
+                            file_path = os.path.join('users/'+session["username"]+"/resume_own", filename)
+                            if os.path.isfile(file_path):
+                                    os.remove(file_path)
             uploaded_file.save(file_path)
 
             return '"성공적으로 저장되었습니다.!"'
         else:
             return '오류가 발생했습니.!'
     return 'Invalid request'
+@app.route('/save_changes3', methods=['POST'])
+def save_changes3():
+    id = request.args.get('id')
+    if request.method == 'POST':
+        uploaded_file = request.files['uploaded_file2']  # 'uploaded_file' should match the input field name in your HTML form
+        if uploaded_file:
+            file_extension = os.path.splitext(uploaded_file.filename)[1]
+            if id !='own':
+                    file_path = os.path.join('static/users/'+session["username"]+"/image", "img"+file_extension)
+                    for filename in os.listdir('static/users/'+session["username"]+"/image"):
+                            file_path = os.path.join('static/users/'+session["username"]+"/image", filename)
+                            if os.path.isfile(file_path):
+                                    os.remove(file_path)
+            else:
+                    file_path = os.path.join('static/users/'+session["username"]+"/image", "img"+file_extension)
+                    for filename in os.listdir('static/users/'+session["username"]+"/image"):
+                            file_path = os.path.join('static/users/'+session["username"]+"/image", filename)
+                            if os.path.isfile(file_path):
+                                    os.remove(file_path)
+            uploaded_file.save(file_path)
+
+            return '"성공적으로 저장되었습니다.!"'
+        else:
+            return '오류가 발생했습니.!'
+    return 'Invalid request'
+
+def update_user_info2(username,interests, phone_number):
+    try:
+        con2 = sq.connect("data/login_info.db")  #connect to database
+        cursor = con2.cursor()
+
+        
+        if phone_number.strip() != "" and  len(interests) != 0:
+            cursor.execute('UPDATE user SET phone = ? WHERE username = ?', (phone_number, username))
+            cursor.execute('UPDATE user SET interest = ? WHERE username = ?', (', '.join(interests), username))
+
+        elif phone_number.strip() != "" and  len(interests) == 0:
+            cursor.execute('UPDATE user SET phone = ? WHERE username = ?', (phone_number, username))
+        elif phone_number.strip() == "" and  len(interests) != 0:
+            cursor.execute('UPDATE user SET interest = ? WHERE username = ?', (', '.join(interests), username))
+        else:
+                pass
+        con2.commit()
+        
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        con2.close()
+
+
+@app.route('/update_user_info', methods=['POST'])
+def update_user_info():
+    try:
+        username = session["username"]  # Assuming you have a way to identify the user
+        new_phone_number = request.form.get('phone_number')
+        interests = request.form.getlist('interests[]')
+
+        if update_user_info2(username,interests, new_phone_number):
+            return jsonify({'status': 'success', 'message': 'User information updated successfully'})
+        else:
+            return jsonify({'status': 'error', 'message': 'Failed to update user information'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
 if __name__=="__main__":
         app.run(host='127.0.0.1', port=9000,debug=True)
 
