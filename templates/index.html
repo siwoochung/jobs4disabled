@@ -136,7 +136,7 @@
 
   <section class="section dashboard">
     <div class="container">
-      {% for i in job_lst %}
+      {% for i in job_lst[:5] %}
       <div class="row mb-4">
         <div class="card h-100 job-card-h">
           <div class="card-body">
@@ -148,7 +148,94 @@
 <i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="false"></i>
 {% endif %}
 {{i['Company']}} </h5>
+                {% if i['add'] < 0 %}
+                 <p class="card-text "><span class="add-font"></span></p>
+                 {% elif i['add'] > 60 %}
+<p class="card-text"><span class="add-font">
+  차로 약 
+  {% set hours = i['add'] // 60 %}
+  {% set minutes = i['add'] % 60 %}
+  {{ hours }} 시간 {{ minutes }} 분 거리
+</span></p>
+                {% else %}
                 <p class="card-text "><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
+                {% endif %}
+              </div>
+              <div class="col-lg-2 col-md-4 col-6">
+                <h5 class="card-title sd">직업명</h5>
+                <p class="card-text">{{i['모집직종']}}</p>
+              </div>
+                            <div class="col-lg-1  col-md-4 col-6">
+                <h5 class="card-title sd">기업형태</h5>
+                <p class="card-text">{{i['기업형태']}}</p>
+              </div>
+              <div class="col-lg-1 col-md-4  col-4">
+                <h5 class="card-title sd tooltip2">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
+                <p class="card-text sd2">{{i['pay']}}</p>
+                                              {%if i['pay_month_diff'] == 0%}
+                              <span class="color-info">(+{{i['pay_month_diff']}}%)</span>
+                              {%elif i['pay_month_diff'] >= 0%}
+                              <span class="color-positive">(+{{i['pay_month_diff']}}%) </span>
+                              {%else%}
+                              <span class="color-negative">({{i['pay_month_diff']}}%)</span>
+                              {%endif%}
+              </div>
+              <div class="col-lg-1 col-md-3  col-4">
+                <h5 class="card-title sd">고용형태</h5>
+                <p class="card-text">{{i['고용형태']}}</p>
+              </div>
+              <div class="col-lg-1 col-md-3 col-4">
+                <h5 class="card-title sd">요구경력</h5>
+                <p class="card-text">{{i['요구경력']}}</p>
+              </div>
+              <div class="col-lg-2 col-md-3 col-6">
+                <p class="mt-4 my-ppp ps-3">직업적합도</p>
+                                          {%if i['percent'] >= 70 %}
+                           <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
+                           {%elif 30 < i['percent']  < 70%}
+                            <p class="per-item2 ps-4"><strong>{{i['percent']}}%</strong> </p>
+                           {%elif i['percent'] <= 30%}
+                           <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
+                            {%endif%}
+                <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
+              </div>
+                            <div class="col-lg-1 col-md-3 col-6">
+                                <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
+                                <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+      {% endfor %}
+                      <div id="loadedJobListContainer" style="display: none;"></div>
+    <button id="loadMoreBtn1" class="btn btn-primary d-block mx-auto text-center">더 많은 채용 정보 보기</button>
+<div class="more1"  style="display: none;">
+      {% for i in job_lst[5:10] %}
+      <div class="row mb-4 more1">
+        <div class="card h-100 job-card-h">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-3 col-md-12 col-12">
+                <h5 class="card-title">{% if i['id'] in bookmarked_jobs %}
+<i class="fas fa-star" id="bookmark-icon-{{i['id']}}" data-bookmarked="true"></i>
+{% else %}
+<i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="false"></i>
+{% endif %}
+{{i['Company']}} </h5>
+                {% if i['add'] < 0 %}
+                 <p class="card-text "><span class="add-font"></span></p>
+                 {% elif i['add'] > 60 %}
+<p class="card-text"><span class="add-font">
+  차로 약 
+  {% set hours = i['add'] // 60 %}
+  {% set minutes = i['add'] % 60 %}
+  {{ hours }} 시간 {{ minutes }} 분 거리
+</span></p>
+                {% else %}
+                <p class="card-text "><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
+                {% endif %}
               </div>
               <div class="col-lg-2 col-md-4 col-6">
                 <h5 class="card-title sd">직업명</h5>
@@ -197,7 +284,86 @@
       </div>
     </div>
       {% endfor %}
+                <div id="loadedJobListContainer" style="display: none;"></div>
+    <button id="loadMoreBtn2" class="btn btn-primary d-block mx-auto text-center">더 많은 채용 정보 보기</button>
+</div>
+<div class="more2"  style="display: none;">
+{% for i in job_lst[10:14] %}
+      <div class="row mb-4">
+        <div class="card h-100 job-card-h">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-3 col-md-12 col-12">
+                <h5 class="card-title">{% if i['id'] in bookmarked_jobs %}
+<i class="fas fa-star" id="bookmark-icon-{{i['id']}}" data-bookmarked="true"></i>
+{% else %}
+<i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="false"></i>
+{% endif %}
+{{i['Company']}} </h5>
+                {% if i['add'] < 0 %}
+                 <p class="card-text "><span class="add-font"></span></p>
+                 {% elif i['add'] > 60 %}
+<p class="card-text"><span class="add-font">
+  차로 약 
+  {% set hours = i['add'] // 60 %}
+  {% set minutes = i['add'] % 60 %}
+  {{ hours }} 시간 {{ minutes }} 분 거리
+</span></p>
+                {% else %}
+                <p class="card-text "><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
+                {% endif %}
+              </div>
+              <div class="col-lg-2 col-md-4 col-6">
+                <h5 class="card-title sd">직업명</h5>
+                <p class="card-text">{{i['모집직종']}}</p>
+              </div>
+                            <div class="col-lg-1  col-md-4 col-6">
+                <h5 class="card-title sd">기업형태</h5>
+                <p class="card-text">{{i['기업형태']}}</p>
+              </div>
+              <div class="col-lg-1 col-md-4  col-4">
+                <h5 class="card-title sd tooltip2">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
+                <p class="card-text sd2">{{i['pay']}}</p>
+                                              {%if i['pay_month_diff'] == 0%}
+                              <span class="color-info">(+{{i['pay_month_diff']}}%)</span>
+                              {%elif i['pay_month_diff'] >= 0%}
+                              <span class="color-positive">(+{{i['pay_month_diff']}}%) </span>
+                              {%else%}
+                              <span class="color-negative">({{i['pay_month_diff']}}%)</span>
+                              {%endif%}
+              </div>
+              <div class="col-lg-1 col-md-3  col-4">
+                <h5 class="card-title sd">고용형태</h5>
+                <p class="card-text">{{i['고용형태']}}</p>
+              </div>
+              <div class="col-lg-1 col-md-3 col-4">
+                <h5 class="card-title sd">요구경력</h5>
+                <p class="card-text">{{i['요구경력']}}</p>
+              </div>
+              <div class="col-lg-2 col-md-3 col-6">
+                <p class="mt-4 my-ppp ps-3">직업적합도</p>
+                                          {%if i['percent'] >= 70 %}
+                           <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
+                           {%elif 30 < i['percent']  < 70%}
+                            <p class="per-item2 ps-4"><strong>{{i['percent']}}%</strong> </p>
+                           {%elif i['percent'] <= 30%}
+                           <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
+                            {%endif%}
+                <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
+              </div>
+                            <div class="col-lg-1 col-md-3 col-6">
+                                <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
+                                <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+      {% endfor %}
+
+</div>
     </div><!-- End container -->
+
   </section>
     <!-- Modal -->
     {%for i in job_lst%}
@@ -261,7 +427,7 @@
                 </div>
 
                                 <div class="col-6 mt-5">
-                                  총 만족도 <br> <span> 90% </span>
+                                  <p class="mt-4"><strong class="mt-3">총 만족도</strong> <br> <span> 90% </span></p>
                                     </div>
                 </div>
               </div>
@@ -293,7 +459,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../static/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -308,6 +474,34 @@
 
   <!-- Template Main JS File -->
   <script src="../static/js/main.js"></script>
+  <script>
+  // Get a reference to the button element
+  var loadMoreBtn1 = document.getElementById("loadMoreBtn1");
+  var loadMoreBtn2 = document.getElementById("loadMoreBtn2");
+
+  // Add a click event listener to the button
+  loadMoreBtn1.addEventListener('click', function() {
+    console.log('Button 1 clicked');
+    loadMoreBtn1.style.backgroundColor = '#f6f9ff';
+
+    // Change border color
+    loadMoreBtn1.style.borderColor = '#f6f9ff';
+
+    // Change font color
+    loadMoreBtn1.style.color = '#f6f9ff';
+    loadMoreBtn1.style.display = 'none';
+  });
+    loadMoreBtn2.addEventListener('click', function() {
+    loadMoreBtn2.style.backgroundColor = '#f6f9ff';
+
+    // Change border color
+    loadMoreBtn2.style.borderColor = '#f6f9ff';
+
+    // Change font color
+    loadMoreBtn2.style.color = '#f6f9ff';
+        loadMoreBtn2.style.display = 'none';
+  });
+</script>
 <script>
 // Define the bookmarked_jobs array
 var bookmarked_jobs = {{ bookmarked_jobs|tojson }};
@@ -447,6 +641,30 @@ function updateBookmarkIcon(jobId, bookmarked) {
     }
     });
   {% endfor %}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Get references to the "Load More" buttons
+  var loadMoreBtn1 = document.getElementById("loadMoreBtn1");
+  var loadMoreBtn2 = document.getElementById("loadMoreBtn2");
+  
+  // Get references to the "more1" and "more2" divs
+  var more1 = document.querySelector(".more1");
+  var more2 = document.querySelector(".more2");
+  
+  // Add click event listener for loadMoreBtn1
+  loadMoreBtn1.addEventListener("click", function() {
+    more1.style.display = "block"; // Show the content
+    loadMoreBtn1.style.display = "none"; // Hide the button
+  });
+  
+  // Add click event listener for loadMoreBtn2
+  loadMoreBtn2.addEventListener("click", function() {
+    more2.style.display = "block"; // Show the content
+    loadMoreBtn2.style.display = "none"; // Hide the button
+  });
+});
 </script>
 
 </body>

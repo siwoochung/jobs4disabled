@@ -11,11 +11,13 @@ import sqlite3 as sq
 # conn.close() #end connection
 
 #Function for sign-up page
-def register(username, password, age, gender, phone, interest):
+def register(username, password, age, gender, phone, interest,address, level, typ, restrict):
 	conn = sq.connect("data/login_info.db")  #connect to database
 	cur = conn.cursor() #create cursor for execute SQL in python
+	# app.logger.debug("called")
 	try:
-		conn.execute('INSERT INTO user(username, password, age, gender, phone, interest) Values (?, ?, ?, ?, ?, ?)',(username, password, age, gender, phone, interest))
+		conn.execute('INSERT INTO user(username, password, age, gender, phone, interest,address, level, type, restrict) Values (?, ?, ?, ?, ?, ?, ?,?, ?, ?)',(username, password, age, gender, phone, interest, address, level, typ, restrict))
+	# app.logger.debug("Success")
 	except sq.IntegrityError:
 		print("Already have " + username)
 	conn.commit() #save data

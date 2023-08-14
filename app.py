@@ -13,7 +13,7 @@ from naver_distance import calculate_distance
 import random
 import os
 import sqlite3 as sq
-
+import shutil
 app = Flask(__name__)
 
 app.config['SECRET_KEY']='abc'
@@ -31,17 +31,17 @@ contract_checked = False
 fulltime_checked = False
 parttime_checked = False
 isLogin = False 
-
+lst_jobs = []
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=180)
 
 @app.route('/',methods=['GET','POST'])
 def index():
-        global isLogin, fill, business_checked, it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked, contract_checked,fulltime_checked,parttime_checked
+        global lst_jobs,isLogin, fill, business_checked, it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked, contract_checked,fulltime_checked,parttime_checked
         income_compare_data = income_compare()
         income_compare_data = json.dumps(income_compare_data)
         sim_compare_data = similarity_graph()
         sim_compare_data = json.dumps(sim_compare_data)
-        imge_path='../static/users/'+session["username"]+"/image/img.png"
+        
 
         if request.method=='POST':
                 business_checked = request.form.get("business") != None
@@ -65,14 +65,20 @@ def index():
                                 if contract_checked==True or fulltime_checked==True or parttime_checked==True:
                                         lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
                 else: 
-                        lst_jobs = pick_jobs(3)
+                        lst_jobs = pick_jobs(15)
+                        lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
                 if 'username' in session: #when user is logged in
+                        imge_path='../static/users/'+session["username"]+"/image/img.png"
                         bookmarked_jobs = read_bookmarked_jobs(session['username'])
                         isLogin = True 
                         return render_template("index.html",img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
                 else: # when user is not logged in 
                         isLogin = False  
-                        return render_template("index.html", img_path=imge_path,bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
+                        return render_template("index.html",bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
+@app.route('/api/job-listings')
+def get_job_listings():
+    return jsonify(lst_jobs)
+
 def read_bookmarked_jobs(username):
     file_path = 'users/' + username + '/bookmark_lst.txt'
     bookmarked_jobs = []
@@ -109,14 +115,29 @@ def signup():
                 age = request.form['age']
                 gender = request.form.get('gender')
                 phone = request.form['phone_number']
-                interest = request.form.get('interest')
-                register(username,password, age, gender, phone, interest)
+                interest  = request.form.getlist('interests[]')
+                interest = ",".join(interest)
+                address = request.form['address']
+                typ = request.form.get('userType')
+                level = request.form.get('level')
+                restrict = request.form.get('rest')
+                register(username,password, age, gender, phone, interest, address,level, typ, restrict)
                 path = os.path.join("users/", username )
-
+                path2 = os.path.join("static/users/", username )
+                source_path = 'static/users/img.png'
                 try:
                                         os.makedirs(path)
                                         os.makedirs(path+"/resume")
                                         os.makedirs(path+"/resume_own")
+                                        with open(path+"/applied_lst.txt", "w") as file:
+                                                pass
+                                        with open(path+"/bookmark_lst.txt", "w") as file:
+                                                pass
+                                        os.makedirs(path2)
+                                        os.makedirs(path2+"/image")
+                                        shutil.copy(source_path, os.path.join(path2, "image", "img.png"))
+
+                                        
                 except:
                                         pass
                 return redirect (url_for('login'))
@@ -164,7 +185,33 @@ def profile():
                                 if j["companyname"] == dic["companyname"]:  
                                         dic["applied"] = True
                         final_lst2.append(dic)
-                return render_template("profile.html",img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, username=username,interest=interest, isLogin=isLogin)
+                conn = sq.connect('data/login_info.db')
+                cursor = conn.cursor()
+
+                # Define the username
+                username = session["username"]
+
+                cursor.execute("SELECT gender FROM user WHERE username = ?", (username,))
+                gender = cursor.fetchone()[0]
+                if gender =='male':
+                        gender = "남성"
+                else:
+                        gender = "여"
+                cursor.execute("SELECT age FROM user WHERE username = ?", (username,))
+                age = cursor.fetchone()[0]
+                cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
+                interest = cursor.fetchone()[0]
+                cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
+                phone = cursor.fetchone()[0]
+                cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
+                level = cursor.fetchone()[0]
+                cursor.execute("SELECT restrict FROM user WHERE username = ?", (username,))
+                restrict = cursor.fetchone()[0]
+                if restrict == 'y':
+                        restrict =="있음"
+                else:
+                        restrict=="없음"
+                return render_template("profile.html",level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
 
                         
         else:
