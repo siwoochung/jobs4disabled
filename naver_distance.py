@@ -1,12 +1,12 @@
 import requests
 import json
 # Set your Naver API credentials
-def calculate_distance(address):
+def calculate_distance(address,start):
     client_id = 'hvid9avxqf'
     client_secret = 'yVe8kRQLMISDknnJAY6zhdOL6NbMbFL6rb1OESqq'
 
     # Define the starting and destination addresses
-    start_address = '서울특별시 강남구 언주로174길 17'
+    start_address = start
     destination_address = address
 
     # Get the coordinates (latitude and longitude) of the starting point using Geocoding API

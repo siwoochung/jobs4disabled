@@ -23,7 +23,7 @@ def income_compare():
 
 def similarity_graph():
         lst = []
-        for i in range(100):
+        for i in range(1000):
                 lst.append(random.randint(0,100))
         percent_lst = lst
         count10 = 0
@@ -33,17 +33,13 @@ def similarity_graph():
         count90 = 0
         count100 = 0
         for i in percent_lst:
-                if 0<= i <= 10:
-                        count10 +=1
-                elif 10 < i <=30:
+                if 0<= i <= 25:
                         count30 +=1
-                elif 30 < i <=50:
+                elif 25 < i <=65:
                         count50 +=1
-                elif 50 < i <=70:
-                        count50 +=1
-                elif 70 < i <=90:
-                        count50 +=1
+                elif 65 < i <=90:
+                        count70 +=1
                 else:
-                        count100 +=1
+                        count90 +=1
 
-        return [count10,count30,count50,count70,count90,count100]
+        return [count30,count50,count70,count90,count100]

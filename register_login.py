@@ -1,4 +1,6 @@
 import sqlite3 as sq
+import pandas as pd
+from naver_distance import calculate_distance
 
 # conn = sq.connect("data/login_info.db")  #connect to database
 
@@ -20,6 +22,7 @@ def register(username, password, age, gender, phone, interest,address, level, ty
 	# app.logger.debug("Success")
 	except sq.IntegrityError:
 		print("Already have " + username)
+
 	conn.commit() #save data
 	conn.close() #end connection
 

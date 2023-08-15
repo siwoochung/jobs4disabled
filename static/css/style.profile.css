@@ -15,7 +15,9 @@ body {
     flex-direction: column;
 
 }
-
+.my-margin{
+  margin-top: 6.2rem;
+}
 a {
   color: #006BB0;
   text-decoration: none;
@@ -1243,9 +1245,11 @@ color:darkgray;
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px;
+  padding: 20px;
 }
-
+.myprofile{
+  font-weight:1000;
+}
 .fa-icon {
   font-size: 20px; /
   color: black; 

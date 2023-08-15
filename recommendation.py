@@ -4,22 +4,24 @@ from calculate_income import convert, get_average, compare_income
 from naver_distance import calculate_distance
 import random
 
-data = pd.read_csv("data/temp_data.csv")
-def get_average():
-	return data["pay_month"].mean()
 
-def compare_income(x):
-	average_income = get_average()
+def compare_income(x,data):
+	# data = pd.read_csv("data/temp_data.csv")
+	average_income = data["pay_month"].mean()
 	p = (abs(x-average_income))/((x+average_income) / 2) * 100
 	if x < average_income:
 		p = p * -1
 	return p
 
 
-def pick_jobs(n):
+def pick_jobs(n,username):
+	if username == -1:
+		data = pd.read_csv("data/temp_data.csv")
+	else:
+		data = pd.read_csv("users/"+username+"/time.csv")
 	NUMS = n
 	data["pay_month"] = data['임금'].apply(convert)
-	data["pay_month_diff"] = data["pay_month"].apply(compare_income)
+	data["pay_month_diff"] = data["pay_month"].apply(compare_income, args=(data,))
 	random_data = data.sample(n=NUMS)
 
 
@@ -35,7 +37,8 @@ def pick_jobs(n):
 	company = random_data["Company"].tolist()
 	address = random_data["사업장 주소"].tolist()
 	job_id = random_data["id"].tolist()
-
+	if username != -1:
+		time = random_data["time"].tolist()
 	pay_month = random_data["pay_month"].tolist()
 	pay_month_diff = random_data["pay_month_diff"].tolist()
 
@@ -48,7 +51,10 @@ def pick_jobs(n):
 		dic = dict()  #{}
 		dic["Company"] = company[i]
 		dic["모집직종"]=name[i]
-		dic["add"]=calculate_distance(address[i])
+		if username == -1:
+			dic["add"]= -4
+		else:
+			dic["add"]=time[i]
 		dic["id"] = job_id[i]
 		
 		pay_month_diff[i] = round(pay_month_diff[i],1)

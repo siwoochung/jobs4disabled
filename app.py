@@ -64,9 +64,13 @@ def index():
                                 lst_jobs = pick_jobs_filter_by_class(10,business_checked,it_checked, design_checked, trade_checked,education_checked, medical_checked, service_checked, produce_checked, special_checked)
                                 if contract_checked==True or fulltime_checked==True or parttime_checked==True:
                                         lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
-                else: 
-                        lst_jobs = pick_jobs(15)
-                        lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
+                else:
+                        if 'username' in session:
+                                lst_jobs = pick_jobs(15,session["username"])
+                                lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
+                        else:
+                                lst_jobs = pick_jobs(15,-1)
+                                lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
                 if 'username' in session: #when user is logged in
                         imge_path='../static/users/'+session["username"]+"/image/img.png"
                         bookmarked_jobs = read_bookmarked_jobs(session['username'])
@@ -122,11 +126,15 @@ def signup():
                 level = request.form.get('level')
                 restrict = request.form.get('rest')
                 register(username,password, age, gender, phone, interest, address,level, typ, restrict)
+                df = pd.read_csv("data/temp_data.csv")
+                df["time"] = df["사업장 주소"].apply(calculate_distance, args=(address,))
+	
                 path = os.path.join("users/", username )
                 path2 = os.path.join("static/users/", username )
                 source_path = 'static/users/img.png'
                 try:
                                         os.makedirs(path)
+                                        df.to_csv(path+"/time.csv")
                                         os.makedirs(path+"/resume")
                                         os.makedirs(path+"/resume_own")
                                         with open(path+"/applied_lst.txt", "w") as file:
