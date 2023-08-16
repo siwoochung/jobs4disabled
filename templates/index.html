@@ -469,8 +469,8 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-6">
-                <h4>월급 비교</h4>
-                <p> 갖고있는 모든 데이터를 기반해 평균, 상위 25%, 하위 25% 의 월급을 표한 그래프입니다.</p>
+                <h4>[월급 비교]</h4>
+                <p> 축적된 모든 데이터를 기반으로 평균, 상위 25%, 하위 25%의 월급을 나타내는 그래프입니다.</p>
                <canvas id="myChart-{{i['id']}}"></canvas>
                <div class="row"> 
                 <div class="col-7">
@@ -517,16 +517,16 @@
                          
 
                                                                             {%if i['percent'] >= 70 %}
-                                      <p class="mt-4 text-center"><strong class="mt-3">총 만족도</strong> <br> <strong>{{i['percent']}}%</strong></p>
+                                      <p class="mt-4 text-center"><strong class="mt-3">총 적합도</strong> <br> <strong>{{i['percent']}}%</strong></p>
                            {%elif 30 < i['percent']  < 70%}
-                      <p class="mt-4 text-center"><strong class="mt-3">총 만족도</strong> <br> <strong>{{i['percent']}}%</strong></p>                           {%elif i['percent'] <= 30%}
-                      <p class="mt-4 text-center"><strong class="mt-3">총 만족도</strong> <br> <strong>{{i['percent']}}%</strong></p>                            {%endif%}
+                      <p class="mt-4 text-center"><strong class="mt-3">총 적합도</strong> <br> <strong>{{i['percent']}}%</strong></p>                           {%elif i['percent'] <= 30%}
+                      <p class="mt-4 text-center"><strong class="mt-3">총 적합도</strong> <br> <strong>{{i['percent']}}%</strong></p>                            {%endif%}
                                     </div>
                 </div>
               </div>
               <div class="col-6">
-                <h4>직업 매칭도</h4>
-                <p> 갖고있는 모든 데이터를 기반해 모든 회원님들의 원하는 직업의 매칭도를 표한 그래프입니다.</p>
+                <h4>[직업 적합도]</h4>
+                <p> 회원가입 시 선택한 희망 분야를 기반으로 해당 직무 및 업무의 적합도를 나타내는 그래프입니다.</p>
                <canvas id="myChart2-{{i['id']}}"></canvas>
               </div>
            </div>
