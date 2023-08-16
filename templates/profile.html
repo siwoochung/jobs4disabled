@@ -70,7 +70,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{img_path}}" alt="Profile" class="rounded-circle">
+            <img src="{{img_path}}" alt="Profile" class="rounded-circle ">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{username}}</span>
           </a><!-- End Profile Image Icon -->
 
@@ -137,7 +137,7 @@
     
   </div>
                 <div class="img-container overflow-hidden my-margin">
-                  <img src="{{img_path}}" class="card-img-top img-fluid profile-img">
+                  <img src="{{img_path}}" class="card-img-top img-fluid">
                 </div>
               <div>
                 <div class="card-body minus-margin">
@@ -484,6 +484,7 @@ function saveChanges(id) {
     const modal = document.getElementById('applyModal');
     const modalInstance = bootstrap.Modal.getInstance(modal);
     modalInstance.hide();
+    location.reload();
 }
 
 function saveChanges2(id) {
@@ -498,6 +499,7 @@ function saveChanges2(id) {
     .then(response => response.text())
     .then(result => {
         alert(result);  // Display a message indicating success or failure
+
     })
     .catch(error => {
         console.error('Error:', error);
@@ -506,6 +508,7 @@ function saveChanges2(id) {
     const modal = document.getElementById('applyModal2');
     const modalInstance = bootstrap.Modal.getInstance(modal);
     modalInstance.hide();
+    location.reload();
 }
 function triggerFileInputClick(fileInputId) {
     $('#' + fileInputId).trigger('click');
