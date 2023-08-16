@@ -1244,6 +1244,9 @@ color:darkgray;
 .minus-margin{
   margin-top: -2px;
 }
+  .custom-text {
+    line-height: 1.5;
+  }
 .icon-container {
   position: absolute;
   top: 0;

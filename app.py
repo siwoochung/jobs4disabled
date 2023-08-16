@@ -14,6 +14,8 @@ import random
 import os
 import sqlite3 as sq
 import shutil
+import asyncio
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY']='abc'
@@ -66,10 +68,10 @@ def index():
                                         lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
                 else:
                         if 'username' in session:
-                                lst_jobs = pick_jobs2(50,session["username"])
+                                lst_jobs = pick_jobs2(80,session["username"])
                                 lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
                         else:
-                                lst_jobs = pick_jobs(50,-1)
+                                lst_jobs = pick_jobs(80,-1)
                                 lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
                 if 'username' in session: #when user is logged in
                         imge_path='../static/users/'+session["username"]+"/image/img.png"
@@ -121,8 +123,9 @@ def login():
                         return redirect (url_for('index'))
                 return render_template("login.html")
 
+
 @app.route('/signup',methods=['GET','POST'])
-def signup():
+async def signup():
         if request.method=='POST':
                 username = request.form['username']
                 password = request.form['password']
@@ -140,7 +143,8 @@ def signup():
                 register(username,password, age, gender, phone, interest, address,level, typ, restrict,edu,exp)
                 df = pd.read_csv("data/temp_data.csv")
                 df["time"] = df["사업장 주소"].apply(calculate_distance, args=(address,))
-	
+                #loop = asyncio.get_event_loop()
+                #results = loop.run_until_complete(calculate_distances_async(df,address))
                 path = os.path.join("users/", username )
                 path2 = os.path.join("static/users/", username )
                 source_path = 'static/users/img.png'

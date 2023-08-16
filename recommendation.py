@@ -4,7 +4,7 @@ from calculate_income import convert, get_average, compare_income
 from naver_distance import calculate_distance
 import random
 import sqlite3 as sq
-
+import asyncio
 
 def compare_income(x,data):
 	# data = pd.read_csv("data/temp_data.csv")

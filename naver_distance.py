@@ -1,5 +1,6 @@
 import requests
 import json
+import asyncio
 # Set your Naver API credentials
 def calculate_distance(address,start):
     client_id = 'hvid9avxqf'
@@ -59,17 +60,4 @@ def calculate_distance(address,start):
 
     duration = duration / 1000 / 60 
     return int(duration)
-    # print(duration)
 
-# print(directions_response['location'])
-# with open("sample.json", "w") as json_file:
-#     json.dump(directions_response, json_file)
-# try:
-#     # Extract walking distance if available
-#     if 'routes' in directions_response and len(directions_response['routes']) > 0:
-#         walking_distance = directions_response['routes'][0]['summary']['distance']
-#         print(f"The walking distance from {start_address} to {destination_address} is {walking_distance} meters.")
-#     else:
-#         print("No walking distance information found.")
-# except KeyError as e:
-#     print("An error occurred while parsing the response:", e)
