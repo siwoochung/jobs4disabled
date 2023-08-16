@@ -1248,6 +1248,9 @@ color:darkgray;
 .minus-margin{
   margin-top: 2px;
 }
+table td{
+  font-size: 15px !important;
+}
   .custom-text {
     line-height: 1.8;
   }
