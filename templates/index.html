@@ -173,11 +173,11 @@
                 <h5 class="card-title sd tooltip2 minus-margin">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
                 <p class="card-text sd2">{{i['pay']}}</p>
                                               {%if i['pay_month_diff'] == 0%}
-                              <span class="color-info">(+{{i['pay_month_diff']}}%)</span>
+                              <span class="color-info verysm">(+{{i['pay_month_diff']}}%)</span>
                               {%elif i['pay_month_diff'] >= 0%}
-                              <span class="color-positive">(+{{i['pay_month_diff']}}%) </span>
+                              <span class="color-positive verysm">(+{{i['pay_month_diff']}}%) </span>
                               {%else%}
-                              <span class="color-negative">({{i['pay_month_diff']}}%)</span>
+                              <span class="color-negative verysm">({{i['pay_month_diff']}}%)</span>
                               {%endif%}
               </div>
               <div class="col-lg-1 col-md-3  col-4">
