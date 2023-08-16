@@ -1241,6 +1241,9 @@ color:darkgray;
 .fa-file-import{
   color:green;
 }
+.minus-margin{
+  margin-top: -8px;
+}
 .icon-container {
   position: absolute;
   top: 0;

@@ -29,6 +29,10 @@ a {
 .bigfont{
   font-size: 20px;
 }
+.font-small{
+  margin-top: 4px;
+  font-size: 14px;
+}
 .recommendfont{
   font-size: 25px !important;
 }

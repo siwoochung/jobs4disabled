@@ -131,16 +131,16 @@
       <div class = "row">
         <div class="card profile-card p-0">
           <div class = "row">
-            <div class="col-md-3 px-5 pt-md-3 mt-5">
+            <div class="col-md-3 pt-md-3 mt-5">
                 <div class="icon-container">
                   <p><i class="fa-regular fa-pen-to-square fa-icon" data-bs-toggle="modal" data-bs-target="#editModal"></i></p>
     
   </div>
-                <div class="img-container overflow-hidden my-margin ">
+                <div class="img-container overflow-hidden my-margin">
                   <img src="{{img_path}}" class="card-img-top img-fluid profile-img">
                 </div>
               <div>
-                <div class="card-body mt-md-3">
+                <div class="card-body minus-margin">
                   <h5 class="text-center pointer card-body22"><i class="bi bi-camera" data-bs-toggle="modal" data-bs-target="#applyModal2"></i> {{username}}</h5>
                 </div>
               </div>
@@ -148,12 +148,17 @@
             <div class="col-md-5">
               <div class="card-body align-items-center">
                 <ul class="my-info">
-                  <li class="mt-5 mb-md-2"><strong>나이:</strong> {{age}}</li>
-                  <li class="mb-md-2"><strong>성별:</strong> {{gender}}</li>
-                  <li class="mb-md-2"><strong>연락처:</strong> {{phone}}</li>
-                  <li class="mb-md-2"><strong>관심/희망 분야:</strong> {{interest}}</li>
-                                    <li class="mb-md-2"><strong>장애등급:</strong>{{level}}</li>
-                  <li class="mb-md-2"><strong>활동제한:</strong> {{restrict}}</li>
+                  <li class="mt-5 mb-md-2"><strong class="me-2">나이:</strong> {{age}}</li>
+                  <li class="mb-md-2"><strong class="me-2">성별:</strong> {{gender}}</li>
+                  <li class="mb-md-2"><strong class="me-2">연락처:</strong> {{phone}}</li>
+                  <li class="mb-md-2"><strong class="me-2">관심/희망 분야:</strong> {{interest}}</li>
+                                    <li class="mb-md-2"><strong class="me-3">장애등급:</strong>{{level}}</li>
+                                    {% if restrict == 'y' %}
+                  <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 있음</li>
+                  {% else %}
+                  <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 없음</li>
+
+                  {% endif %}
              </div>
             </div>
               <div class="col-md-4">

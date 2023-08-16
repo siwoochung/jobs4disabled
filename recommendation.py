@@ -3,6 +3,7 @@ from ast import literal_eval
 from calculate_income import convert, get_average, compare_income
 from naver_distance import calculate_distance
 import random
+import sqlite3 as sq
 
 
 def compare_income(x,data):
@@ -107,7 +108,7 @@ def pick_jobs(n,username):
 		else:
 			dic["요구학력"]="대졸"
 
-		
+		dic["edu"] = required_degree[i]
 		dic["요구경력"]=required_work[i]
 		if required_work[i]==0:
 			dic["요구경력"]="경력무관"
@@ -117,6 +118,136 @@ def pick_jobs(n,username):
 			dic["요구경력"]="2년"
 		else:
 			dic["요구경력"]="3년 이상"
+		dic["exp"] = required_work[i]
+		final_lst.append(dic)
+		# i +=1
+		
+
+	return final_lst
+
+def pick_jobs2(n,username):
+	if username == -1:
+		data = pd.read_csv("data/temp_data.csv")
+	else:
+		data = pd.read_csv("users/"+username+"/time.csv")
+	NUMS = n
+
+	data["pay_month"] = data['임금'].apply(convert)
+	data["pay_month_diff"] = data["pay_month"].apply(compare_income, args=(data,))
+	random_data = data.sample(n=NUMS)
+	conn = sq.connect('data/login_info.db')
+	cursor = conn.cursor()
+	cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
+	myinterest = cursor.fetchone()[0]
+	cursor.execute("SELECT edu FROM user WHERE username = ?", (username,))
+	myedu = cursor.fetchone()[0]
+	cursor.execute("SELECT exp FROM user WHERE username = ?", (username,))
+	myexp = cursor.fetchone()[0]
+
+	name = random_data["모집직종"].tolist()
+	hire_type = random_data["고용형태"].tolist()
+	pay = random_data["임금"].tolist()
+	paytype = random_data["임금형태"].tolist()
+	location = random_data["사업장 주소"].tolist()
+	company_type = random_data["기업형태"].tolist()
+	job_class = random_data["Classification"].tolist()
+	required_degree = random_data["요구학력"].tolist()
+	required_work = random_data["요구경력"].tolist()
+	company = random_data["Company"].tolist()
+	address = random_data["사업장 주소"].tolist()
+	job_id = random_data["id"].tolist()
+	if username != -1:
+		time = random_data["time"].tolist()
+	pay_month = random_data["pay_month"].tolist()
+	pay_month_diff = random_data["pay_month_diff"].tolist()
+
+	final_lst=[]
+	# i = 0
+	# while i < NUMS:
+	for i in range(NUMS):
+		# if (calculate_distance(address[i])>60):
+		# 	continue
+		dic = dict()  #{}
+		dic["Company"] = company[i]
+		dic["모집직종"]=name[i]
+		if username == -1:
+			dic["add"]= -4
+		else:
+			dic["add"]=time[i]
+		dic["id"] = job_id[i]
+		
+		pay_month_diff[i] = round(pay_month_diff[i],1)
+		dic["pay_month_diff"] = pay_month_diff[i]
+		percent = 90
+		percent = 90 - float(time[i]*0.3)
+		if str(job_class[i]) in myinterest:
+			if percent + 20 < 100:
+				percent += 20
+			else:
+				percent = 10
+		if myedu < required_degree[i]:
+			percent -= 35
+		if myexp < required_work[i]:
+			percent -= 35
+		dic["percent"] = int(percent)
+
+		pay[i] = "{:,}".format(pay[i])
+		if paytype[i] == 0:
+			# dic["pay"]= "시급: ₩"+ str(pay[i])
+			dic["pay"]= str(pay[i])
+		elif paytype[i]== 1:
+			dic["pay"]= str(pay[i])
+		elif paytype[i] == 2:
+			dic["pay"]= str(pay[i])
+		else:
+			dic["pay"]= str(pay[i])
+		# dic[""]=company[i]
+
+		dic["고용형태"]=hire_type[i]
+		if hire_type[i]==0:
+			dic["고용형태"] = "계약직"
+		elif hire_type[i]==1:
+			dic["고용형태"] = "상용직"
+		else:
+			dic["고용형태"] = "시간제"
+
+		dic["사업장 주소"]=location[i]
+
+		dic["기업형태"]=company_type[i]
+		if company_type[i]==0:
+			dic["기업형태"]="개인"
+		elif company_type[i]==1 or company_type[i]==5:
+			dic["기업형태"]="중소"
+		elif company_type[i]==2:
+			dic["기업형태"]="협회,단체"
+		elif company_type[i]==3:
+			dic["기업형태"]="공사,공공"
+		elif company_type[i]==4:
+			dic["기업형태"]="대기업"
+
+		dic["Classification"]= str(job_class[i])
+
+		dic["요구학력"]=required_degree[i]
+		if required_degree[i]==0:
+			dic["요구학력"]="학력무관"
+		elif required_degree[i]==1:
+			dic["요구학력"]="고졸"
+		elif required_degree[i]==2:
+			dic["요구학력"]="초대졸"
+		else:
+			dic["요구학력"]="대졸"
+
+		dic["edu"] = required_degree[i]
+		dic["요구경력"]=required_work[i]
+		if required_work[i]==0:
+			dic["요구경력"]="경력무관"
+		elif required_work[i]==1:
+			dic["요구경력"]="1년"
+		elif required_work[i]==2:
+			dic["요구경력"]="2년"
+		else:
+			dic["요구경력"]="3년 이상"
+		dic["exp"] = required_work[i]
 		final_lst.append(dic)
 		# i +=1
 		

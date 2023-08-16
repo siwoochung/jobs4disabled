@@ -4,7 +4,7 @@
 from flask import Flask,render_template, request,send_file, redirect,url_for,flash, jsonify,session
 import pandas as pd
 from register_login import register,login_check, get_interest
-from recommendation import pick_jobs, pick_jobs_filter_by_class, pick_jobs_filter_by_hire_type
+from recommendation import pick_jobs,pick_jobs2, pick_jobs_filter_by_class, pick_jobs_filter_by_hire_type
 from datetime import timedelta
 from graph_generator import income_compare, similarity_graph
 import json
@@ -66,19 +66,29 @@ def index():
                                         lst_jobs = pick_jobs_filter_by_hire_type(10, lst_jobs,contract_checked, fulltime_checked, parttime_checked)
                 else:
                         if 'username' in session:
-                                lst_jobs = pick_jobs(15,session["username"])
+                                lst_jobs = pick_jobs2(50,session["username"])
                                 lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
                         else:
-                                lst_jobs = pick_jobs(15,-1)
+                                lst_jobs = pick_jobs(50,-1)
                                 lst_jobs = sorted(lst_jobs, key=lambda x: x['add'])
                 if 'username' in session: #when user is logged in
                         imge_path='../static/users/'+session["username"]+"/image/img.png"
                         bookmarked_jobs = read_bookmarked_jobs(session['username'])
-                        isLogin = True 
-                        return render_template("index.html",img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
+                        isLogin = True
+                        username = session["username"]
+                        conn = sq.connect('data/login_info.db')
+                        cursor = conn.cursor()
+
+                        cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
+                        interest = cursor.fetchone()[0]
+                        cursor.execute("SELECT edu FROM user WHERE username = ?", (username,))
+                        edu = cursor.fetchone()[0]
+                        cursor.execute("SELECT exp FROM user WHERE username = ?", (username,))
+                        exp = cursor.fetchone()[0]
+                        return render_template("index.html",edu=edu,exp=exp,interest=interest, img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
                 else: # when user is not logged in 
                         isLogin = False  
-                        return render_template("index.html",bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
+                        return render_template("index.html",edu=0, exp=1,interest=[],bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
 @app.route('/api/job-listings')
 def get_job_listings():
     return jsonify(lst_jobs)
@@ -125,7 +135,9 @@ def signup():
                 typ = request.form.get('userType')
                 level = request.form.get('level')
                 restrict = request.form.get('rest')
-                register(username,password, age, gender, phone, interest, address,level, typ, restrict)
+                edu = request.form.get('education')
+                exp= request.form.get('experience')
+                register(username,password, age, gender, phone, interest, address,level, typ, restrict,edu,exp)
                 df = pd.read_csv("data/temp_data.csv")
                 df["time"] = df["사업장 주소"].apply(calculate_distance, args=(address,))
 	
