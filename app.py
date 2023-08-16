@@ -142,21 +142,23 @@ async def signup():
                 exp= request.form.get('experience')
                 register(username,password, age, gender, phone, interest, address,level, typ, restrict,edu,exp)
                 df = pd.read_csv("data/temp_data.csv")
-                df["time"] = df["사업장 주소"].apply(calculate_distance, args=(address,))
+                #df["time"] = df["사업장 주소"].apply(calculate_distance, args=(address,))
                 #loop = asyncio.get_event_loop()
                 #results = loop.run_until_complete(calculate_distances_async(df,address))
                 path = os.path.join("users/", username )
                 path2 = os.path.join("static/users/", username )
                 source_path = 'static/users/img.png'
+                source_path2 = 'users/time.csv'
                 try:
                                         os.makedirs(path)
-                                        df.to_csv(path+"/time.csv")
                                         os.makedirs(path+"/resume")
                                         os.makedirs(path+"/resume_own")
                                         with open(path+"/applied_lst.txt", "w") as file:
                                                 pass
                                         with open(path+"/bookmark_lst.txt", "w") as file:
                                                 pass
+                                        shutil.copy(source_path2, os.path.join(path, "time.csv"))
+
                                         os.makedirs(path2)
                                         os.makedirs(path2+"/image")
                                         shutil.copy(source_path, os.path.join(path2, "image", "img.png"))

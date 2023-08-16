@@ -2,7 +2,7 @@ import requests
 import json
 import asyncio
 # Set your Naver API credentials
-def calculate_distance2(address,start):
+def calculate_distance(address,start):
     client_id = 'hvid9avxqf'
     client_secret = 'yVe8kRQLMISDknnJAY6zhdOL6NbMbFL6rb1OESqq'
 
@@ -63,29 +63,29 @@ def calculate_distance2(address,start):
 import googlemaps
 from googlemaps.exceptions import ApiError
 
-def calculate_distance(address,start):
-    # Replace 'YOUR_API_KEY' with your actual API key
-    api_key = 'AIzaSyC4A770PO5RfcOQQsAJ-_HmJQVVzn3YaC8'
-    gmaps = googlemaps.Client(key=api_key)
+# def calculate_distance(address,start):
+#     # Replace 'YOUR_API_KEY' with your actual API key
+#     api_key = 'AIzaSyC4A770PO5RfcOQQsAJ-_HmJQVVzn3YaC8'
+#     gmaps = googlemaps.Client(key=api_key)
 
-    origin = start
-    destination = address
-    try:
+#     origin = start
+#     destination = address
+#     try:
 
-        directions_result = gmaps.directions(origin, destination, mode="driving")
+#         directions_result = gmaps.directions(origin, destination, mode="driving")
 
-        if directions_result:
-            duration = directions_result[0]['legs'][0]['duration']['text']
+#         if directions_result:
+#             duration = directions_result[0]['legs'][0]['duration']['text']
 
-            duration = int(duration)
-            duration = duration / 1000 / 60 
-            return int(duration)
-        else:
-            print("No directions found.")
-            return -4
-    except ApiError as e:
-        print("An API error occurred:")
-        print(e)
+#             duration = int(duration)
+#             duration = duration / 1000 / 60 
+#             return int(duration)
+#         else:
+#             print("No directions found.")
+#             return -4
+#     except ApiError as e:
+#         print("An API error occurred:")
+#         print(e)
 
 
 
