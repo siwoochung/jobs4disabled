@@ -179,7 +179,7 @@ def pick_jobs2(n,username):
 		pay_month_diff[i] = round(pay_month_diff[i],1)
 		dic["pay_month_diff"] = pay_month_diff[i]
 		percent = 90
-		percent = 90 - float(time[i]*0.3)
+		percent = 90 - float(time[i]*0.4)
 		if str(job_class[i]) in myinterest:
 			if percent + 20 < 100:
 				percent += 20
