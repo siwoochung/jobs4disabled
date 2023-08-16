@@ -1247,6 +1247,9 @@ color:darkgray;
   .custom-text {
     line-height: 1.8;
   }
+  .my-comp-mr{
+  margin-top: 65px!important;
+}
 .icon-container {
   position: absolute;
   top: 0;

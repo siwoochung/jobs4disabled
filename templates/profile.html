@@ -148,30 +148,58 @@
             <div class="col-md-5">
               <div class="card-body align-items-center">
                 <ul class="my-info">
-                  <li class="mt-5 mb-md-2"><strong class="me-2">나이:</strong> {{age}}</li>
-                  <li class="mb-md-2"><strong class="me-2">성별:</strong> {{gender}}</li>
-                  <li class="mb-md-2"><strong class="me-2">연락처:</strong> {{phone}}</li>
-                  <li class="mb-md-2"><strong class="me-2">관심/희망 분야:</strong> {{interest}}</li>
-                                    <li class="mb-md-2"><strong class="me-3">장애등급:</strong>{{level}}</li>
-                                    {% if restrict == 'y' %}
-                  <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 있음</li>
-                  {% else %}
-                  <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 없음</li>
+                   {%if isLogin == True and typ==0%}
 
+                        <li class="mt-5 mb-md-2"><strong class="me-2">나이:</strong> {{age}}</li>
+                        <li class="mb-md-2"><strong class="me-2">성별:</strong> {{gender}}</li>
+                        <li class="mb-md-2"><strong class="me-2">연락처:</strong> {{phone}}</li>
+
+                        <li class="mb-md-2"><strong class="me-2">관심/희망 분야:</strong> {{interest}}</li>
+                        <li class="mb-md-2"><strong class="me-3">장애등급:</strong>{{level}}</li>
+                         {% if restrict == 'y' %}
+                        <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 있음</li>
+                          {% else %}
+                        <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 없음</li>
+                          {% endif %}
+                  {% else %}
+
+                        <li class="mb-md-2 my-comp-mr"><strong class="me-2">연락처:</strong> {{phone}}</li>
+
+                        <li class="mb-md-2"><strong class="me-2">관심/희망 분야:</strong> {{interest}}</li>
+                        <li class="mb-md-2"><strong class="me-3">허용 장애 등급:</strong>{{level}}</li>
+                         {% if restrict == 'y' %}
+                        <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 고려함</li>
+                          {% else %}
+                        <li class="mb-md-2"><strong class="me-2">활동제한:</strong> 고려하지않음</li>
+                          {% endif %}
                   {% endif %}
+
+
              </div>
             </div>
+                               {%if isLogin == True and typ==0%}
+
               <div class="col-md-4">
               <div class="card-body d-flex flex-column align-items-center justify-content-center mt-md-5">
-                <button type="button" class="btn btn-primary more-btn mx-auto mb-3 mt-md-5" data-bs-toggle="modal" data-bs-target="#applyModal">내 이력서 저장</button>
+                <button type="button" class="btn btn-primary more-btn mx-auto mb-3 mt-md-5" data-bs-toggle="modal" data-bs-target="#applyModal">지원서 저장</button>
                 <!-- <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">내 이력서</button>  -->
-    <a href="{{ url_for('download_file') }}" class="btn btn-primary mt-md-2">내 이력서 다운로드</a>
+    <a href="{{ url_for('download_file') }}" class="btn btn-primary mt-md-2">지원서 다운로드</a>
 
               </div>
             </div>
+                                      {% else %}
+              <div class="col-md-4">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center mt-md-5">
+                <button type="button" class="btn btn-primary more-btn mx-auto mb-3 mt-md-5" data-bs-toggle="modal" data-bs-target="#applyModal">회사 정보 저장</button>
+                <!-- <button type="button" class="btn btn-primary more-btn mx-auto" data-bs-toggle="modal" data-bs-target="#applyModal">내 이력서</button>  -->
+    <a href="{{ url_for('download_file') }}" class="btn btn-primary mt-md-2">회사 정보 다운로드</a>
+
+              </div>
+            </div>                          {% endif %}
         </div>
       </div>
     </div>
+{%if isLogin == True and typ == 0%}
 
 <div class="container content-container mt-5">
   <h3 class="mt-5">입사 지원서 현황</h3>
@@ -199,6 +227,40 @@
       {% endfor %}
     </tbody>
   </table>
+
+  {%else%}
+  <div class="container content-container mt-5">
+  <h3 class="mt-5">입사 지원서 현황</h3>
+  <table class="table table-hover mt-4">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>유저명</th>
+        <th>유저 이메일</th>
+        <th>유저 전화번호</th>
+        <th>장애등급</th>
+
+        <!-- <th>지원 마감일</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in final_lst %}
+      <tr>
+                <td>{{loop.index}}</td>
+
+        <td>{{i["username"]}}</td>
+        <td class="ps-3">{{i["email"]}}</td>
+        <td class="ps-4">{{i["phone"]}}</td>
+                <td class="ps-4">{{i["level"]}}</td>
+
+        <!-- <th>2023/07/10</th> -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {%endif%}
+                                   {%if isLogin == True and typ==0%}
+
     <h3 class="mt-5"> 관심 있는 직업 목록</h3>
 
     <table class="table table-hover mt-4">
@@ -230,17 +292,17 @@
     </tbody>
   </table>
 </div>
-
+{%endif%}
     <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">지원서</h5>
+            <h5 class="modal-title" id="exampleModalLabel">지원서 및 회사 정보</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </button>
           </div>
 <div class="modal-body">
-    <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="triggerFileInputClick('fileInputApplyModal')">지원서 저장하기</button>
+    <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="triggerFileInputClick('fileInputApplyModal')">첨부하기</button>
     <div class="file-upload">
         <input class="file-upload-input" type="file" id="fileInputApplyModal" onchange="readURL(this)">
               <div class="drag-text">

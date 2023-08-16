@@ -88,7 +88,7 @@ def index():
                         edu = cursor.fetchone()[0]
                         cursor.execute("SELECT exp FROM user WHERE username = ?", (username,))
                         exp = cursor.fetchone()[0]
-                        return render_template("index.html",edu=edu,exp=exp,interest=interest, img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
+                        return render_template("index.html",typ=typ,edu=edu,exp=exp,interest=interest, img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
                 else: # when user is not logged in 
                         isLogin = False  
                         return render_template("index.html",edu=0, exp=1,interest=[],bookmarked_jobs=[],job_lst=lst_jobs, isLogin = isLogin, data1=income_compare_data, data2=sim_compare_data)
@@ -148,12 +148,12 @@ async def signup():
                 interest = ",".join(interest)
                 address = request.form['address']
                 
-                
+                email = request.form['email']
                 level = request.form.get('level')
                 restrict = request.form.get('rest')
                 edu = request.form.get('education')
                 exp= request.form.get('experience')
-                register(username,password, age, gender, phone, interest, address,level, typ, restrict,edu,exp)
+                register(username,password, age, gender, phone, interest, address,level, typ, restrict,edu,exp,email)
                 df = pd.read_csv("data/temp_data.csv")
                 #df["time"] = df["사업장 주소"].apply(calculate_distance, args=(address,))
                 #loop = asyncio.get_event_loop()
@@ -192,38 +192,64 @@ def logout():
 def profile():
         if 'username' in session:
                 username = session['username']
+                typ = session["type"]
                 interest = get_interest(username)
                 file_path = 'users/'+session["username"]+"/applied_lst.txt" 
                 imge_path='../static/users/'+session["username"]+"/image/img.png"
                 lines_list = []
-
-                # Open the file in read mode
-                with open(file_path, "r") as file:
-                    for line in file:
-                        lines_list.append(int(line.strip()))
-                
                 df = pd.read_csv("data/temp_data.csv")
-                final_lst = []
-                for i in lines_list:
-                        matching_rows = df[df['id'] == i]
-                        dic = {}
-                        dic["companyname"] = matching_rows["Company"].iloc[0]
-                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
-                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
-                        final_lst.append(dic)
-                bookmarked_jobs = read_bookmarked_jobs(session['username'])
-                final_lst2 = []
-                for i in bookmarked_jobs:
-                        matching_rows = df[df['id'] == i]
-                        dic = {}
-                        dic["companyname"] = matching_rows["Company"].iloc[0]
-                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
-                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
-                        dic["applied"] = False
-                        for j in final_lst:
-                                if j["companyname"] == dic["companyname"]:  
-                                        dic["applied"] = True
-                        final_lst2.append(dic)
+
+                if typ == 0:
+                        with open(file_path, "r") as file:
+                            for line in file:
+                                lines_list.append(int(line.strip()))
+                        final_lst = []
+                        for i in lines_list:
+                                matching_rows = df[df['id'] == i]
+                                dic = {}
+                                dic["companyname"] = matching_rows["Company"].iloc[0]
+                                dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                                dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                                final_lst.append(dic)
+                        bookmarked_jobs = read_bookmarked_jobs(session['username'])
+                        final_lst2 = []
+                        for i in bookmarked_jobs:
+                                matching_rows = df[df['id'] == i]
+                                dic = {}
+                                dic["companyname"] = matching_rows["Company"].iloc[0]
+                                dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                                dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                                dic["applied"] = False
+                                for j in final_lst:
+                                        if j["companyname"] == dic["companyname"]:  
+                                                dic["applied"] = True
+                                final_lst2.append(dic)
+                else:
+                        with open(file_path, "r") as file:
+                            for line in file:
+                                lines_list.append(line.strip())
+                        conn = sq.connect('data/login_info.db')
+                        cursor = conn.cursor()
+                        final_lst2 = []
+                        # Define the username
+                        username = session["username"]
+
+                        cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
+                        phone = cursor.fetchone()[0]
+                        cursor.execute("SELECT email FROM user WHERE username = ?", (username,))
+                        email = cursor.fetchone()[0]
+                        cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
+                        level = cursor.fetchone()[0]
+                        final_lst = []
+                        for i in lines_list:
+                                matching_rows = df[df['id'] == i]
+                                dic = {}
+                                dic["phone"] = phone
+                                dic["email"] = email
+                                dic["username"] = i
+                                dic["level"] = level
+                                final_lst.append(dic)            
+
                 conn = sq.connect('data/login_info.db')
                 cursor = conn.cursor()
 
@@ -250,7 +276,7 @@ def profile():
                         restrict =="있음"
                 else:
                         restrict=="없음"
-                return render_template("profile.html",level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
+                return render_template("profile.html",typ=typ,level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
 
                         
         else:
@@ -292,8 +318,24 @@ def faq():
 
 @app.route('/search', methods=['POST'])
 def search_results():
-        df = pd.read_csv("data/temp_data.csv")
-
+        username = session["username"]
+        imge_path='../static/users/'+session["username"]+"/image/img.png"
+        income_compare_data = income_compare()
+        income_compare_data = json.dumps(income_compare_data)
+        sim_compare_data = similarity_graph()
+        sim_compare_data = json.dumps(sim_compare_data)
+        df = pd.read_csv("users/"+session["username"]+"/time.csv")
+        conn = sq.connect('data/login_info.db')
+        cursor = conn.cursor()
+        bookmarked_jobs = read_bookmarked_jobs(session['username'])
+        isLogin = True
+        cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
+        interest = cursor.fetchone()[0]
+        myinterest = interest
+        cursor.execute("SELECT edu FROM user WHERE username = ?", (username,))
+        edu = cursor.fetchone()[0]
+        cursor.execute("SELECT exp FROM user WHERE username = ?", (username,))
+        exp = cursor.fetchone()[0]
         search_query = request.form['query']  # Get the search query from the form data
         filtered_df= df[df["모집직종"].str.contains(search_query, case=False) | df["Company"].str.contains(search_query, case=False)]
         filtered_df["pay_month"] = filtered_df['임금'].apply(convert)
@@ -312,6 +354,7 @@ def search_results():
         company = filtered_df["Company"].tolist()
         address = filtered_df["사업장 주소"].tolist()
         job_id = filtered_df["id"].tolist()
+        time = filtered_df["time"].tolist()
         pay_month = filtered_df["pay_month"].tolist()
         pay_month_diff = filtered_df["pay_month_diff"].tolist()
         final_lst=[]
@@ -323,13 +366,22 @@ def search_results():
                 dic = dict()  #{}
                 dic["Company"] = company[i]
                 dic["모집직종"]=name[i]
-                dic["add"]=calculate_distance(address[i])
                 dic["id"] = job_id[i]
-                
+                dic["add"] = time[i]
                 pay_month_diff[i] = round(pay_month_diff[i],1)
                 dic["pay_month_diff"] = pay_month_diff[i]
-                dic["percent"] = random.randint(20,100)
-
+                pay_month_diff[i] = round(pay_month_diff[i],1)
+                dic["pay_month_diff"] = pay_month_diff[i]
+                percent = 90
+                percent = 90 - float(time[i]*0.4)
+                if str(job_class[i]) in myinterest:
+                        if percent + 20 < 100:
+                                percent += 20
+                        else:
+                                percent = 100
+                else:
+                        percent = percent-10
+                dic["percent"] = int(percent)
                 pay[i] = "{:,}".format(pay[i])
                 if paytype[i] == 0:
                         # dic["pay"]= "시급: ₩"+ str(pay[i])
@@ -363,6 +415,8 @@ def search_results():
                         dic["기업형태"]="공사,공공"
                 elif company_type[i]==4:
                         dic["기업형태"]="대기업"
+                dic["edu"] = required_degree[i]
+                dic["exp"] = required_work[i]
 
                 dic["Classification"]=job_class[i]
 
@@ -387,13 +441,31 @@ def search_results():
                 else:
                         dic["요구경력"]="3년 이상"
                 final_lst.append(dic)
-        return render_template('search_result.html', job_lst=final_lst)
+        typ = session["type"]
+        return render_template('search_result.html',img_path=imge_path, username=session['username'], data1=income_compare_data, data2=sim_compare_data, isLogin=isLogin,bookmarked_jobs=bookmarked_jobs,job_lst=final_lst,edu=edu,exp=exp,interest=interest,typ=typ)
 
 @app.route('/save_changes', methods=['POST'])
 def save_changes():
     id = request.args.get('id')
+    username = session["username"]
+    a = id
     if request.method == 'POST':
         uploaded_file = request.files['uploaded_file']  # 'uploaded_file' should match the input field name in your HTML form
+
+        df = pd.read_csv("data/temp_data.csv")
+        a = int(a)
+
+        df = df[df["id"]==a]
+        comp = df["Company"]
+        comp = comp.iloc[0]
+        comp = str(comp)
+
+        directory_to_check = comp
+        if os.path.isdir("users/"+comp):
+            print(f"The directory '{directory_to_check}' exists in the specific path.")
+            with open("users/"+comp+"/applied_lst.txt", "a") as file:
+                    file.write(username+"\n")
+        
         if uploaded_file:
             file_extension = os.path.splitext(uploaded_file.filename)[1]
             if id !='own':

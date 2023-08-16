@@ -13,12 +13,12 @@ from naver_distance import calculate_distance
 # conn.close() #end connection
 
 #Function for sign-up page
-def register(username, password, age, gender, phone, interest,address, level, typ, restrict,edu,exp):
+def register(username, password, age, gender, phone, interest,address, level, typ, restrict,edu,exp,email):
 	conn = sq.connect("data/login_info.db")  #connect to database
 	cur = conn.cursor() #create cursor for execute SQL in python
 	# app.logger.debug("called")
 	try:
-		conn.execute('INSERT INTO user(username, password, age, gender, phone, interest,address, level, type, restrict,edu,exp) Values (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?)',(username, password, age, gender, phone, interest, address, level, typ, restrict,edu,exp))
+		conn.execute('INSERT INTO user(username, password, age, gender, phone, interest,address, level, type, restrict,edu,exp,email) Values (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?)',(username, password, age, gender, phone, interest, address, level, typ, restrict,edu,exp,email))
 	# app.logger.debug("Success")
 	except sq.IntegrityError:
 		print("Already have " + username)

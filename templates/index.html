@@ -188,7 +188,7 @@
                 <p class="card-text">{{i['요구경력']}}</p>
               </div>
               <div class="col-lg-2 col-md-3 col-6">
-                        {%if isLogin == True  and typ == 0 %}
+                        {%if isLogin == True and typ == 0 %}
 
                 <p class="my-margin my-ppp ps-3">직업적합도</p>
                                           {%if i['percent'] >= 70 %}
@@ -199,7 +199,7 @@
                            <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
                             {%endif%}
                             {%elif isLogin == True%}
-                            <p class="mt-4">사용자들을 위한 직업 추천</p>
+                            <p class="mt-5">사용자들을 위한 직업 추천</p>
                   {%else%} 
                                   <p class="my-margin my-ppp ps-3">직업적합도</p>
 
@@ -598,6 +598,30 @@
   });
 </script>
 <script>
+function saveChanges(id) {
+    // Perform AJAX request to the Flask route
+    var formData = new FormData();
+    formData.append('uploaded_file', document.querySelector('.file-upload-input').files[0]);
+    
+    fetch('/save_changes?id=' + id, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert(result);  // Display a message indicating success or failure
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    const modal = document.getElementById('applyModal-'+id);
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+}
+function triggerFileInputClick() {
+    $('.file-upload-input').trigger('click');
+}
+
 // Define the bookmarked_jobs array
 var bookmarked_jobs = {{ bookmarked_jobs|tojson }};
 

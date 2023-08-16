@@ -68,13 +68,12 @@
         </li><!-- End Search Icon-->
 
 
-        {%if isLogin == True %}
-
+{% if isLogin == True%}
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../static/images/logo.png" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{username}}</span>
+            <img src="{{img_path}}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2 color-white">{{username}}</span>
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -116,7 +115,7 @@
         </li><!-- End Profile Nav -->
         
         {%else%}
-        <a class="btn btn-primary" href={{url_for("login")}}>Login</a>
+        <a class="btn btn-primary me-4" href={{url_for("login")}}>Login</a>
 
         {%endif%}
 
@@ -130,62 +129,68 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1 class="ms-2">채용정보추천</h1>
-      <nav>
-        <ol class="breadcrumb">
-         <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li> -->
-        </ol>
-      </nav>
+      <h1 class="text-center mb-5 recommendfont">채용정보추천</h1>
     </div><!-- End Page Title -->
 
 
-    <section class="section dashboard">
-      <div class="row">
-              <div class="container">
-         {% for i in job_lst %}
+  <section class="section dashboard">
+    <div class="container">
+      {% for i in job_lst[:25] %}
       <div class="row mb-4">
         <div class="card h-100 job-card-h">
           <div class="card-body">
             <div class="row">
-              <div class="col-3">
+              <div class="col-lg-3 col-md-12 col-12">
                 <h5 class="card-title">{% if i['id'] in bookmarked_jobs %}
 <i class="fas fa-star" id="bookmark-icon-{{i['id']}}" data-bookmarked="true"></i>
 {% else %}
 <i class="far fa-star" id="bookmark-icon-{{i['id']}}" data-job-id="{{i['id']}}" data-bookmarked="false"></i>
 {% endif %}
 {{i['Company']}} </h5>
-                <p class="card-text"><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
+                {% if i['add'] < 0 %}
+                 <p class="card-text "><span class="add-font"></span></p>
+                 {% elif i['add'] > 60 %}
+<p class="card-text"><span class="add-font">
+  차로 약 
+  {% set hours = i['add'] // 60 %}
+  {% set minutes = i['add'] % 60 %}
+  {{ hours }} 시간 {{ minutes }} 분 거리
+</span></p>
+                {% else %}
+                <p class="card-text "><span class="add-font">차로 약 {{i['add']}} 분 거리</span></p>
+                {% endif %}
               </div>
-              <div class="col-2">
+              <div class="col-lg-2 col-md-4 col-6">
                 <h5 class="card-title sd">직업명</h5>
                 <p class="card-text">{{i['모집직종']}}</p>
               </div>
-                            <div class="col-1">
+                            <div class="col-lg-1  col-md-4 col-6">
                 <h5 class="card-title sd">기업형태</h5>
                 <p class="card-text">{{i['기업형태']}}</p>
               </div>
-              <div class="col-1">
-                <h5 class="card-title sd tooltip2">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
+              <div class="col-lg-1 col-md-4  col-4">
+                <h5 class="card-title sd tooltip2 minus-margin">임금 <i class="bi bi-question-circle color-info"></i><span class="tooltiptext">주 40시간 기준 임금 차이</span></h5>
                 <p class="card-text sd2">{{i['pay']}}</p>
                                               {%if i['pay_month_diff'] == 0%}
-                              <span class="color-info">(+{{i['pay_month_diff']}}%)</span>
+                              <span class="color-info verysm">(+{{i['pay_month_diff']}}%)</span>
                               {%elif i['pay_month_diff'] >= 0%}
-                              <span class="color-positive">(+{{i['pay_month_diff']}}%) </span>
+                              <span class="color-positive verysm">(+{{i['pay_month_diff']}}%) </span>
                               {%else%}
-                              <span class="color-negative">({{i['pay_month_diff']}}%)</span>
+                              <span class="color-negative verysm">({{i['pay_month_diff']}}%)</span>
                               {%endif%}
               </div>
-              <div class="col-1">
+              <div class="col-lg-1 col-md-3  col-4">
                 <h5 class="card-title sd">고용형태</h5>
                 <p class="card-text">{{i['고용형태']}}</p>
               </div>
-              <div class="col-1">
+              <div class="col-lg-1 col-md-3 col-4">
                 <h5 class="card-title sd">요구경력</h5>
                 <p class="card-text">{{i['요구경력']}}</p>
               </div>
-              <div class="col-2">
-                <p class="mt-4 my-ppp ps-3">직업적합도</p>
+              <div class="col-lg-2 col-md-3 col-6">
+                        {%if isLogin == True and typ == 0 %}
+
+                <p class="my-margin my-ppp ps-3">직업적합도</p>
                                           {%if i['percent'] >= 70 %}
                            <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
                            {%elif 30 < i['percent']  < 70%}
@@ -193,30 +198,66 @@
                            {%elif i['percent'] <= 30%}
                            <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
                             {%endif%}
+                            {%elif isLogin == True%}
+                            <p class="mt-5">사용자들을 위한 직업 추천</p>
+                  {%else%} 
+                                  <p class="my-margin my-ppp ps-3">직업적합도</p>
+
+                  <p class="font-small">로그인 후 확인가능 </p>
+        
+                  {%endif%}
                 <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
               </div>
-                            <div class="col-1">
+                            <div class="col-lg-1 col-md-3 col-6">
+                                 {%if isLogin == True and typ==0%}
                                 <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
                                 <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+                                                            {%elif isLogin == True%}
+ {% else %}
+  <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#loginModal">지원하기</button>
+  <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#loginModal">분석 더보기</button>
+{% endif %}
               </div>
             </div>
           </div>
       </div>
     </div>
+
       {% endfor %}
-       
 
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-<!-- End Right side columns -->
-
+            </div>
+          </div>
       </div>
-    </section>
+    </div>
 
+</div>
+    </div><!-- End container -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">로그인이 필요합니다</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        로그인 후에 해당 기능을 이용하실 수 있습니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        <a href="{{ url_for('login') }}" class="btn btn-primary">로그인</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  </section>
     <!-- Modal -->
     {%for i in job_lst%}
-    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="applyModal-{{i['id']}}" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -225,7 +266,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="$('.file-upload-input').trigger('click')">지원서 첨부하기</button>
+            <!-- <button class="btn btn-primary mb-2 apply-btn" type="button" onclick="triggerFileInputClick()">저장된 지원서 첨부하기</button> -->
             <div class="file-upload">
               <input class="file-upload-input" type='file' onchange="readURL(this)">
               <div class="drag-text">
@@ -241,32 +282,89 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-            <button type="button" class="btn btn-primary">변경사항 저장</button>
+<button type="button" class="btn btn-primary" id="saveChangesBtn" onclick="saveChanges2({{i['id']}})">변경사항 저장</button>
+
           </div>
         </div>
       </div>
     </div>
 
     <div class="modal fade" id="dataModal-{{i['id']}}" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">데이터 분석</h5>
+            <h3 class="modal-title" id="exampleModalLabel">데이터 분석</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </button>
           </div>
           <div class="modal-body">
-              <h4>월급 비교</h4>
-              <p> 갖고있는 모든 데이터를 기반해 평균, 상위 25%, 하위 25% 의 월급을 표한 그래프입니다.</p>
-             <canvas id="myChart"></canvas>
-              <h4>직업 매칭도</h4>
-              <p> 갖고있는 모든 데이터를 기반해 모든 회원님들의 원하는 직업의 매칭도를 표한 그래프입니다.</p>
-             <canvas id="myChart2"></canvas>
+            <div class="row">
+              <div class="col-6">
+                <h4>[월급 비교]</h4>
+                <p> 축적된 모든 데이터를 기반으로 평균, 상위 25%, 하위 25%의 월급을 나타내는 그래프입니다.</p>
+               <canvas id="myChart-{{i['id']}}"></canvas>
+               <div class="row"> 
+                <div class="col-7">
+                   <div class="analysis-result">
+                      <ul class="mt-5">
+                        {% if i['Classification'] in interest %}
+                        <li><strong>분야 만족:</strong> 만족 </li>
+                         {% else %}
+                        <li><strong>분야 만족:</strong> 불만족 </li>
+
+                    {% endif %}
+                                            {% if i['edu'] > edu %}
+                        <li> <strong>학력 매칭:</strong>  아니오 </li>
+                         {% else %}
+                        <li> <strong>학력 매칭:</strong>  예</li>
+
+                    {% endif %}
+
+                                            {% if i['exp'] > exp  %}
+                        <li> <strong>경력 매칭:</strong>  아니오</li>
+                         {% else %}
+                        <li> <strong>경력 매칭:</strong>  예</li>
+
+                    {% endif %}
+                        
+                        
+                        <li> <strong>거리 만족도:</strong> {% set negative_diff = 100 - i['add']*0.3 %}{{ negative_diff }}% </li>
+
+{% if i['pay_month_diff'] == 0 %}
+  <li><strong>임금 수준:</strong> 85%</li>
+  <span>(+{{ i['pay_month_diff'] }}%)</span>
+{% elif i['pay_month_diff'] >= 0 %}
+  <li><strong>임금 수준:</strong> {% set negative_diff = 85 + i['pay_month_diff'] %}{{ negative_diff }}%</li>
+{% else %}
+  <li><strong>임금 수준:</strong> {% set negative_diff = 85 - i['pay_month_diff'] %}{{ negative_diff }}%</li>
+
+{% endif %}
+                        
+                      </ul>
+                   </div>
+                </div>
+
+                                <div class="col-5 mt-5 align-items-center bigfont">
+                         
+
+                                                                            {%if i['percent'] >= 70 %}
+                                      <p class="mt-4 text-center"><strong class="mt-3">총 적합도</strong> <br> <strong>{{i['percent']}}%</strong></p>
+                           {%elif 30 < i['percent']  < 70%}
+                      <p class="mt-4 text-center"><strong class="mt-3">총 적합도</strong> <br> <strong>{{i['percent']}}%</strong></p>                           {%elif i['percent'] <= 30%}
+                      <p class="mt-4 text-center"><strong class="mt-3">총 적합도</strong> <br> <strong>{{i['percent']}}%</strong></p>                            {%endif%}
+                                    </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <h4>[직업 적합도]</h4>
+                <p> 회원가입 시 선택한 희망 분야를 기반으로 해당 직무 및 업무의 적합도를 나타내는 그래프입니다.</p>
+               <canvas id="myChart2-{{i['id']}}"></canvas>
+              </div>
+           </div>
           </div>
-          <div class="modal-footer">
+<!--           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-            <button type="button" class="btn btn-primary">변경사항 저장</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -285,7 +383,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../static/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -294,10 +392,157 @@
   <script src="../static/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../static/vendor/tinymce/tinymce.min.js"></script>
   <script src="../static/vendor/php-email-form/validate.js"></script>
+
+
+
+
+  <!-- Template Main JS File -->
+  <script src="../static/js/main.js"></script>
   <script>
-  const ctx = document.getElementById('myChart');
+  // Get a reference to the button element
+  var loadMoreBtn1 = document.getElementById("loadMoreBtn1");
+  var loadMoreBtn2 = document.getElementById("loadMoreBtn2");
+
+  // Add a click event listener to the button
+  loadMoreBtn1.addEventListener('click', function() {
+    console.log('Button 1 clicked');
+    loadMoreBtn1.style.backgroundColor = '#f6f9ff';
+
+    // Change border color
+    loadMoreBtn1.style.borderColor = '#f6f9ff';
+
+    // Change font color
+    loadMoreBtn1.style.color = '#f6f9ff';
+    loadMoreBtn1.style.display = 'none';
+  });
+    loadMoreBtn2.addEventListener('click', function() {
+    loadMoreBtn2.style.backgroundColor = '#f6f9ff';
+
+    // Change border color
+    loadMoreBtn2.style.borderColor = '#f6f9ff';
+
+    // Change font color
+    loadMoreBtn2.style.color = '#f6f9ff';
+        loadMoreBtn2.style.display = 'none';
+  });
+</script>
+<script>
+function saveChanges2(id) {
+    // Perform AJAX request to the Flask route
+    var formData = new FormData();
+    formData.append('uploaded_file', document.querySelector('.file-upload-input').files[0]);
+    
+    fetch('/save_changes?id=' + id, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert(result);  // Display a message indicating success or failure
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    const modal = document.getElementById('applyModal-'+id);
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+}
+function triggerFileInputClick() {
+    $('.file-upload-input').trigger('click');
+}
+
+// Define the bookmarked_jobs array
+var bookmarked_jobs = {{ bookmarked_jobs|tojson }};
+
+// Function to update the bookmarked_jobs array on the client side
+function updateBookmarkedJobs(newBookmarkedJobs) {
+  bookmarked_jobs = newBookmarkedJobs;
+  // Now you can use the updated bookmarked_jobs array as needed in your frontend code
+  // For example, to check if a job ID is bookmarked, you can use bookmarked_jobs.includes(jobId)
+}
+
+// Function to handle bookmarking a job
+function bookmarkJob(jobId) {
+  fetch(`/bookmark/${jobId}`, {
+    method: 'POST'
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Update the bookmarked_jobs array on the client side with the updated data from the response
+      updateBookmarkedJobs(data.bookmarked_jobs);
+      updateBookmarkIcon(jobId, true); // Update the bookmark icon appearance
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// Function to handle unbookmarking a job
+function unbookmarkJob(jobId) {
+  fetch(`/unbookmark/${jobId}`, {
+    method: 'POST'
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Update the bookmarked_jobs array on the client side with the updated data from the response
+      updateBookmarkedJobs(data.bookmarked_jobs);
+      updateBookmarkIcon(jobId, false); // Update the bookmark icon appearance
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// Function to toggle the bookmarked status and call the appropriate backend function
+function toggleBookmarkStatus(jobId, bookmarked) {
+  if (bookmarked) {
+    unbookmarkJob(jobId);
+  } else {
+    bookmarkJob(jobId);
+  }
+}
+
+// Function to update the bookmark icon appearance based on the bookmarked status
+function updateBookmarkIcon(jobId, bookmarked) {
+  const bookmarkIcon = document.getElementById('bookmark-icon-' + jobId);
+  if (bookmarked) {
+    bookmarkIcon.classList.remove('far'); // Remove unfilled star class
+    bookmarkIcon.classList.add('fas'); // Add filled star class
+  } else {
+    bookmarkIcon.classList.remove('fas'); // Remove filled star class
+    bookmarkIcon.classList.add('far'); // Add unfilled star class
+  }
+}
+
+// Bind the click event to the bookmark icons
+{% for i in job_lst %}
+(function(jobId) {
+  const bookmarkIcon = document.getElementById('bookmark-icon-' + jobId);
+  let bookmarked = bookmarkIcon.dataset.bookmarked === 'True';
+
+  bookmarkIcon.addEventListener('click', function() {
+    toggleBookmarkStatus(jobId, bookmarked); // Toggle the bookmarked status and call the appropriate backend function
+    bookmarked = !bookmarked; // Toggle the bookmarked status locally
+    bookmarkIcon.dataset.bookmarked = bookmarked; // Update the data-bookmarked attribute to reflect the new status
+
+    // Update the bookmarked_jobs array dynamically based on the updated data-bookmarked attribute
+    if (bookmarked) {
+      bookmarked_jobs.push(jobId);
+    } else {
+      const index = bookmarked_jobs.indexOf(jobId);
+      if (index !== -1) {
+        bookmarked_jobs.splice(index, 1);
+      }
+    }
+  });
+})({{ i['id'] }});
+{% endfor %}
+</script>
+<script>
+      {% for i in job_lst %}
+  const myChart{{i['id']}} = document.getElementById('myChart-{{i['id']}}');
   var data = JSON.parse('{{data1}}')
-  new Chart(ctx, {
+  new Chart(myChart{{i['id']}}, {
     type: 'bar',
     data: {
       labels: ['평균', '상위 25%', '하위 25%'],
@@ -305,9 +550,8 @@
         label: '월급',
         data: data,
         borderWidth: 1,
-        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
+        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56)"],
         borderColor: ['', '', '']
-
       }]
     },
     options: {
@@ -321,35 +565,64 @@
           beginAtZero: true
         }
       }
-    }
+}
   });
-</script>
-  <script>
-  const ctx2 = document.getElementById('myChart2');
-  var data = JSON.parse('{{data2}}')
-  new Chart(ctx2, {
-    type: 'pie',
-    data: {
-      labels: ['10% 이하', '30% 이하', '50% 이하','70% 이하','90% 이하','90% 이상'],
-      datasets: [{
-        label: '직업 매칭도 (%)',
-        data: data,
-        borderWidth: 1,
-        backgroundColor:["#5BC067","#4872FF","rgba(239, 56, 56, 0.5)"],
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false  // Remove legend
-        }
-    },
+const myChart2_{{i['id']}} = document.getElementById('myChart2-{{i['id']}}');
+var data = JSON.parse('{{data2}}');
+new Chart(myChart2_{{i['id']}}, {
+  type: 'pie',
+  data: {
+    labels: ['30% 이상', '50% 이상','70% 이상','90% 이상'],
+    datasets: [{
+      label: '직업 매칭도 (%)',
+      data: data,
+      borderWidth: 1,
+      backgroundColor: ["rgba(239, 56, 56)", "#8A66A4", "#4872FF", "#5BC067"],
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: true // Remove legend
+      },
+      datalabels: {
+        formatter: (value, context) => {
+          return value + '%'; // Format the label with the value and percentage sign
+        },
+        color: '#000', // Customize the label color
+        anchor: 'end', // Position the label at the end of the segment
+        align: 'end'   // Align the label text
+      }
     }
-  });
+  }
+});
+
+  {% endfor %}
 </script>
 
-  <!-- Template Main JS File -->
-  <script src="../static/js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Get references to the "Load More" buttons
+  var loadMoreBtn1 = document.getElementById("loadMoreBtn1");
+  var loadMoreBtn2 = document.getElementById("loadMoreBtn2");
+  
+  // Get references to the "more1" and "more2" divs
+  var more1 = document.querySelector(".more1");
+  var more2 = document.querySelector(".more2");
+  
+  // Add click event listener for loadMoreBtn1
+  loadMoreBtn1.addEventListener("click", function() {
+    more1.style.display = "block"; // Show the content
+    loadMoreBtn1.style.display = "none"; // Hide the button
+  });
+  
+  // Add click event listener for loadMoreBtn2
+  loadMoreBtn2.addEventListener("click", function() {
+    more2.style.display = "block"; // Show the content
+    loadMoreBtn2.style.display = "none"; // Hide the button
+  });
+});
+</script>
 
 </body>
 
