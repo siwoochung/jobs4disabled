@@ -184,7 +184,9 @@ def pick_jobs2(n,username):
 			if percent + 20 < 100:
 				percent += 20
 			else:
-				percent = 10
+				percent = 100
+		else:
+			percent = percent-10
 		if myedu < required_degree[i]:
 			percent -= 35
 		if myexp < required_work[i]:
