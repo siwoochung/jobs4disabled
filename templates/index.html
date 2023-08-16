@@ -278,7 +278,9 @@
                 <p class="card-text">{{i['요구경력']}}</p>
               </div>
               <div class="col-lg-2 col-md-3 col-6">
-                <p class="mt-4 my-ppp ps-3">직업적합도</p>
+                        {%if isLogin == True %}
+
+                <p class="my-margin my-ppp ps-3">직업적합도</p>
                                           {%if i['percent'] >= 70 %}
                            <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
                            {%elif 30 < i['percent']  < 70%}
@@ -286,7 +288,12 @@
                            {%elif i['percent'] <= 30%}
                            <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
                             {%endif%}
-                <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
+                  {%else%} 
+                                  <p class="my-margin my-ppp ps-3">직업적합도</p>
+
+                  <p class="font-small">로그인 후 확인가능 </p>
+        
+                  {%endif%}
               </div>
                             <div class="col-lg-1 col-md-3 col-6">
                                {%if isLogin == True %}
@@ -359,7 +366,9 @@
                 <p class="card-text">{{i['요구경력']}}</p>
               </div>
               <div class="col-lg-2 col-md-6 col-sm-6 col-6">
-                <p class="mt-4 my-ppp ps-3">직업적합도</p>
+                        {%if isLogin == True %}
+
+                <p class="my-margin my-ppp ps-3">직업적합도</p>
                                           {%if i['percent'] >= 70 %}
                            <p class="per-item1 ps-4"><strong>{{i['percent']}}%</strong> </p>
                            {%elif 30 < i['percent']  < 70%}
@@ -367,7 +376,12 @@
                            {%elif i['percent'] <= 30%}
                            <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
                             {%endif%}
-                <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
+                  {%else%} 
+                                  <p class="my-margin my-ppp ps-3">직업적합도</p>
+
+                  <p class="font-small">로그인 후 확인가능 </p>
+        
+                  {%endif%}
               </div>
                             <div class="col-lg-1 col-md-6 col-sm-6 col-6">
                                {%if isLogin == True %}
@@ -404,7 +418,7 @@
     </div>
   </div>
 </div>
-\
+
 
 
 
