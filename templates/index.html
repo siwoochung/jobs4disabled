@@ -68,8 +68,7 @@
         </li><!-- End Search Icon-->
 
 
-        {%if isLogin == True %}
-
+{% if isLogin == True%}
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -189,7 +188,7 @@
                 <p class="card-text">{{i['요구경력']}}</p>
               </div>
               <div class="col-lg-2 col-md-3 col-6">
-                        {%if isLogin == True %}
+                        {%if isLogin == True  and typ == 0 %}
 
                 <p class="my-margin my-ppp ps-3">직업적합도</p>
                                           {%if i['percent'] >= 70 %}
@@ -199,6 +198,8 @@
                            {%elif i['percent'] <= 30%}
                            <p class="per-item3 ps-4"><strong>{{i['percent']}}%</strong> </p>
                             {%endif%}
+                            {%elif isLogin == True%}
+                            <p class="mt-4">사용자들을 위한 직업 추천</p>
                   {%else%} 
                                   <p class="my-margin my-ppp ps-3">직업적합도</p>
 
@@ -208,9 +209,10 @@
                 <!-- <p class="mt-4" >{{ i['percent'] }}%</p> -->
               </div>
                             <div class="col-lg-1 col-md-3 col-6">
-                                 {%if isLogin == True %}
+                                 {%if isLogin == True and typ==0%}
                                 <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#applyModal-{{i['id']}}">지원하기</button>
                                 <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#dataModal-{{i['id']}}">분석 더보기</button>
+                                                            {%elif isLogin == True%}
  {% else %}
   <button type="button" class="btn btn-primary more-btn mx-auto mt-4 mb-1" data-bs-toggle="modal" data-bs-target="#loginModal">지원하기</button>
   <button type="button" class="btn btn-primary more-btn mx-auto back-green" data-bs-toggle="modal" data-bs-target="#loginModal">분석 더보기</button>

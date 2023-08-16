@@ -78,6 +78,7 @@ def index():
                         bookmarked_jobs = read_bookmarked_jobs(session['username'])
                         isLogin = True
                         username = session["username"]
+                        typ = session["type"]
                         conn = sq.connect('data/login_info.db')
                         cursor = conn.cursor()
 
@@ -113,6 +114,12 @@ def login():
                 password = request.form['password']
                 if(login_check(username,password)==True):
                         session['username'] = request.form['username']
+                        conn = sq.connect('data/login_info.db')
+                        cursor = conn.cursor()
+
+                        cursor.execute("SELECT type FROM user WHERE username = ?", (username,))
+                        typ = cursor.fetchone()[0]
+                        session['type'] = typ
                         return redirect(url_for('index'))
                 else:
                         flash('Wrong Password') 
@@ -129,13 +136,19 @@ async def signup():
         if request.method=='POST':
                 username = request.form['username']
                 password = request.form['password']
-                age = request.form['age']
-                gender = request.form.get('gender')
+                typ = request.form.get('userType')
+                if typ == 1:
+                        age=0
+                        gender=0
+                else:
+                        age = request.form['age']
+                        gender = request.form.get('gender')
                 phone = request.form['phone_number']
                 interest  = request.form.getlist('interests[]')
                 interest = ",".join(interest)
                 address = request.form['address']
-                typ = request.form.get('userType')
+                
+                
                 level = request.form.get('level')
                 restrict = request.form.get('rest')
                 edu = request.form.get('education')
@@ -161,7 +174,7 @@ async def signup():
 
                                         os.makedirs(path2)
                                         os.makedirs(path2+"/image")
-                                        shutil.copy(source_path, os.path.join(path2, "image", "img.png"))
+                                        shutil.copy(source_path, os.path.join(path2+"/image", "img.png"))
 
                                         
                 except:

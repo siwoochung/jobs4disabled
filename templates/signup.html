@@ -65,14 +65,15 @@
 
   <div class="card-body">
 
-    <h4 class="card-title">유저 개인정보</h4>
-    <form actions="/signup" method="POST" class="my-signup-validation" novalidate="">
+
       <!-- User Type Field -->
 
 
       <!-- User Interests Fields -->
 <!-- User Interests Fields -->
-<div class="form-group">
+<div class="form-group user-form">
+      <h4 class="card-title">유저 개인정보</h4>
+    <form actions="/signup" method="POST" class="my-signup-validation" novalidate="">
             <div class="form-group">
             <label for="age">나이:</label>
             <input type="text" name="age" class="form-control" id="age" required>
@@ -88,18 +89,18 @@
                               <div class="form-group">
             <label for="education">학력정보:</label>
             <select name="education" id="gender" class="form-control">
-              <option value="grad">대학원 졸업 이상</option>
-              <option value="under">학부 졸업 이상</option>
-              <option value="high">고졸 이상</option>
-              <option value="middle">고졸 미만</option>
+              <option value="3">대학원 졸업 이상</option>
+              <option value="2">학부 졸업 이상</option>
+              <option value="1">고졸 이상</option>
+              <option value="0">고졸 미만</option>
             </select>
           </div>
                               <div class="form-group">
             <label for="experience">경력정보:</label>
             <select name="experience" id="gender" class="form-control">
-              <option value="3y">3년이상</option>
-              <option value="1y">1년 이상</option>
-              <option value="low">1년 미만</option>
+              <option value="3">3년이상</option>
+              <option value="1">1년 이상</option>
+              <option value="0">1년 미만</option>
             </select>
           </div>
                     <div class="form-group">
@@ -177,6 +178,104 @@
       </div>
     </div>
     </div>  </div>
+
+
+    <div class="form-group comp-form">
+            <h4 class="card-title">회사 개인정보</h4>
+    <form actions="/signup" method="POST" class="my-signup-validation" novalidate="">
+
+                              <div class="form-group">
+            <label for="education">평균 학력 조건:</label>
+            <select name="education" id="gender" class="form-control">
+              <option value="3">대학원 졸업 이상</option>
+              <option value="2">학부 졸업 이상</option>
+              <option value="1">고졸 이상</option>
+              <option value="0">고졸 미만</option>
+            </select>
+          </div>
+                              <div class="form-group">
+            <label for="experience">평균 경력 조건:</label>
+            <select name="experience" id="gender" class="form-control">
+              <option value="3">3년이상</option>
+              <option value="1">1년 이상</option>
+              <option value="0">1년 미만</option>
+            </select>
+          </div>
+                    <div class="form-group">
+            <label for="address">요구 장애등급:</label>
+                        <select name="level" id="level" class="form-control">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+                            <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+                              <div class="form-group">
+            <label for="rest">요구 활동제한:</label>
+                        <select name="rest" id="rest" class="form-control">
+              <option value="y">있음</option>
+              <option value="n">없음</option>
+            </select>
+          </div>
+  <label>관심 직종:</label>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="경영/사무" id="interest1">
+        <label class="form-check-label" for="interest1">경영/사무</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="IT/인터넷" id="interest2">
+        <label class="form-check-label" for="interest2">IT/인터넷</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="디자인" id="interest3">
+        <label class="form-check-label" for="interest3">디자인</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="무역/유통" id="interest3">
+        <label class="form-check-label" for="interest3">무역/유통</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="교육" id="interest3">
+        <label class="form-check-label" for="interest3">교육</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="의료" id="interest3">
+        <label class="form-check-label" for="interest3">의료</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="서비스" id="interest3">
+        <label class="form-check-label" for="interest3">서비스</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="생산/제조" id="interest3">
+        <label class="form-check-label" for="interest3">생산/제조</label>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="interests[]" value="전문/특수직" id="interest3">
+        <label class="form-check-label" for="interest3">전문/특수직</label>
+      </div>
+    </div>
+    </div>  </div>
 </div>
 
 
@@ -189,7 +288,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
+<script>
 $(document).ready(function() {
   $('#nextBtn').click(function(event) {
     var isFormValid = true;
@@ -206,6 +305,18 @@ $(document).ready(function() {
       event.preventDefault();
       $('#errorMessages').text('모든 정보를 입력하십시오.').show();
     } else {
+      var selectedUserType = $('#userType').val();
+
+      if (selectedUserType === '0') {
+        // Hide form-group23 and show form-group22
+        $('.comp-form').hide();
+        $('.user-form').show();
+      } else if (selectedUserType === '1') {
+        // Hide form-group22 and show form-group23
+        $('.user-form').hide();
+        $('.comp-form').show();
+      }
+
       $('#userInformationCard').addClass('fade-out');
       setTimeout(function() {
         $('#userInformationCard').addClass('hidden');
@@ -217,7 +328,6 @@ $(document).ready(function() {
     }
   });
 });
-
-  </script>
+</script>
 </body>
 </html>
