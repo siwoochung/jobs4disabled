@@ -272,6 +272,8 @@ def profile():
                 level = cursor.fetchone()[0]
                 cursor.execute("SELECT restrict FROM user WHERE username = ?", (username,))
                 restrict = cursor.fetchone()[0]
+                cursor.execute("SELECT type FROM user WHERE username = ?", (username,))
+                typ = cursor.fetchone()[0]
                 if restrict == 'y':
                         restrict =="있음"
                 else:
