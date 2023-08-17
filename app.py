@@ -88,6 +88,8 @@ def index():
                         edu = cursor.fetchone()[0]
                         cursor.execute("SELECT exp FROM user WHERE username = ?", (username,))
                         exp = cursor.fetchone()[0]
+                        cursor.execute("SELECT type FROM user WHERE username = ?", (username,))
+                        typ = cursor.fetchone()[0]
                         return render_template("index.html",typ=typ,edu=edu,exp=exp,interest=interest, img_path=imge_path,bookmarked_jobs=bookmarked_jobs, job_lst=lst_jobs, isLogin = isLogin, username=session['username'], data1=income_compare_data, data2=sim_compare_data )
                 else: # when user is not logged in 
                         isLogin = False  
