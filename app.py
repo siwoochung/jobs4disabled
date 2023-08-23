@@ -510,11 +510,11 @@ def save_changes2():
             file_extension = os.path.splitext(uploaded_file.filename)[1]
             file_path = os.path.join('users/'+session["username"]+"/resume_own", "Resume-own"+file_extension)
             for filename in os.listdir('users/'+session["username"]+"/resume_own"):
-                file_path = os.path.join('users/'+session["username"]+"/resume_own", filename)
-                if os.path.isfile(file_path):
-                     os.remove(file_path)
+                file_path2 = os.path.join('users/'+session["username"]+"/resume_own", filename)
+                if os.path.isfile(file_path2):
+                     os.remove(file_path2)
             uploaded_file.save(file_path)
-        return '"성공적으로 저장되었습니다.!"'
+        return '성공적으로 저장되었습니다.'
 
     return 'Invalid request'
 
