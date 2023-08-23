@@ -280,7 +280,7 @@ def profile():
                         restrict =="있음"
                 else:
                         restrict=="없음"
-                return render_template("profile.html",typ=typ,level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
+                return render_template("profile.html",typ=session['type'],level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
 
                         
         else:
