@@ -190,101 +190,196 @@ def logout():
         session.pop('username', None) #remove out 'username' from session // removing session
         return redirect (url_for('index'))
 
-@app.route('/profile')
+@app.route('/profile',methods=['GET','POST'])
 def profile():
-        if 'username' in session:
-                username = session['username']
-                typ = session["type"]
-                interest = get_interest(username)
-                file_path = 'users/'+session["username"]+"/applied_lst.txt" 
-                imge_path='../static/users/'+session["username"]+"/image/img.png"
-                lines_list = []
-                df = pd.read_csv("data/temp_data.csv")
+        if request.method=='POST':
+                if 'username' in session:
+                        username = session['username']
+                        typ = session["type"]
+                        interest = get_interest(username)
+                        file_path = 'users/'+session["username"]+"/applied_lst.txt" 
+                        imge_path='../static/users/'+session["username"]+"/image/img.png"
+                        lines_list = []
+                        df = pd.read_csv("data/temp_data.csv")
 
-                if typ == 0:
-                        with open(file_path, "r") as file:
-                            for line in file:
-                                lines_list.append(int(line.strip()))
-                        final_lst = []
-                        for i in lines_list:
-                                matching_rows = df[df['id'] == i]
-                                dic = {}
-                                dic["companyname"] = matching_rows["Company"].iloc[0]
-                                dic["jobname"] = matching_rows["모집직종"].iloc[0]
-                                dic["address"] = matching_rows["사업장 주소"].iloc[0]
-                                final_lst.append(dic)
-                        bookmarked_jobs = read_bookmarked_jobs(session['username'])
-                        final_lst2 = []
-                        for i in bookmarked_jobs:
-                                matching_rows = df[df['id'] == i]
-                                dic = {}
-                                dic["companyname"] = matching_rows["Company"].iloc[0]
-                                dic["jobname"] = matching_rows["모집직종"].iloc[0]
-                                dic["address"] = matching_rows["사업장 주소"].iloc[0]
-                                dic["applied"] = False
-                                for j in final_lst:
-                                        if j["companyname"] == dic["companyname"]:  
-                                                dic["applied"] = True
-                                final_lst2.append(dic)
-                else:
-                        with open(file_path, "r") as file:
-                            for line in file:
-                                lines_list.append(line.strip())
+                        if typ == 0:
+                                with open(file_path, "r") as file:
+                                    for line in file:
+                                        lines_list.append(int(line.strip()))
+                                final_lst = []
+                                for i in lines_list:
+                                        matching_rows = df[df['id'] == i]
+                                        dic = {}
+                                        dic["companyname"] = matching_rows["Company"].iloc[0]
+                                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                                        final_lst.append(dic)
+                                bookmarked_jobs = read_bookmarked_jobs(session['username'])
+                                final_lst2 = []
+                                for i in bookmarked_jobs:
+                                        matching_rows = df[df['id'] == i]
+                                        dic = {}
+                                        dic["companyname"] = matching_rows["Company"].iloc[0]
+                                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                                        dic["applied"] = False
+                                        for j in final_lst:
+                                                if j["companyname"] == dic["companyname"]:  
+                                                        dic["applied"] = True
+                                        final_lst2.append(dic)
+                        else:
+                                with open(file_path, "r") as file:
+                                    for line in file:
+                                        lines_list.append(line.strip())
+                                conn = sq.connect('data/login_info.db')
+                                cursor = conn.cursor()
+                                final_lst2 = []
+                                # Define the username
+                                username = session["username"]
+
+                                cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
+                                phone = cursor.fetchone()[0]
+                                cursor.execute("SELECT email FROM user WHERE username = ?", (username,))
+                                email = cursor.fetchone()[0]
+                                cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
+                                level = cursor.fetchone()[0]
+                                final_lst = []
+                                for i in lines_list:
+                                        matching_rows = df[df['id'] == i]
+                                        dic = {}
+                                        dic["phone"] = phone
+                                        dic["email"] = email
+                                        dic["username"] = i
+                                        dic["level"] = level
+                                        final_lst.append(dic)            
+
                         conn = sq.connect('data/login_info.db')
                         cursor = conn.cursor()
-                        final_lst2 = []
+
                         # Define the username
                         username = session["username"]
 
+                        cursor.execute("SELECT gender FROM user WHERE username = ?", (username,))
+                        gender = cursor.fetchone()[0]
+                        if gender =='male':
+                                gender = "남성"
+                        else:
+                                gender = "여"
+                        cursor.execute("SELECT age FROM user WHERE username = ?", (username,))
+                        age = cursor.fetchone()[0]
+                        cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
+                        interest = cursor.fetchone()[0]
                         cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
                         phone = cursor.fetchone()[0]
-                        cursor.execute("SELECT email FROM user WHERE username = ?", (username,))
-                        email = cursor.fetchone()[0]
                         cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
                         level = cursor.fetchone()[0]
-                        final_lst = []
-                        for i in lines_list:
-                                matching_rows = df[df['id'] == i]
-                                dic = {}
-                                dic["phone"] = phone
-                                dic["email"] = email
-                                dic["username"] = i
-                                dic["level"] = level
-                                final_lst.append(dic)            
+                        cursor.execute("SELECT restrict FROM user WHERE username = ?", (username,))
+                        restrict = cursor.fetchone()[0]
+                        cursor.execute("SELECT type FROM user WHERE username = ?", (username,))
+                        typ = cursor.fetchone()[0]
+                        if restrict == 'y':
+                                restrict =="있음"
+                        else:
+                                restrict=="없음"
+                        return render_template("profile.html",typ=session['type'],level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
 
-                conn = sq.connect('data/login_info.db')
-                cursor = conn.cursor()
-
-                # Define the username
-                username = session["username"]
-
-                cursor.execute("SELECT gender FROM user WHERE username = ?", (username,))
-                gender = cursor.fetchone()[0]
-                if gender =='male':
-                        gender = "남성"
+                                
                 else:
-                        gender = "여"
-                cursor.execute("SELECT age FROM user WHERE username = ?", (username,))
-                age = cursor.fetchone()[0]
-                cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
-                interest = cursor.fetchone()[0]
-                cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
-                phone = cursor.fetchone()[0]
-                cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
-                level = cursor.fetchone()[0]
-                cursor.execute("SELECT restrict FROM user WHERE username = ?", (username,))
-                restrict = cursor.fetchone()[0]
-                cursor.execute("SELECT type FROM user WHERE username = ?", (username,))
-                typ = cursor.fetchone()[0]
-                if restrict == 'y':
-                        restrict =="있음"
-                else:
-                        restrict=="없음"
-                return render_template("profile.html",typ=session['type'],level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
-
-                        
+                        return redirect (url_for('index'))
         else:
-                return redirect (url_for('index'))
+                if 'username' in session:
+                        username = session['username']
+                        typ = session["type"]
+                        interest = get_interest(username)
+                        file_path = 'users/'+session["username"]+"/applied_lst.txt" 
+                        imge_path='../static/users/'+session["username"]+"/image/img.png"
+                        lines_list = []
+                        df = pd.read_csv("data/temp_data.csv")
+
+                        if typ == 0:
+                                with open(file_path, "r") as file:
+                                    for line in file:
+                                        lines_list.append(int(line.strip()))
+                                final_lst = []
+                                for i in lines_list:
+                                        matching_rows = df[df['id'] == i]
+                                        dic = {}
+                                        dic["companyname"] = matching_rows["Company"].iloc[0]
+                                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                                        final_lst.append(dic)
+                                bookmarked_jobs = read_bookmarked_jobs(session['username'])
+                                final_lst2 = []
+                                for i in bookmarked_jobs:
+                                        matching_rows = df[df['id'] == i]
+                                        dic = {}
+                                        dic["companyname"] = matching_rows["Company"].iloc[0]
+                                        dic["jobname"] = matching_rows["모집직종"].iloc[0]
+                                        dic["address"] = matching_rows["사업장 주소"].iloc[0]
+                                        dic["applied"] = False
+                                        for j in final_lst:
+                                                if j["companyname"] == dic["companyname"]:  
+                                                        dic["applied"] = True
+                                        final_lst2.append(dic)
+                        else:
+                                with open(file_path, "r") as file:
+                                    for line in file:
+                                        lines_list.append(line.strip())
+                                conn = sq.connect('data/login_info.db')
+                                cursor = conn.cursor()
+                                final_lst2 = []
+                                # Define the username
+                                username = session["username"]
+
+                                cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
+                                phone = cursor.fetchone()[0]
+                                cursor.execute("SELECT email FROM user WHERE username = ?", (username,))
+                                email = cursor.fetchone()[0]
+                                cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
+                                level = cursor.fetchone()[0]
+                                final_lst = []
+                                for i in lines_list:
+                                        matching_rows = df[df['id'] == i]
+                                        dic = {}
+                                        dic["phone"] = phone
+                                        dic["email"] = email
+                                        dic["username"] = i
+                                        dic["level"] = level
+                                        final_lst.append(dic)            
+
+                        conn = sq.connect('data/login_info.db')
+                        cursor = conn.cursor()
+
+                        # Define the username
+                        username = session["username"]
+
+                        cursor.execute("SELECT gender FROM user WHERE username = ?", (username,))
+                        gender = cursor.fetchone()[0]
+                        if gender =='male':
+                                gender = "남성"
+                        else:
+                                gender = "여"
+                        cursor.execute("SELECT age FROM user WHERE username = ?", (username,))
+                        age = cursor.fetchone()[0]
+                        cursor.execute("SELECT interest FROM user WHERE username = ?", (username,))
+                        interest = cursor.fetchone()[0]
+                        cursor.execute("SELECT phone FROM user WHERE username = ?", (username,))
+                        phone = cursor.fetchone()[0]
+                        cursor.execute("SELECT level FROM user WHERE username = ?", (username,))
+                        level = cursor.fetchone()[0]
+                        cursor.execute("SELECT restrict FROM user WHERE username = ?", (username,))
+                        restrict = cursor.fetchone()[0]
+                        cursor.execute("SELECT type FROM user WHERE username = ?", (username,))
+                        typ = cursor.fetchone()[0]
+                        if restrict == 'y':
+                                restrict =="있음"
+                        else:
+                                restrict=="없음"
+                        return render_template("profile.html",typ=session['type'],level=level,restrict=restrict,username=username,gender=gender,age=age,interest=interest,phone=phone,img_path=imge_path,bookmarked_jobs=final_lst2, final_lst = final_lst, isLogin=isLogin)
+
+                                
+                else:
+                        return redirect (url_for('index'))
 
 @app.route('/bookmark/<int:job_id>', methods=['POST'])
 def bookmark_job(job_id):
