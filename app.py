@@ -508,21 +508,16 @@ def save_changes2():
         uploaded_file = request.files['uploaded_file']  # 'uploaded_file' should match the input field name in your HTML form
         if uploaded_file:
             file_extension = os.path.splitext(uploaded_file.filename)[1]
-            if id !='own':
-                    file_path = os.path.join('users/'+session["username"]+"/resume", "Resume"+
-                                             str(id)+file_extension)
-            else:
-                    file_path = os.path.join('users/'+session["username"]+"/resume_own", "Resume-own"+file_extension)
-                    for filename in os.listdir('users/'+session["username"]+"/resume_own"):
-                            file_path = os.path.join('users/'+session["username"]+"/resume_own", filename)
-                            if os.path.isfile(file_path):
-                                    os.remove(file_path)
+            file_path = os.path.join('users/'+session["username"]+"/resume_own", "Resume-own"+file_extension)
+            for filename in os.listdir('users/'+session["username"]+"/resume_own"):
+                file_path = os.path.join('users/'+session["username"]+"/resume_own", filename)
+                if os.path.isfile(file_path):
+                     os.remove(file_path)
             uploaded_file.save(file_path)
+        return '"성공적으로 저장되었습니다.!"'
 
-            return '"성공적으로 저장되었습니다.!"'
-        else:
-            return '오류가 발생했습니.!'
     return 'Invalid request'
+
 @app.route('/save_changes3', methods=['POST'])
 def save_changes3():
     id = request.args.get('id')
